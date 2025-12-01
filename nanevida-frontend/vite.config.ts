@@ -4,6 +4,15 @@ import react from '@vitejs/plugin-react'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
+  define: {
+    // Inject environment variables with fallbacks for production
+    'import.meta.env.VITE_API_BASE': JSON.stringify(
+      process.env.VITE_API_BASE || 'https://nane-vida-mvp-production.up.railway.app/api'
+    ),
+    'import.meta.env.VITE_ENV': JSON.stringify(
+      process.env.VITE_ENV || 'production'
+    ),
+  },
   server: {
     port: 5173,
     strictPort: true,
