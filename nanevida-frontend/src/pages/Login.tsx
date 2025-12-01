@@ -1,45 +1,110 @@
-
 import { useState } from 'react'
-import { api, setToken } from '../api'
+import { api, setTokens } from '../api'
 import { useNavigate } from 'react-router-dom'
+import Card from '../components/ui/Card'
+import { Input } from '../components/ui/Input'
+import Button from '../components/ui/Button'
 
 export default function Login(){
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
+  const [loading, setLoading] = useState(false)
   const nav = useNavigate()
 
   async function onSubmit(e: React.FormEvent){
     e.preventDefault()
     setError('')
+    setLoading(true)
+    
     try {
       const { data } = await api.post('/token/', { username, password })
-      setToken(data.access)
-      nav('/')
-    } catch {
-      setError('Credenciales inválidas o servidor caído.')
+      setTokens(data.access, data.refresh)
+      nav('/diary')
+    } catch (err: any) {
+      setError(err?.response?.data?.detail || 'Credenciales inválidas o servidor caído.')
+    } finally {
+      setLoading(false)
     }
   }
 
+  const handleClear = () => {
+    setUsername('')
+    setPassword('')
+    setError('')
+  }
+
   return (
-    <div>
-      <h2>Iniciar sesión</h2>
-      <p style={{color:'#64748b', marginTop:0}}>Usa la cuenta que creaste en el backend con <code>createsuperuser</code>.</p>
-      <form className="form" onSubmit={onSubmit}>
-        <div>
-          <label>Usuario</label>
-          <input value={username} onChange={e=>setUsername(e.target.value)} placeholder="tu_usuario" />
+    <div className="max-w-md mx-auto">
+      <Card gradient className="text-center mb-6">
+        <div className="text-5xl mb-4">🔐</div>
+        <h2 className="text-2xl font-bold text-gray-800 mb-2">
+          Iniciar sesión
+        </h2>
+        <p className="text-gray-600">
+          Accede a tu diario personal y comienza a escribir
+        </p>
+      </Card>
+
+      <Card>
+        <form onSubmit={onSubmit} className="space-y-4">
+          <Input
+            label="Usuario"
+            value={username}
+            onChange={e=>setUsername(e.target.value)}
+            placeholder="tu_usuario"
+            icon={<span>👤</span>}
+            required
+            disabled={loading}
+          />
+
+          <Input
+            label="Contraseña"
+            type="password"
+            value={password}
+            onChange={e=>setPassword(e.target.value)}
+            placeholder="••••••••"
+            icon={<span>🔒</span>}
+            required
+            disabled={loading}
+          />
+
+          {error && (
+            <div className="p-3 bg-red-50 border border-red-200 rounded-xl">
+              <p className="text-red-700 text-sm flex items-center gap-2">
+                <span>⚠️</span>
+                {error}
+              </p>
+            </div>
+          )}
+
+          <div className="flex flex-col sm:flex-row gap-3">
+            <Button
+              type="submit"
+              variant="primary"
+              fullWidth
+              disabled={loading}
+              icon={loading ? <span className="animate-spin">⏳</span> : <span>🚀</span>}
+            >
+              {loading ? 'Entrando...' : 'Entrar'}
+            </Button>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={handleClear}
+              disabled={loading}
+            >
+              Limpiar
+            </Button>
+          </div>
+        </form>
+
+        <div className="mt-6 pt-6 border-t border-gray-200">
+          <p className="text-sm text-gray-500 text-center">
+            💡 Usa la cuenta que creaste con <code className="px-2 py-1 bg-gray-100 rounded text-purple-600">createsuperuser</code>
+          </p>
         </div>
-        <div>
-          <label>Contraseña</label>
-          <input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="********" />
-        </div>
-        <div style={{display:'flex', gap:12}}>
-          <button className="btn btn--primary">Entrar</button>
-          <button className="btn" type="button" onClick={()=>{setUsername(''); setPassword(''); setError('')}}>Limpiar</button>
-        </div>
-        {error && <p style={{color:'crimson', margin:0}}>{error}</p>}
-      </form>
+      </Card>
     </div>
   )
 }

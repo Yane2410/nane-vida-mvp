@@ -1,0 +1,18 @@
+# Variables para RAILWAY (Backend)
+# Copia estas variables en Railway → Variables
+
+SECRET_KEY=un8wc*+qz1824$66eke$%9upv2c36zp4+_(o_=b0r7tg#$2-8r
+DJANGO_ENV=production
+DEBUG=False
+ALLOWED_HOSTS=.railway.app,.up.railway.app
+DATABASE_URL=PEGA_AQUI_TU_URL_DE_NEON
+FRONTEND_ORIGIN=https://nane-vida.vercel.app
+BACKEND_ORIGIN=https://tu-backend.up.railway.app
+JWT_ACCESS_LIFETIME_MINUTES=15
+JWT_REFRESH_LIFETIME_DAYS=7
+RATELIMIT_ENABLE=True
+
+# Después del primer deploy, actualiza:
+# FRONTEND_ORIGIN con tu URL real de Vercel
+# BACKEND_ORIGIN con tu URL real de Railway
+# ALLOWED_HOSTS agrega tu dominio exacto de Railway

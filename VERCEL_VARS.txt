@@ -1,0 +1,8 @@
+# Variables para VERCEL (Frontend)
+# Copia estas variables en Vercel → Settings → Environment Variables
+
+VITE_API_BASE=https://tu-backend.up.railway.app/api
+VITE_ENV=production
+
+# IMPORTANTE: Reemplaza "tu-backend" con tu URL real de Railway
+# Ejemplo: https://nane-backend-production-abc123.up.railway.app/api
