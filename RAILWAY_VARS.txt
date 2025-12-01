@@ -4,15 +4,10 @@
 SECRET_KEY=un8wc*+qz1824$66eke$%9upv2c36zp4+_(o_=b0r7tg#$2-8r
 DJANGO_ENV=production
 DEBUG=False
-ALLOWED_HOSTS=.railway.app,.up.railway.app
-DATABASE_URL=PEGA_AQUI_TU_URL_DE_NEON
-FRONTEND_ORIGIN=https://nane-vida.vercel.app
-BACKEND_ORIGIN=https://tu-backend.up.railway.app
+ALLOWED_HOSTS=nane-vida-mvp-production.up.railway.app,.railway.app,.up.railway.app,localhost,127.0.0.1
+DATABASE_URL=postgresql://neondb_owner:npg_PsVcRb39EAXk@ep-twilight-wildflower-ahmo3uil-pooler.c-3.us-east-1.aws.neon.tech/neondb?sslmode=require
+FRONTEND_ORIGIN=https://nane-vida-mvp-2d9j.vercel.app
+BACKEND_ORIGIN=https://nane-vida-mvp-production.up.railway.app
 JWT_ACCESS_LIFETIME_MINUTES=15
 JWT_REFRESH_LIFETIME_DAYS=7
 RATELIMIT_ENABLE=True
-
-# Después del primer deploy, actualiza:
-# FRONTEND_ORIGIN con tu URL real de Vercel
-# BACKEND_ORIGIN con tu URL real de Railway
-# ALLOWED_HOSTS agrega tu dominio exacto de Railway

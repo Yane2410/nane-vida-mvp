@@ -102,7 +102,7 @@ WSGI_APPLICATION = "nane.wsgi.application"
 
 # === Base de datos ===
 # Configuración genérica que soporta múltiples bases de datos
-DATABASE_URL = os.environ.get("DATABASE_URL")
+DATABASE_URL = os.environ.get("DATABASE_URL", "").strip()
 
 if DATABASE_URL:
     # Si existe DATABASE_URL, usar dj-database-url para parsearla
@@ -113,8 +113,11 @@ if DATABASE_URL:
             conn_health_checks=True,
         )
     }
+elif IS_PRODUCTION:
+    # En producción, DATABASE_URL es obligatorio
+    raise ValueError("DATABASE_URL must be set in production! Check Railway environment variables.")
 else:
-    # Configuración manual desde variables individuales
+    # Configuración manual desde variables individuales (desarrollo)
     DB_ENGINE = os.environ.get("DB_ENGINE", "django.db.backends.sqlite3")
     DB_NAME = os.environ.get("DB_NAME", str(BASE_DIR / "db.sqlite3"))
 
