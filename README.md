@@ -2,6 +2,8 @@
 
 **Plataforma de bienestar emocional con diario personal y recursos SOS**
 
+🔗 **Live:** [nane-vida-mvp-2d9j.vercel.app](https://nane-vida-mvp-2d9j.vercel.app)
+
 [![Django](https://img.shields.io/badge/Django-4.2-green.svg)](https://www.djangoproject.com/)
 [![React](https://img.shields.io/badge/React-18-blue.svg)](https://reactjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue.svg)](https://www.typescriptlang.org/)
