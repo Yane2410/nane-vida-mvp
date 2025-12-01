@@ -1,11 +1,14 @@
 [build]
 builder = "NIXPACKS"
-buildCommand = "cd nanevida-backend && pip install -r requirements.txt && python manage.py collectstatic --noinput"
 
 [deploy]
 startCommand = "cd nanevida-backend && gunicorn nane.wsgi:application --bind 0.0.0.0:$PORT --workers 4"
-restartPolicyType = "ON_FAILURE"
-restartPolicyMaxRetries = 10
 
 [nixpacks]
-nixPkgs = ["python39"]
+nixPkgs = ["python39", "python39Packages.pip"]
+
+[nixpacks.phases.install]
+cmds = ["cd nanevida-backend && pip install -r requirements.txt"]
+
+[nixpacks.phases.build]
+cmds = ["cd nanevida-backend && python manage.py collectstatic --noinput"]
