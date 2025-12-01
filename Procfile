@@ -1,2 +1,2 @@
 release: cd nanevida-backend && python create_superuser.py
-web: gunicorn nane.wsgi:application --bind 0.0.0.0:$PORT --workers 4
+web: cd nanevida-backend && gunicorn nane.wsgi:application --bind 0.0.0.0:$PORT --workers 4
