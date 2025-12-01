@@ -190,7 +190,7 @@ api.interceptors.response.use(
       console.error('Resource not found')
     }
 
-    if (error.response?.status >= 500) {
+    if (error.response && error.response.status >= 500) {
       console.error('Server error')
     }
 
