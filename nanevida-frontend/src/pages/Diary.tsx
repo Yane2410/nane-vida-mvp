@@ -8,6 +8,7 @@ import MoodChart from '../components/MoodChart'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
+import { JournalIcon } from '../assets/icons'
 
 type Entry = { id:number; title:string; content:string; emoji?:string; mood?:string; created_at:string }
 
@@ -29,7 +30,7 @@ export default function Diary(){
       setError('')
     }catch(e:any){
       if (e?.response?.status === 401) { nav('/login'); return }
-      setError('Error al cargar tu diario. Por favor intenta de nuevo.')
+      setError('No pudimos cargar tus entradas. Por favor verifica tu conexión.')
     } finally {
       setLoading(false)
     }
@@ -45,7 +46,7 @@ export default function Diary(){
       setError('')
     }catch(e:any){
       if (e?.response?.status === 401) { nav('/login'); return }
-      setError('Error al guardar la entrada. Por favor intenta de nuevo.')
+      setError('No pudimos guardar tu entrada. Intenta nuevamente.')
     } finally {
       setSaving(false)
     }
@@ -58,7 +59,7 @@ export default function Diary(){
       setError('')
     }catch(e:any){
       if (e?.response?.status === 401) { nav('/login'); return }
-      setError('No se pudo eliminar la entrada.')
+      setError('No pudimos eliminar la entrada.')
     }
   }
 
@@ -75,7 +76,7 @@ export default function Diary(){
       setError('');
     } catch(e: any) {
       if (e?.response?.status === 401) { nav('/login'); return }
-      setError('No se pudo actualizar la entrada.');
+      setError('No pudimos actualizar la entrada.')
     } finally {
       setSaving(false);
     }
@@ -86,17 +87,19 @@ export default function Diary(){
   }
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-4xl mx-auto animate-fadeIn">
       {/* Header */}
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-800 mb-2 flex items-center justify-center gap-2">
-          <span>📔</span>
-          Mi Diario Emocional
+      <Card gradient className="text-center mb-8">
+        <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl bg-[#A78BFA]/20">
+          <JournalIcon size={32} color="#A78BFA" />
+        </div>
+        <h2 className="text-3xl font-bold text-[#333333] mb-2">
+          Mi Diario Personal
         </h2>
-        <p className="text-gray-600">
-          Un espacio privado para expresar tus emociones y reflexionar
+        <p className="text-[#555555]">
+          Este es tu espacio seguro para expresarte libremente
         </p>
-      </div>
+      </Card>
 
       {/* Stats Toggle Button */}
       <div className="mb-6 flex justify-center">
@@ -104,7 +107,6 @@ export default function Diary(){
           variant={showStats ? 'secondary' : 'primary'}
           size="md"
           onClick={() => setShowStats(!showStats)}
-          icon={<span>{showStats ? '📝' : '📊'}</span>}
         >
           {showStats ? 'Ver Diario' : 'Ver Estadísticas'}
         </Button>
@@ -112,11 +114,8 @@ export default function Diary(){
 
       {/* Error Alert */}
       {error && (
-        <Card className="mb-6 bg-red-50 border-red-200">
-          <div className="flex items-center gap-2 text-red-700">
-            <span>⚠️</span>
-            <p>{error}</p>
-          </div>
+        <Card className="mb-6 bg-[#FBCFE8]/20 border-[#FBCFE8]/40">
+          <p className="text-[#444444]">{error}</p>
         </Card>
       )}
 
@@ -127,9 +126,9 @@ export default function Diary(){
         <>
           {/* Entry Form */}
           {saving ? (
-            <Card gradient className="mb-8">
+            <Card gradient className="mb-8 text-center">
               <LoadingSpinner />
-              <p className="text-center text-gray-600 mt-4">Guardando tu entrada...</p>
+              <p className="text-[#555555] mt-4">Guardando tu entrada...</p>
             </Card>
           ) : (
             <EntryForm onSave={save}/>

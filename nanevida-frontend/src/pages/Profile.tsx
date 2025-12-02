@@ -5,6 +5,7 @@ import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import { Textarea } from '../components/ui/Input';
 import LoadingSpinner from '../components/ui/LoadingSpinner';
+import { HeartIcon } from '../assets/icons';
 
 type UserProfile = {
   id: number;
@@ -43,7 +44,7 @@ export default function Profile() {
         nav('/login');
         return;
       }
-      setError('Error al cargar el perfil');
+      setError('No pudimos cargar tu perfil. Por favor intenta nuevamente.');
     } finally {
       setLoading(false);
     }
@@ -54,13 +55,13 @@ export default function Profile() {
     if (file) {
       // Validar tamaño (máximo 5MB)
       if (file.size > 5 * 1024 * 1024) {
-        setError('La imagen debe ser menor a 5MB');
+        setError('La imagen debe pesar menos de 5MB');
         return;
       }
 
       // Validar tipo
       if (!file.type.startsWith('image/')) {
-        setError('Solo se permiten imágenes');
+        setError('Por favor selecciona una imagen válida');
         return;
       }
 
@@ -98,7 +99,7 @@ export default function Profile() {
 
       setProfile(data);
       setAvatarFile(null);
-      setSuccess('✅ Perfil actualizado exitosamente');
+      setSuccess('¡Perfil actualizado! Los cambios se han guardado correctamente.');
       
       // Limpiar mensaje después de 3 segundos
       setTimeout(() => setSuccess(''), 3000);
@@ -107,7 +108,7 @@ export default function Profile() {
         nav('/login');
         return;
       }
-      setError(e?.response?.data?.error || 'Error al actualizar el perfil');
+      setError(e?.response?.data?.error || 'No pudimos guardar los cambios. Intenta nuevamente.');
     } finally {
       setSaving(false);
     }
@@ -127,7 +128,7 @@ export default function Profile() {
     return (
       <div className="max-w-2xl mx-auto">
         <Card className="text-center py-8">
-          <p className="text-red-600">❌ No se pudo cargar el perfil</p>
+          <p className="text-[#EC4899]">No pudimos cargar tu perfil</p>
         </Card>
       </div>
     );
@@ -140,35 +141,34 @@ export default function Profile() {
   });
 
   return (
-    <div className="max-w-2xl mx-auto">
+    <div className="max-w-2xl mx-auto animate-fadeIn">
       {/* Header */}
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold text-gray-800 mb-2 flex items-center justify-center gap-2">
-          <span>👤</span>
+      <Card gradient className="text-center mb-8">
+        <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl bg-[#A78BFA]/20">
+          <HeartIcon size={32} color="#A78BFA" />
+        </div>
+        <h2 className="text-3xl font-bold text-[#333333] mb-2">
           Mi Perfil
         </h2>
-        <p className="text-gray-600">
-          Personaliza tu perfil y comparte un poco sobre ti
+        <p className="text-[#555555]">
+          Personaliza tu espacio y comparte un poco sobre ti
         </p>
-      </div>
+      </Card>
 
       {/* Success Message */}
       {success && (
-        <Card className="mb-6 bg-green-50 border-green-200">
-          <div className="flex items-center gap-2 text-green-700">
-            <span>✅</span>
-            <p>{success}</p>
-          </div>
+        <Card className="mb-6 bg-[#BBF7D0]/30 border-[#BBF7D0]/50">
+          <p className="text-[#22C55E] flex items-center gap-2">
+            <span style={{ filter: 'contrast(1.2) saturate(1.3)' }}>✅</span>
+            {success}
+          </p>
         </Card>
       )}
 
       {/* Error Message */}
       {error && (
-        <Card className="mb-6 bg-red-50 border-red-200">
-          <div className="flex items-center gap-2 text-red-700">
-            <span>⚠️</span>
-            <p>{error}</p>
-          </div>
+        <Card className="mb-6 bg-[#FBCFE8]/20 border-[#FBCFE8]/40">
+          <p className="text-[#444444]">{error}</p>
         </Card>
       )}
 
@@ -183,16 +183,17 @@ export default function Profile() {
                 className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg"
               />
             ) : (
-              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-purple-400 to-pink-400 flex items-center justify-center text-white text-4xl font-bold border-4 border-white shadow-lg">
+              <div className="w-24 h-24 rounded-full bg-gradient-to-br from-[#A78BFA] to-[#C4B5FD] flex items-center justify-center text-white text-4xl font-bold border-4 border-white shadow-lg">
                 {profile.username[0].toUpperCase()}
               </div>
             )}
           </div>
           <div className="flex-1">
-            <h3 className="text-2xl font-bold text-gray-800">{profile.username}</h3>
-            <p className="text-gray-600">{profile.email}</p>
-            <p className="text-sm text-gray-500 mt-2">
-              📅 Miembro desde {joinDate}
+            <h3 className="text-2xl font-bold text-[#333333]">{profile.username}</h3>
+            <p className="text-[#555555]">{profile.email}</p>
+            <p className="text-sm text-[#888888] mt-2 flex items-center gap-1">
+              <span style={{ filter: 'contrast(1.2) saturate(1.3)' }}>📅</span>
+              Miembro desde {joinDate}
             </p>
           </div>
         </div>
@@ -200,16 +201,17 @@ export default function Profile() {
 
       {/* Edit Profile Form */}
       <Card>
-        <h3 className="text-xl font-bold text-gray-800 mb-6 flex items-center gap-2">
-          <span>✏️</span>
+        <h3 className="text-xl font-bold text-[#333333] mb-6 flex items-center gap-2">
+          <span style={{ filter: 'contrast(1.2) saturate(1.3)' }}>✏️</span>
           Editar Perfil
         </h3>
 
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Avatar Upload */}
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-3">
-              📸 Foto de Perfil
+            <label className="block text-sm font-medium text-[#444444] mb-3 flex items-center gap-2">
+              <span style={{ filter: 'contrast(1.2) saturate(1.3)' }}>📸</span>
+              Foto de perfil
             </label>
             
             <div className="flex items-center gap-4">
@@ -242,11 +244,11 @@ export default function Profile() {
                     size="sm"
                     onClick={() => document.getElementById('avatar-upload')?.click()}
                   >
-                    📁 Seleccionar Imagen
+                    Seleccionar imagen
                   </Button>
                 </label>
-                <p className="text-xs text-gray-500 mt-2">
-                  JPG, PNG o GIF. Máximo 5MB.
+                <p className="text-xs text-[#888888] mt-2">
+                  JPG, PNG o GIF (máximo 5MB)
                 </p>
               </div>
             </div>
@@ -255,14 +257,14 @@ export default function Profile() {
           {/* Bio */}
           <div>
             <Textarea
-              label="💭 Biografía"
+              label="💭 Sobre mí"
               rows={5}
               value={bio}
               onChange={(e) => setBio(e.target.value)}
-              placeholder="Cuéntanos un poco sobre ti, tus intereses, o lo que quieras compartir..."
+              placeholder="Comparte lo que quieras sobre ti: tus intereses, lo que te hace feliz, tus metas..."
               maxLength={500}
             />
-            <p className="text-xs text-gray-500 mt-1 text-right">
+            <p className="text-xs text-[#888888] mt-1 text-right">
               {bio.length}/500 caracteres
             </p>
           </div>
@@ -275,33 +277,32 @@ export default function Profile() {
               size="lg"
               fullWidth
               disabled={saving}
-              icon={saving ? undefined : <span>💾</span>}
             >
-              {saving ? 'Guardando...' : 'Guardar Cambios'}
+              {saving ? 'Guardando...' : 'Guardar cambios'}
             </Button>
             
             <Button
               type="button"
               variant="secondary"
               size="lg"
-              onClick={() => nav('/diary')}
-              icon={<span>📔</span>}
+              onClick={() => nav('/dashboard')}
             >
-              Volver al Diario
+              Volver
             </Button>
           </div>
         </form>
       </Card>
 
       {/* Account Info */}
-      <Card className="mt-6 bg-gray-50">
-        <h4 className="text-sm font-semibold text-gray-700 mb-3">
-          ℹ️ Información de la Cuenta
+      <Card className="mt-6 bg-[#F7F5FF]">
+        <h4 className="text-sm font-semibold text-[#444444] mb-3 flex items-center gap-2">
+          <span style={{ filter: 'contrast(1.2) saturate(1.3)' }}>ℹ️</span>
+          Información de la cuenta
         </h4>
-        <div className="space-y-2 text-sm text-gray-600">
-          <p><strong>Usuario:</strong> {profile.username}</p>
-          <p><strong>Email:</strong> {profile.email}</p>
-          <p><strong>Última actualización:</strong> {new Date(profile.updated_at).toLocaleString('es-ES')}</p>
+        <div className="space-y-2 text-sm text-[#555555]">
+          <p><strong className="text-[#333333]">Usuario:</strong> {profile.username}</p>
+          <p><strong className="text-[#333333]">Email:</strong> {profile.email}</p>
+          <p><strong className="text-[#333333]">Última actualización:</strong> {new Date(profile.updated_at).toLocaleString('es-ES')}</p>
         </div>
       </Card>
     </div>
