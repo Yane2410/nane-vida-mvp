@@ -11,6 +11,10 @@ import Statistics from './pages/Statistics'
 import Settings from './pages/Settings'
 import Profile from './pages/Profile'
 import SOS from './pages/SOS'
+import Calm from './pages/Calm'
+import Breath from './pages/Breath'
+import Reflection from './pages/Reflection'
+import Grounding from './pages/Grounding'
 import RequireAuth from './components/RequireAuth'
 import './styles.css'
 
@@ -24,7 +28,11 @@ const router = createBrowserRouter([
     { path: 'statistics', element: <RequireAuth><Statistics/></RequireAuth> },
     { path: 'settings', element: <RequireAuth><Settings/></RequireAuth> },
     { path: 'profile', element: <RequireAuth><Profile/></RequireAuth> },
-    { path: 'sos', element: <SOS/> }
+    { path: 'sos', element: <SOS/> },
+    { path: 'calm', element: <Calm/> },
+    { path: 'breath', element: <Breath/> },
+    { path: 'reflection', element: <Reflection/> },
+    { path: 'grounding', element: <Grounding/> }
   ]}
 ])
 
