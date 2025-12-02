@@ -3,6 +3,9 @@ from rest_framework.response import Response
 from rest_framework.decorators import action, api_view, permission_classes
 from django.db.models import Count
 from datetime import datetime, timedelta
+from django_ratelimit.decorators import ratelimit
+from django.utils.decorators import method_decorator
+from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import Entry, SOSResource, UserProfile
 from .serializers import (
     EntrySerializer,
@@ -12,6 +15,14 @@ from .serializers import (
 )
 from .permissions import IsOwner
 
+
+# Rate Limited Token View
+@method_decorator(ratelimit(key='ip', rate='5/m', method='POST'), name='post')
+class RateLimitedTokenObtainPairView(TokenObtainPairView):
+    """Vista de login con rate limiting: 5 intentos por minuto por IP"""
+    pass
+
+@method_decorator(ratelimit(key='ip', rate='10/m', method='POST'), name='create')
 class EntryViewSet(viewsets.ModelViewSet):
     serializer_class = EntrySerializer
     permission_classes = [permissions.IsAuthenticated, IsOwner]

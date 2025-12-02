@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from .models import Entry, SOSResource, UserProfile
+import bleach
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -12,12 +13,31 @@ class UserProfileSerializer(serializers.ModelSerializer):
         model = UserProfile
         fields = ['id', 'username', 'email', 'bio', 'avatar', 'created_at', 'updated_at']
         read_only_fields = ['id', 'created_at', 'updated_at']
+    
+    def validate_bio(self, value):
+        """Sanitizar bio para prevenir XSS"""
+        if value:
+            # Permitir solo texto plano, sin HTML
+            return bleach.clean(value, tags=[], strip=True)
+        return value
 
 
 class EntrySerializer(serializers.ModelSerializer):
     class Meta:
         model = Entry
         fields = ['id', 'title', 'content', 'emoji', 'mood', 'created_at', 'updated_at']
+    
+    def validate_title(self, value):
+        """Sanitizar título para prevenir XSS"""
+        if value:
+            return bleach.clean(value, tags=[], strip=True)
+        return value
+    
+    def validate_content(self, value):
+        """Sanitizar contenido para prevenir XSS"""
+        if value:
+            return bleach.clean(value, tags=[], strip=True)
+        return value
 
 class SOSResourceSerializer(serializers.ModelSerializer):
     class Meta:
