@@ -49,7 +49,7 @@ export default function AppHeader({
           {getGreeting()}
         </h1>
         
-        <p className="text-base sm:text-lg text-[#555555] max-w-2xl mx-auto leading-relaxed">
+        <p className="text-base sm:text-lg text-[#444444] max-w-2xl mx-auto leading-relaxed">
           {getSubtitle()}
         </p>
       </div>

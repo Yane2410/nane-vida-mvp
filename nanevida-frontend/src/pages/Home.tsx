@@ -105,7 +105,7 @@ export default function Home() {
             No estás solo en esto
           </h3>
           
-          <p className="text-base sm:text-lg text-[#555555] leading-relaxed mb-6">
+          <p className="text-base sm:text-lg text-[#444444] leading-relaxed mb-6">
             Cuidar tu salud mental es un acto de valentía y amor propio.
             Cada paso que das, por pequeño que sea, es importante.
           </p>
@@ -144,7 +144,7 @@ export default function Home() {
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <Card className="text-center">
-          <div className="text-4xl mb-3"></div>
+          <div className="text-4xl mb-3" style={{ filter: 'contrast(1.2) saturate(1.3)' }}></div>
           <h4 className="font-bold text-[#333333] mb-2">Privado y Seguro</h4>
           <p className="text-sm text-[#555555]">
             Tus pensamientos son solo tuyos. Mantenemos tu información segura y privada.
@@ -152,7 +152,7 @@ export default function Home() {
         </Card>
 
         <Card className="text-center">
-          <div className="text-4xl mb-3"></div>
+          <div className="text-4xl mb-3" style={{ filter: 'contrast(1.2) saturate(1.3)' }}></div>
           <h4 className="font-bold text-[#333333] mb-2">Sin Juicios</h4>
           <p className="text-sm text-[#555555]">
             Este es un espacio seguro para expresarte libremente, sin miedo ni vergüenza.
@@ -160,7 +160,7 @@ export default function Home() {
         </Card>
 
         <Card className="text-center">
-          <div className="text-4xl mb-3"></div>
+          <div className="text-4xl mb-3" style={{ filter: 'contrast(1.2) saturate(1.3)' }}></div>
           <h4 className="font-bold text-[#333333] mb-2">A Tu Ritmo</h4>
           <p className="text-sm text-[#555555]">
             No hay prisas. Avanza a tu propio paso, cuando te sientas listo.
