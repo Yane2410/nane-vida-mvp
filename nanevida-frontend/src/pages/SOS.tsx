@@ -12,7 +12,9 @@ export default function SOSPage(){
   useEffect(() => {
     api.get('/sos/')
       .then(r => {
-        const items: SOS[] = Array.isArray(r.data) ? r.data : []
+        // El backend devuelve un objeto paginado: {count, next, previous, results}
+        const data = r.data.results || r.data
+        const items: SOS[] = Array.isArray(data) ? data : []
         setList(items.filter(x => x.active).sort((a,b)=> a.priority - b.priority))
         setError('')
       })

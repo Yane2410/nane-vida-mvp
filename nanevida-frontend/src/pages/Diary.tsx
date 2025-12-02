@@ -18,7 +18,9 @@ export default function Diary(){
   async function load(){
     try{
       const { data } = await api.get('/entries/')
-      setItems(data)
+      // El backend devuelve un objeto paginado: {count, next, previous, results}
+      const entries = data.results || data
+      setItems(Array.isArray(entries) ? entries : [])
       setError('')
     }catch(e:any){
       if (e?.response?.status === 401) { nav('/login'); return }
