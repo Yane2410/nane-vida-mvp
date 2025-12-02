@@ -203,25 +203,17 @@ export default function Dashboard() {
             </Button>
           </Link>
 
-          <Button 
-            variant="ghost" 
-            size="lg" 
-            fullWidth 
-            icon={<span>📊</span>}
-            onClick={() => alert('Estadísticas detalladas próximamente...')}
-          >
-            Estadísticas
-          </Button>
+          <Link to="/statistics">
+            <Button variant="secondary" size="lg" fullWidth icon={<span>📊</span>}>
+              Estadísticas
+            </Button>
+          </Link>
 
-          <Button 
-            variant="ghost" 
-            size="lg" 
-            fullWidth 
-            icon={<span>⚙️</span>}
-            onClick={() => alert('Configuración próximamente...')}
-          >
-            Configuración
-          </Button>
+          <Link to="/settings">
+            <Button variant="secondary" size="lg" fullWidth icon={<span>⚙️</span>}>
+              Configuración
+            </Button>
+          </Link>
         </div>
       </Card>
 
