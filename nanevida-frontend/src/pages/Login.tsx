@@ -4,6 +4,7 @@ import { useNavigate, Link } from 'react-router-dom'
 import Card from '../components/ui/Card'
 import { Input } from '../components/ui/Input'
 import Button from '../components/ui/Button'
+import { HeartIcon } from '../assets/icons'
 
 export default function Login(){
   const [username, setUsername] = useState('')
@@ -22,7 +23,7 @@ export default function Login(){
       setTokens(data.access, data.refresh)
       nav('/dashboard')
     } catch (err: any) {
-      setError(err?.response?.data?.detail || 'Credenciales inválidas o servidor caído.')
+      setError(err?.response?.data?.detail || 'No pudimos conectarte. Revisa tus datos o intenta más tarde.')
     } finally {
       setLoading(false)
     }
@@ -35,14 +36,16 @@ export default function Login(){
   }
 
   return (
-    <div className="max-w-md mx-auto">
+    <div className="max-w-md mx-auto animate-fadeIn">
       <Card gradient className="text-center mb-6">
-        <div className="text-5xl mb-4">🔐</div>
-        <h2 className="text-2xl font-bold text-gray-800 mb-2">
-          Iniciar sesión
+        <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl bg-[#A78BFA]/20">
+          <HeartIcon size={32} color="#A78BFA" />
+        </div>
+        <h2 className="text-2xl sm:text-3xl font-bold text-[#333333] mb-2">
+          Nos alegra verte de nuevo
         </h2>
-        <p className="text-gray-600">
-          Accede a tu diario personal y comienza a escribir
+        <p className="text-[#555555] text-base">
+          Tu espacio de bienestar te está esperando
         </p>
       </Card>
 
@@ -70,9 +73,8 @@ export default function Login(){
           />
 
           {error && (
-            <div className="p-3 bg-red-50 border border-red-200 rounded-xl">
-              <p className="text-red-700 text-sm flex items-center gap-2">
-                <span>⚠️</span>
+            <div className="p-4 bg-[#FBCFE8]/20 border border-[#FBCFE8]/40 rounded-2xl">
+              <p className="text-[#444444] text-sm">
                 {error}
               </p>
             </div>
@@ -84,7 +86,6 @@ export default function Login(){
               variant="primary"
               fullWidth
               isLoading={loading}
-              icon={<span>🚀</span>}
             >
               {loading ? 'Entrando...' : 'Entrar'}
             </Button>
@@ -99,14 +100,14 @@ export default function Login(){
           </div>
         </form>
 
-        <div className="mt-6 pt-6 border-t border-purple-100">
+        <div className="mt-6 pt-6 border-t border-[#A78BFA]/20">
           <div className="text-center space-y-3">
-            <p className="text-gray-600 text-sm">
-              ¿No tienes cuenta todavía?
+            <p className="text-[#555555] text-sm">
+              ¿Primera vez aquí?
             </p>
             <Link to="/register">
-              <Button variant="success" fullWidth icon={<span>✨</span>}>
-                Crear cuenta nueva
+              <Button variant="success" fullWidth>
+                Crear mi cuenta
               </Button>
             </Link>
           </div>

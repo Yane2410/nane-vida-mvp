@@ -4,6 +4,7 @@ import { api } from '../api'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import { Input } from '../components/ui/Input'
+import { SparkleIcon } from '../assets/icons'
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -42,7 +43,7 @@ export default function Register() {
       await api.post('/register/', formData)
       // Registro exitoso, redirigir al login
       nav('/login', { 
-        state: { message: '¡Registro exitoso! Ahora puedes iniciar sesión.' } 
+        state: { message: '¡Bienvenido! Ahora puedes iniciar sesión y comenzar tu camino.' } 
       })
     } catch (err: any) {
       if (err?.response?.data) {
@@ -60,10 +61,10 @@ export default function Register() {
           })
           setFieldErrors(errors)
         } else {
-          setError('Error al registrar usuario')
+          setError('No pudimos completar tu registro. Por favor intenta nuevamente.')
         }
       } else {
-        setError('Error de conexión. Por favor intenta de nuevo.')
+        setError('Error de conexión. Verifica tu internet e intenta de nuevo.')
       }
     } finally {
       setLoading(false)
@@ -71,20 +72,22 @@ export default function Register() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-emerald-50 to-teal-50 px-4 py-8">
-      <Card className="w-full max-w-md">
+    <div className="min-h-screen flex items-center justify-center px-4 py-8 animate-fadeIn">
+      <Card className="w-full max-w-md" gradient>
         <div className="text-center mb-6">
-          <div className="text-5xl mb-3">💚</div>
-          <h2 className="text-2xl font-bold text-gray-800 mb-2">
-            Crear cuenta
+          <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl bg-[#BBF7D0]/30">
+            <SparkleIcon size={32} color="#22C55E" />
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#333333] mb-2">
+            Empieza tu viaje de bienestar
           </h2>
-          <p className="text-gray-600 text-sm">
-            Únete a NANE VIDA y comienza tu viaje de bienestar emocional
+          <p className="text-[#555555] text-sm">
+            Crea tu cuenta y encuentra tu espacio seguro
           </p>
         </div>
 
         {error && (
-          <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-lg text-red-700 text-sm">
+          <div className="mb-4 p-4 bg-[#FBCFE8]/20 border border-[#FBCFE8]/40 rounded-2xl text-[#444444] text-sm">
             {error}
           </div>
         )}
@@ -101,7 +104,7 @@ export default function Register() {
               disabled={loading}
             />
             {fieldErrors.username && (
-              <p className="text-red-600 text-sm mt-1">{fieldErrors.username}</p>
+              <p className="text-[#EC4899] text-sm mt-1">{fieldErrors.username}</p>
             )}
           </div>
 
@@ -116,7 +119,7 @@ export default function Register() {
               disabled={loading}
             />
             {fieldErrors.email && (
-              <p className="text-red-600 text-sm mt-1">{fieldErrors.email}</p>
+              <p className="text-[#EC4899] text-sm mt-1">{fieldErrors.email}</p>
             )}
           </div>
 
@@ -154,9 +157,9 @@ export default function Register() {
               disabled={loading}
             />
             {fieldErrors.password && (
-              <p className="text-red-600 text-sm mt-1">{fieldErrors.password}</p>
+              <p className="text-[#EC4899] text-sm mt-1">{fieldErrors.password}</p>
             )}
-            <p className="text-gray-500 text-xs mt-1">
+            <p className="text-[#888888] text-xs mt-1">
               Mínimo 8 caracteres, con letras y números
             </p>
           </div>
@@ -172,7 +175,7 @@ export default function Register() {
               disabled={loading}
             />
             {fieldErrors.password2 && (
-              <p className="text-red-600 text-sm mt-1">{fieldErrors.password2}</p>
+              <p className="text-[#EC4899] text-sm mt-1">{fieldErrors.password2}</p>
             )}
           </div>
 
@@ -182,19 +185,18 @@ export default function Register() {
             size="lg"
             fullWidth
             isLoading={loading}
-            icon={<span>✨</span>}
           >
-            {loading ? 'Registrando...' : 'Crear cuenta'}
+            {loading ? 'Creando tu cuenta...' : 'Crear mi cuenta'}
           </Button>
         </form>
 
-        <div className="mt-6 pt-6 border-t border-purple-100">
+        <div className="mt-6 pt-6 border-t border-[#A78BFA]/20">
           <div className="text-center space-y-3">
-            <p className="text-gray-600 text-sm">
-              ¿Ya tienes cuenta?
+            <p className="text-[#555555] text-sm">
+              ¿Ya tienes una cuenta?
             </p>
             <Link to="/login">
-              <Button variant="secondary" fullWidth icon={<span>🔐</span>}>
+              <Button variant="secondary" fullWidth>
                 Iniciar sesión
               </Button>
             </Link>
