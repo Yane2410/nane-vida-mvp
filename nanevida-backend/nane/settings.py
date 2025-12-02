@@ -286,6 +286,25 @@ CORS_ALLOW_HEADERS = [
     "x-request-time",
 ]
 
+# Métodos HTTP permitidos
+CORS_ALLOW_METHODS = [
+    "DELETE",
+    "GET",
+    "OPTIONS",
+    "PATCH",
+    "POST",
+    "PUT",
+]
+
+# Headers que el cliente puede exponer
+CORS_EXPOSE_HEADERS = [
+    "Content-Type",
+    "X-CSRFToken",
+]
+
+# Preflight request cache (en segundos)
+CORS_PREFLIGHT_MAX_AGE = 86400  # 24 horas
+
 # === CSRF Configuration ===
 CSRF_TRUSTED_ORIGINS = []
 
@@ -326,13 +345,14 @@ CONTENT_SECURITY_POLICY = {
 # === Security Headers & Settings ===
 # Session Security
 SESSION_COOKIE_HTTPONLY = True
-SESSION_COOKIE_SAMESITE = "Lax"
+# None para cross-site requests en producción
+SESSION_COOKIE_SAMESITE = "None" if IS_PRODUCTION else "Lax"
 SESSION_COOKIE_SECURE = not DEBUG
 SESSION_COOKIE_AGE = 1209600  # 2 semanas
 
 # CSRF Security
-CSRF_COOKIE_HTTPONLY = True
-CSRF_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_HTTPONLY = False  # Debe ser False para que el frontend pueda leerlo
+CSRF_COOKIE_SAMESITE = "None" if IS_PRODUCTION else "Lax"  # None para cross-site en producción
 CSRF_COOKIE_SECURE = not DEBUG
 CSRF_USE_SESSIONS = False
 
