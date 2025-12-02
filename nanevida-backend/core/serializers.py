@@ -3,6 +3,39 @@ from django.contrib.auth.models import User
 from django.contrib.auth.password_validation import validate_password
 from .models import Entry, SOSResource, UserProfile
 import bleach
+import re
+
+
+def sanitize_text(value):
+    """
+    Sanitización avanzada para prevenir XSS.
+    - Elimina todos los tags HTML
+    - Bloquea esquemas peligrosos (javascript:, data:, vbscript:)
+    - Remueve eventos HTML (onclick, onerror, etc.)
+    """
+    if not value:
+        return value
+    
+    # Primero, usar bleach para limpiar HTML
+    cleaned = bleach.clean(value, tags=[], strip=True)
+    
+    # Bloquear esquemas peligrosos
+    dangerous_schemes = [
+        r'javascript\s*:',
+        r'data\s*:',
+        r'vbscript\s*:',
+        r'file\s*:',
+        r'about\s*:',
+    ]
+    
+    for scheme in dangerous_schemes:
+        cleaned = re.sub(scheme, '', cleaned, flags=re.IGNORECASE)
+    
+    # Bloquear atributos de eventos HTML
+    event_attrs = r'on\w+\s*='
+    cleaned = re.sub(event_attrs, '', cleaned, flags=re.IGNORECASE)
+    
+    return cleaned
 
 
 class UserProfileSerializer(serializers.ModelSerializer):
@@ -16,10 +49,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     
     def validate_bio(self, value):
         """Sanitizar bio para prevenir XSS"""
-        if value:
-            # Permitir solo texto plano, sin HTML
-            return bleach.clean(value, tags=[], strip=True)
-        return value
+        return sanitize_text(value)
 
 
 class EntrySerializer(serializers.ModelSerializer):
@@ -29,15 +59,11 @@ class EntrySerializer(serializers.ModelSerializer):
     
     def validate_title(self, value):
         """Sanitizar título para prevenir XSS"""
-        if value:
-            return bleach.clean(value, tags=[], strip=True)
-        return value
+        return sanitize_text(value)
     
     def validate_content(self, value):
         """Sanitizar contenido para prevenir XSS"""
-        if value:
-            return bleach.clean(value, tags=[], strip=True)
-        return value
+        return sanitize_text(value)
 
 class SOSResourceSerializer(serializers.ModelSerializer):
     class Meta:
