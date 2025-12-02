@@ -91,11 +91,8 @@ export default function Profile() {
         formData.append('avatar', avatarFile);
       }
 
-      const { data } = await api.put('/profile/', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      // No especificar Content-Type - Axios lo configura automáticamente para FormData
+      const { data } = await api.put('/profile/', formData);
 
       setProfile(data);
       setAvatarFile(null);
