@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { api, setTokens } from '../api'
-import { useNavigate } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import Card from '../components/ui/Card'
 import { Input } from '../components/ui/Input'
 import Button from '../components/ui/Button'
@@ -99,9 +99,15 @@ export default function Login(){
           </div>
         </form>
 
-        <div className="mt-6 pt-6 border-t border-gray-200">
-          <p className="text-sm text-gray-500 text-center">
-            💡 Usa la cuenta que creaste con <code className="px-2 py-1 bg-gray-100 rounded text-purple-600">createsuperuser</code>
+        <div className="mt-6 text-center">
+          <p className="text-gray-600 text-sm">
+            ¿No tienes cuenta?{' '}
+            <Link
+              to="/register"
+              className="text-emerald-600 hover:text-emerald-700 font-medium"
+            >
+              Regístrate aquí
+            </Link>
           </p>
         </div>
       </Card>

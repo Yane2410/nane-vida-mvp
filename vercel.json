@@ -1,10 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "buildCommand": "cd nanevida-frontend && npm ci && npm run build",
-  "devCommand": "cd nanevida-frontend && npm run dev",
-  "installCommand": "cd nanevida-frontend && npm ci",
-  "framework": null,
-  "outputDirectory": "nanevida-frontend/dist",
   "rewrites": [
     {
       "source": "/(.*)",
