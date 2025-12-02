@@ -17,20 +17,20 @@ export default function App(){
   return (
     <div className="min-h-screen flex flex-col">
       {/* Header */}
-      <header className="bg-gradient-to-br from-purple-50 via-white to-emerald-50 border-b border-purple-100 shadow-sm">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <header className="backdrop-blur-xl bg-white/70 border-b border-white/40 shadow-lg sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
           {/* Brand */}
-          <div className="text-center sm:text-left mb-6">
-            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-purple-600 to-emerald-500 bg-clip-text text-transparent mb-2">
+          <div className="text-center sm:text-left mb-4">
+            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-1 tracking-tight">
               NANE VIDA
             </h1>
-            <p className="text-gray-600 text-sm sm:text-base">
-              Bienestar emocional con simplicidad y respeto
+            <p className="text-slate-600 text-sm sm:text-base font-medium">
+              Tu espacio de bienestar emocional
             </p>
           </div>
 
           {/* Navigation */}
-          <nav className="flex flex-wrap gap-2 sm:gap-3 justify-center sm:justify-start">
+          <nav className="flex flex-wrap gap-2 justify-center sm:justify-start">
             <Link to="/">
               <Button variant="secondary" size="md">
                 <span>🏠</span>
@@ -106,15 +106,15 @@ export default function App(){
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 max-w-6xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Outlet/>
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-purple-100 bg-white/50 backdrop-blur-sm">
-        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <p className="text-center text-sm text-gray-500">
-            © {new Date().getFullYear()} NANE VIDA — Cuidando tu bienestar emocional
+      <footer className="backdrop-blur-xl bg-white/60 border-t border-white/40 shadow-inner">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+          <p className="text-center text-sm text-slate-600 font-medium">
+            © {new Date().getFullYear()} NANE VIDA — Cuidando tu bienestar emocional 💜
           </p>
         </div>
       </footer>
