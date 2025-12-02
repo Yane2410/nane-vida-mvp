@@ -2,10 +2,7 @@
 nixPkgs = ["python311", "postgresql"]
 
 [phases.install]
-cmds = [
-  "pip install --upgrade pip",
-  "cd nanevida-backend && pip install -r requirements.txt"
-]
+cmds = ["pip install -r requirements.txt"]
 
 [phases.build]
 cmds = ["cd nanevida-backend && python manage.py collectstatic --noinput"]
