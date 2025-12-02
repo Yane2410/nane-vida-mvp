@@ -3,16 +3,19 @@ import { api } from '../api'
 import { useNavigate } from 'react-router-dom'
 import EntryForm from '../components/EntryForm'
 import EntryList from '../components/EntryList'
+import MoodChart from '../components/MoodChart'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
 import Card from '../components/ui/Card'
+import Button from '../components/ui/Button'
 
-type Entry = { id:number; title:string; content:string; emoji?:string; created_at:string }
+type Entry = { id:number; title:string; content:string; emoji?:string; mood?:string; created_at:string }
 
 export default function Diary(){
   const [items, setItems] = useState<Entry[]>([])
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
+  const [showStats, setShowStats] = useState(false)
   const nav = useNavigate()
 
   async function load(){
@@ -32,7 +35,7 @@ export default function Diary(){
 
   useEffect(()=>{ load() }, [])
 
-  async function save(entry:{title:string;content:string;emoji?:string}){
+  async function save(entry:{title:string;content:string;emoji?:string;mood?:string}){
     setSaving(true)
     try{
       const { data } = await api.post('/entries/', entry)
@@ -70,6 +73,18 @@ export default function Diary(){
         </p>
       </div>
 
+      {/* Stats Toggle Button */}
+      <div className="mb-6 flex justify-center">
+        <Button
+          variant={showStats ? 'secondary' : 'primary'}
+          size="md"
+          onClick={() => setShowStats(!showStats)}
+          icon={<span>{showStats ? '📝' : '📊'}</span>}
+        >
+          {showStats ? 'Ver Diario' : 'Ver Estadísticas'}
+        </Button>
+      </div>
+
       {/* Error Alert */}
       {error && (
         <Card className="mb-6 bg-red-50 border-red-200">
@@ -80,21 +95,28 @@ export default function Diary(){
         </Card>
       )}
 
-      {/* Entry Form */}
-      {saving ? (
-        <Card gradient className="mb-8">
-          <LoadingSpinner />
-          <p className="text-center text-gray-600 mt-4">Guardando tu entrada...</p>
-        </Card>
+      {/* Show Stats or Diary */}
+      {showStats ? (
+        <MoodChart />
       ) : (
-        <EntryForm onSave={save}/>
-      )}
+        <>
+          {/* Entry Form */}
+          {saving ? (
+            <Card gradient className="mb-8">
+              <LoadingSpinner />
+              <p className="text-center text-gray-600 mt-4">Guardando tu entrada...</p>
+            </Card>
+          ) : (
+            <EntryForm onSave={save}/>
+          )}
 
-      {/* Entries List */}
-      {loading ? (
-        <LoadingSpinner />
-      ) : (
-        <EntryList items={items} onDelete={del}/>
+          {/* Entries List */}
+          {loading ? (
+            <LoadingSpinner />
+          ) : (
+            <EntryList items={items} onDelete={del}/>
+          )}
+        </>
       )}
     </div>
   )

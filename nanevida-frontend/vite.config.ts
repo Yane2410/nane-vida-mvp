@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
 // https://vitejs.dev/config/
+// Updated: Backend URL pointing to Railway (Dec 2024)
 export default defineConfig({
   plugins: [react()],
   define: {

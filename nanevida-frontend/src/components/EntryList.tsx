@@ -2,8 +2,17 @@ import Card from './ui/Card'
 import Button from './ui/Button'
 import EmptyState from './ui/EmptyState'
 
-type Entry = { id:number; title:string; content:string; emoji?:string; created_at:string }
+type Entry = { id:number; title:string; content:string; emoji?:string; mood?:string; created_at:string }
 type Props = { items: Entry[], onDelete:(id:number)=>void }
+
+const MOOD_MAP: Record<string, { emoji: string; label: string; color: string }> = {
+  very_happy: { emoji: '😊', label: 'Muy feliz', color: 'bg-green-100 text-green-800' },
+  happy: { emoji: '🙂', label: 'Feliz', color: 'bg-lime-100 text-lime-800' },
+  neutral: { emoji: '😐', label: 'Neutral', color: 'bg-gray-100 text-gray-800' },
+  sad: { emoji: '😢', label: 'Triste', color: 'bg-blue-100 text-blue-800' },
+  anxious: { emoji: '😰', label: 'Ansioso/a', color: 'bg-yellow-100 text-yellow-800' },
+  angry: { emoji: '😡', label: 'Enojado/a', color: 'bg-red-100 text-red-800' },
+}
 
 export default function EntryList({ items, onDelete }: Props){
   if (items.length === 0) {
@@ -41,13 +50,21 @@ export default function EntryList({ items, onDelete }: Props){
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
                   <span className="text-4xl">{e.emoji || '📝'}</span>
-                  <div>
+                  <div className="flex-1">
                     <h4 className="text-lg font-semibold text-gray-800">
                       {e.title || 'Sin título'}
                     </h4>
-                    <p className="text-xs text-gray-500">
-                      {formattedDate} • {formattedTime}
-                    </p>
+                    <div className="flex items-center gap-2 mt-1">
+                      <p className="text-xs text-gray-500">
+                        {formattedDate} • {formattedTime}
+                      </p>
+                      {e.mood && MOOD_MAP[e.mood] && (
+                        <span className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-xs font-medium ${MOOD_MAP[e.mood].color}`}>
+                          <span>{MOOD_MAP[e.mood].emoji}</span>
+                          {MOOD_MAP[e.mood].label}
+                        </span>
+                      )}
+                    </div>
                   </div>
                 </div>
                 
