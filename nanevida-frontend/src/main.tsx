@@ -6,6 +6,7 @@ import Login from './pages/Login'
 import Register from './pages/Register'
 import Home from './pages/Home'
 import Diary from './pages/Diary'
+import Dashboard from './pages/Dashboard'
 import Profile from './pages/Profile'
 import SOS from './pages/SOS'
 import RequireAuth from './components/RequireAuth'
@@ -16,6 +17,7 @@ const router = createBrowserRouter([
     { index: true, element: <Home/> },
     { path: 'login', element: <Login/> },
     { path: 'register', element: <Register/> },
+    { path: 'dashboard', element: <RequireAuth><Dashboard/></RequireAuth> },
     { path: 'diary', element: <RequireAuth><Diary/></RequireAuth> },
     { path: 'profile', element: <RequireAuth><Profile/></RequireAuth> },
     { path: 'sos', element: <SOS/> }

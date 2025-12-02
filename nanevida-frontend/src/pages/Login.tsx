@@ -20,7 +20,7 @@ export default function Login(){
     try {
       const { data } = await api.post('/token/', { username, password })
       setTokens(data.access, data.refresh)
-      nav('/diary')
+      nav('/dashboard')
     } catch (err: any) {
       setError(err?.response?.data?.detail || 'Credenciales inválidas o servidor caído.')
     } finally {

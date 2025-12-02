@@ -37,6 +37,14 @@ export default function App(){
                 Inicio
               </Button>
             </Link>
+            {isAuth && (
+              <Link to="/dashboard">
+                <Button variant="primary" size="md">
+                  <span>📊</span>
+                  Dashboard
+                </Button>
+              </Link>
+            )}
             <Link to="/diary">
               <Button variant="secondary" size="md">
                 <span>📔</span>
