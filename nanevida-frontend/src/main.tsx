@@ -10,7 +10,6 @@ import Profile from './pages/Profile'
 import SOS from './pages/SOS'
 import RequireAuth from './components/RequireAuth'
 import './styles.css'
-import './deployment-test.css'
 
 const router = createBrowserRouter([
   { path: '/', element: <App />, children: [

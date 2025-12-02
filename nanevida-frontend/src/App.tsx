@@ -57,13 +57,21 @@ export default function App(){
                 SOS
               </Button>
             </Link>
-            {showLoginBtn && (
-              <Link to="/login">
-                <Button variant="primary" size="md">
-                  <span>🔐</span>
-                  Iniciar sesión
-                </Button>
-              </Link>
+            {!isAuth && (
+              <>
+                <Link to="/login">
+                  <Button variant="primary" size="md">
+                    <span>🔐</span>
+                    Iniciar sesión
+                  </Button>
+                </Link>
+                <Link to="/register">
+                  <Button variant="success" size="md">
+                    <span>✨</span>
+                    Registrarse
+                  </Button>
+                </Link>
+              </>
             )}
             {isAuth && (
               <Button variant="ghost" size="md" onClick={handleLogout}>

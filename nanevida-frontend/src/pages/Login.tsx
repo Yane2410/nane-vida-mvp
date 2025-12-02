@@ -99,16 +99,17 @@ export default function Login(){
           </div>
         </form>
 
-        <div className="mt-6 text-center">
-          <p className="text-gray-600 text-sm">
-            ¿No tienes cuenta?{' '}
-            <Link
-              to="/register"
-              className="text-emerald-600 hover:text-emerald-700 font-medium transition-colors duration-200 hover:underline"
-            >
-              Regístrate aquí
+        <div className="mt-6 pt-6 border-t border-purple-100">
+          <div className="text-center space-y-3">
+            <p className="text-gray-600 text-sm">
+              ¿No tienes cuenta todavía?
+            </p>
+            <Link to="/register">
+              <Button variant="success" fullWidth icon={<span>✨</span>}>
+                Crear cuenta nueva
+              </Button>
             </Link>
-          </p>
+          </div>
         </div>
       </Card>
     </div>
