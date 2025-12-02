@@ -3,6 +3,7 @@ import { api } from '../api'
 import { useNavigate } from 'react-router-dom'
 import EntryForm from '../components/EntryForm'
 import EntryList from '../components/EntryList'
+import EditEntryModal from '../components/EditEntryModal'
 import MoodChart from '../components/MoodChart'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
 import Card from '../components/ui/Card'
@@ -16,6 +17,7 @@ export default function Diary(){
   const [loading, setLoading] = useState(true)
   const [saving, setSaving] = useState(false)
   const [showStats, setShowStats] = useState(false)
+  const [editingEntry, setEditingEntry] = useState<Entry | null>(null)
   const nav = useNavigate()
 
   async function load(){
@@ -58,6 +60,29 @@ export default function Diary(){
       if (e?.response?.status === 401) { nav('/login'); return }
       setError('No se pudo eliminar la entrada.')
     }
+  }
+
+  function handleEdit(entry: Entry) {
+    setEditingEntry(entry);
+  }
+
+  async function handleSaveEdit(id: number, data: {title:string;content:string;emoji?:string;mood?:string}) {
+    setSaving(true);
+    try {
+      const { data: updated } = await api.put(`/entries/${id}/`, data);
+      setItems(items.map(i => i.id === id ? updated : i));
+      setEditingEntry(null);
+      setError('');
+    } catch(e: any) {
+      if (e?.response?.status === 401) { nav('/login'); return }
+      setError('No se pudo actualizar la entrada.');
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  function handleCancelEdit() {
+    setEditingEntry(null);
   }
 
   return (
@@ -114,9 +139,18 @@ export default function Diary(){
           {loading ? (
             <LoadingSpinner />
           ) : (
-            <EntryList items={items} onDelete={del}/>
+            <EntryList items={items} onDelete={del} onEdit={handleEdit}/>
           )}
         </>
+      )}
+
+      {/* Edit Modal */}
+      {editingEntry && (
+        <EditEntryModal
+          entry={editingEntry}
+          onSave={handleSaveEdit}
+          onCancel={handleCancelEdit}
+        />
       )}
     </div>
   )

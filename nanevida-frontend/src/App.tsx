@@ -43,6 +43,14 @@ export default function App(){
                 Diario
               </Button>
             </Link>
+            {isAuth && (
+              <Link to="/profile">
+                <Button variant="secondary" size="md">
+                  <span>👤</span>
+                  Perfil
+                </Button>
+              </Link>
+            )}
             <Link to="/sos">
               <Button variant="secondary" size="md">
                 <span>🆘</span>

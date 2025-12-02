@@ -3,7 +3,11 @@ import Button from './ui/Button'
 import EmptyState from './ui/EmptyState'
 
 type Entry = { id:number; title:string; content:string; emoji?:string; mood?:string; created_at:string }
-type Props = { items: Entry[], onDelete:(id:number)=>void }
+type Props = { 
+  items: Entry[];
+  onDelete: (id:number) => void;
+  onEdit: (entry: Entry) => void;
+}
 
 const MOOD_MAP: Record<string, { emoji: string; label: string; color: string }> = {
   very_happy: { emoji: '😊', label: 'Muy feliz', color: 'bg-green-100 text-green-800' },
@@ -14,7 +18,7 @@ const MOOD_MAP: Record<string, { emoji: string; label: string; color: string }> 
   angry: { emoji: '😡', label: 'Enojado/a', color: 'bg-red-100 text-red-800' },
 }
 
-export default function EntryList({ items, onDelete }: Props){
+export default function EntryList({ items, onDelete, onEdit }: Props){
   if (items.length === 0) {
     return (
       <EmptyState
@@ -73,18 +77,28 @@ export default function EntryList({ items, onDelete }: Props){
                 </p>
               </div>
               
-              <Button
-                variant="danger"
-                size="sm"
-                onClick={() => {
-                  if (confirm('¿Estás seguro de eliminar esta entrada?')) {
-                    onDelete(e.id)
-                  }
-                }}
-                title="Eliminar entrada"
-              >
-                🗑️
-              </Button>
+              <div className="flex flex-col gap-2">
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => onEdit(e)}
+                  title="Editar entrada"
+                >
+                  ✏️
+                </Button>
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => {
+                    if (confirm('¿Estás seguro de eliminar esta entrada?')) {
+                      onDelete(e.id)
+                    }
+                  }}
+                  title="Eliminar entrada"
+                >
+                  🗑️
+                </Button>
+              </div>
             </div>
           </Card>
         )
