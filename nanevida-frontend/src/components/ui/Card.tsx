@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, CSSProperties } from 'react'
 
 interface CardProps {
   children: ReactNode
@@ -6,6 +6,7 @@ interface CardProps {
   hover?: boolean
   gradient?: boolean
   animated?: boolean
+  style?: CSSProperties
 }
 
 export default function Card({
@@ -13,28 +14,30 @@ export default function Card({
   className = '',
   hover = false,
   gradient = false,
-  animated = true
+  animated = true,
+  style
 }: CardProps) {
   const hoverStyles = hover
-    ? 'hover:shadow-2xl hover:-translate-y-1 hover:border-indigo-200/60 cursor-pointer'
+    ? 'hover:shadow-2xl hover:-translate-y-1 hover:border-[#A78BFA]/40 cursor-pointer'
     : ''
   const gradientStyles = gradient
-    ? 'bg-gradient-to-br from-white/90 via-indigo-50/30 to-purple-50/40'
-    : 'bg-white/85'
+    ? 'bg-gradient-to-br from-white/95 via-[#F7F5FF]/50 to-[#E0D9FF]/30'
+    : 'bg-white/90'
   const animationStyles = animated ? 'animate-scaleIn' : ''
 
   return (
     <div
       className={`
-        rounded-2xl border border-white/40 p-6
+        rounded-3xl border-2 border-[#A78BFA]/20 p-6 sm:p-8
         backdrop-blur-xl
-        shadow-xl
+        shadow-lg
         transition-all duration-300 ease-out
         ${gradientStyles} ${hoverStyles} ${animationStyles}
         ${className}
       `}
       style={{
-        boxShadow: '0 8px 32px rgba(31, 38, 135, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.18) inset',
+        boxShadow: '0 8px 32px rgba(167, 139, 250, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.5) inset',
+        ...style,
       }}
     >
       {children}

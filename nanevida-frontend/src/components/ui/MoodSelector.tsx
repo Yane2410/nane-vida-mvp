@@ -8,7 +8,7 @@ import {
   HappyMoodIcon,
 } from '../../assets/icons'
 
-type Mood = 'calm' | 'anxious' | 'sad' | 'tired' | 'neutral' | 'happy'
+export type Mood = 'calm' | 'anxious' | 'sad' | 'tired' | 'neutral' | 'happy'
 
 interface MoodOption {
   id: Mood

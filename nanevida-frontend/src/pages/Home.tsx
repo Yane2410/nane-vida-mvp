@@ -1,195 +1,172 @@
-import { useEffect, useState } from 'react'
-import { api } from '../api'
+﻿import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
-import LoadingSpinner from '../components/ui/LoadingSpinner'
+import MoodSelector, { Mood } from '../components/ui/MoodSelector'
+import EmotionalCard from '../components/ui/EmotionalCard'
+import AppHeader from '../components/ui/AppHeader'
+import { getToken } from '../api'
+import {
+  BreathIcon,
+  CalmIcon,
+  JournalIcon,
+  HeartIcon,
+  FlowerIcon,
+  CloudIcon,
+} from '../assets/icons'
 
-type SOS = { id:number; title:string; type:'CALL'|'LINK'|'TEXT'; url?:string; priority:number; active:boolean }
-
-export default function Home(){
-  const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent)
-  const [sos, setSos] = useState<SOS[]>([])
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    api.get('/sos/')
-      .then(r => {
-        // El backend devuelve un objeto paginado: {count, next, previous, results}
-        const data = r.data.results || r.data
-        const items: SOS[] = Array.isArray(data) ? data : []
-        const top = items
-          .filter(x => x.active)
-          .sort((a,b) => a.priority - b.priority)
-          .slice(0, 3)
-        setSos(top)
-      })
-      .catch(() => setSos([]))
-      .finally(() => setLoading(false))
-  }, [])
-
-  async function copy(text: string){
-    try { 
-      await navigator.clipboard.writeText(text)
-      // Opcional: mostrar toast de confirmación
-    } catch {}
-  }
+export default function Home() {
+  const isAuthenticated = !!getToken()
+  const [selectedMood, setSelectedMood] = useState<Mood | undefined>()
 
   return (
-    <div className="space-y-8">
-      {/* Hero Section */}
-      <Card gradient className="text-center py-8 px-6">
-        <div className="text-6xl mb-4">💚</div>
-        <h2 className="text-3xl font-bold text-gray-800 mb-3">
-          Bienvenido a tu espacio seguro
-        </h2>
-        <p className="text-gray-600 max-w-2xl mx-auto mb-6">
-          Un lugar donde puedes expresar tus emociones libremente, encontrar recursos de apoyo y cuidar tu bienestar emocional día a día.
-        </p>
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
-          <Link to="/diary">
-            <Button variant="primary" size="lg" fullWidth={false}>
-              <span>�</span>
-              Escribir en mi diario
-            </Button>
-          </Link>
-          <Link to="/sos">
-            <Button variant="secondary" size="lg" fullWidth={false}>
-              <span>🆘</span>
-              Ver recursos SOS
-            </Button>
-          </Link>
-        </div>
-      </Card>
+    <div className="min-h-screen py-8 space-y-8 animate-fadeIn">
+      <AppHeader />
 
-      {/* Main Features Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {/* Diario Card */}
-        <Card hover className="flex flex-col">
-          <div className="text-4xl mb-4">📔</div>
-          <h3 className="text-xl font-bold text-gray-800 mb-2">
-            Diario personal
-          </h3>
-          <p className="text-gray-600 mb-4 flex-1">
-            Escribe cómo te sientes cada día. Tu diario es privado y solo tú puedes verlo. Expresar tus emociones es el primer paso hacia el bienestar.
+      <Card gradient animated>
+        <div className="text-center mb-6">
+          <h2 className="text-2xl sm:text-3xl font-bold text-[#333333] mb-3">
+            ¿Cómo te sientes hoy?
+          </h2>
+          <p className="text-base sm:text-lg text-[#555555] max-w-xl mx-auto">
+            Está bien tomarte un momento para reconocer tus emociones.
+            No hay respuestas correctas o incorrectas.
           </p>
-          <Link to="/diary" className="mt-auto">
-            <Button variant="secondary" fullWidth>
-              Ir al Diario →
-            </Button>
-          </Link>
-        </Card>
-
-        {/* Tips Card */}
-        <Card className="flex flex-col bg-gradient-to-br from-emerald-50 to-white">
-          <div className="text-4xl mb-4">🌟</div>
-          <h3 className="text-xl font-bold text-gray-800 mb-2">
-            Tips de bienestar
-          </h3>
-          <ul className="space-y-3 text-gray-600 flex-1">
-            <li className="flex items-start gap-2">
-              <span className="text-emerald-500 font-bold">✓</span>
-              <span>Respira profundo 3 veces antes de reaccionar</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-emerald-500 font-bold">✓</span>
-              <span>Pequeños logros cuentan: escribe 2 líneas hoy</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-emerald-500 font-bold">✓</span>
-              <span>Conecta con alguien de confianza</span>
-            </li>
-            <li className="flex items-start gap-2">
-              <span className="text-emerald-500 font-bold">✓</span>
-              <span>Cada día es una nueva oportunidad</span>
-            </li>
-          </ul>
-        </Card>
-      </div>
-
-      {/* SOS Quick Access */}
-      <Card className="bg-gradient-to-br from-red-50 via-white to-orange-50">
-        <div className="flex items-center gap-3 mb-4">
-          <div className="text-4xl">🆘</div>
-          <div>
-            <h3 className="text-xl font-bold text-gray-800">
-              Recursos de ayuda inmediata
-            </h3>
-            <p className="text-gray-600 text-sm">
-              Acceso rápido a líneas de ayuda y recursos de emergencia
-            </p>
-          </div>
         </div>
 
-        {loading ? (
-          <LoadingSpinner />
-        ) : sos.length === 0 ? (
-          <p className="text-gray-500 text-center py-4">
-            No hay recursos configurados todavía.
-          </p>
-        ) : (
-          <div className="space-y-3">
-            {sos.map(x => (
-              <div 
-                key={x.id} 
-                className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-4 bg-white rounded-xl border border-red-100"
-              >
-                <div className="flex items-center gap-2">
-                  <span className="text-2xl">☎️</span>
-                  <span className="font-medium text-gray-800">{x.title}</span>
-                </div>
+        <MoodSelector value={selectedMood} onChange={setSelectedMood} />
 
-                <div className="flex gap-2">
-                  {x.type === 'CALL' && x.url?.startsWith('tel:') && (
-                    <>
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        onClick={() => copy(x.url!.replace('tel:',''))}
-                        title="Copiar al portapapeles"
-                      >
-                        📋 Copiar
-                      </Button>
-                      <a href={x.url!}>
-                        <Button
-                          variant="primary"
-                          size="sm"
-                        >
-                          📞 {isMobile ? 'Llamar' : 'Llamar'}
-                        </Button>
-                      </a>
-                    </>
-                  )}
-
-                  {x.type === 'LINK' && x.url && (
-                    <a
-                      href={x.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <Button variant="secondary" size="sm">
-                        🔗 Abrir enlace
-                      </Button>
-                    </a>
-                  )}
-
-                  {x.type === 'TEXT' && (
-                    <span className="text-gray-500 text-sm">ℹ️ Información disponible</span>
-                  )}
-                </div>
-              </div>
-            ))}
+        {selectedMood && (
+          <div className="mt-6 text-center">
+            {isAuthenticated ? (
+              <Link to="/diary">
+                <Button variant="primary" size="lg" icon={<JournalIcon />}>
+                  Escribir en mi diario
+                </Button>
+              </Link>
+            ) : (
+              <Link to="/register">
+                <Button variant="primary" size="lg" icon={<HeartIcon />}>
+                  Comenzar mi camino
+                </Button>
+              </Link>
+            )}
           </div>
         )}
+      </Card>
 
-        <div className="mt-4 text-center">
-          <Link to="/sos">
-            <Button variant="secondary" fullWidth>
-              Ver todos los recursos →
-            </Button>
-          </Link>
+      <div>
+        <h2 className="text-2xl sm:text-3xl font-bold text-[#333333] mb-6 text-center">
+          Herramientas para tu bienestar
+        </h2>
+
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <EmotionalCard
+            title="Calma Rápida"
+            description="Técnicas de 5 minutos para encontrar paz en momentos difíciles. Respira, todo estará bien."
+            icon={<CloudIcon size={32} />}
+            color="#7DD3FC"
+            href="/calm"
+          />
+
+          <EmotionalCard
+            title="Ejercicio de Respiración"
+            description="Guías de respiración consciente para reducir la ansiedad y conectar contigo."
+            icon={<BreathIcon size={32} />}
+            color="#A78BFA"
+            href="/breath"
+          />
+
+          <EmotionalCard
+            title="Reflexión Guiada"
+            description="Preguntas suaves para explorar tus pensamientos y emociones con cuidado."
+            icon={<FlowerIcon size={32} />}
+            color="#FBCFE8"
+            href="/reflection"
+          />
+
+          <EmotionalCard
+            title="Técnicas de Grounding"
+            description="Ejercicios para volver al presente cuando te sientas abrumado o desconectado."
+            icon={<CalmIcon size={32} />}
+            color="#BBF7D0"
+            href="/grounding"
+          />
+        </div>
+      </div>
+
+      <Card className="text-center">
+        <div className="max-w-2xl mx-auto">
+          <div className="inline-flex items-center justify-center w-14 h-14 mb-4 rounded-2xl bg-[#FBCFE8]/30">
+            <HeartIcon size={28} color="#EC4899" />
+          </div>
+          
+          <h3 className="text-xl sm:text-2xl font-bold text-[#333333] mb-3">
+            No estás solo en esto
+          </h3>
+          
+          <p className="text-base sm:text-lg text-[#555555] leading-relaxed mb-6">
+            Cuidar tu salud mental es un acto de valentía y amor propio.
+            Cada paso que das, por pequeño que sea, es importante.
+          </p>
+
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            {isAuthenticated ? (
+              <>
+                <Link to="/dashboard">
+                  <Button variant="primary" size="md">
+                    Ir a mi espacio
+                  </Button>
+                </Link>
+                <Link to="/sos">
+                  <Button variant="danger" size="md">
+                    Necesito ayuda ahora
+                  </Button>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to="/register">
+                  <Button variant="primary" size="md">
+                    Crear mi cuenta
+                  </Button>
+                </Link>
+                <Link to="/login">
+                  <Button variant="secondary" size="md">
+                    Iniciar sesión
+                  </Button>
+                </Link>
+              </>
+            )}
+          </div>
         </div>
       </Card>
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+        <Card className="text-center">
+          <div className="text-4xl mb-3"></div>
+          <h4 className="font-bold text-[#333333] mb-2">Privado y Seguro</h4>
+          <p className="text-sm text-[#555555]">
+            Tus pensamientos son solo tuyos. Mantenemos tu información segura y privada.
+          </p>
+        </Card>
+
+        <Card className="text-center">
+          <div className="text-4xl mb-3"></div>
+          <h4 className="font-bold text-[#333333] mb-2">Sin Juicios</h4>
+          <p className="text-sm text-[#555555]">
+            Este es un espacio seguro para expresarte libremente, sin miedo ni vergüenza.
+          </p>
+        </Card>
+
+        <Card className="text-center">
+          <div className="text-4xl mb-3"></div>
+          <h4 className="font-bold text-[#333333] mb-2">A Tu Ritmo</h4>
+          <p className="text-sm text-[#555555]">
+            No hay prisas. Avanza a tu propio paso, cuando te sientas listo.
+          </p>
+        </Card>
+      </div>
     </div>
   )
 }
