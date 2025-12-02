@@ -1,0 +1,5 @@
+[phases.build]
+cmds = ["cd nanevida-backend && python manage.py collectstatic --noinput"]
+
+[start]
+cmd = "cd nanevida-backend && gunicorn nane.wsgi:application --bind 0.0.0.0:$PORT --workers 4 --timeout 120"

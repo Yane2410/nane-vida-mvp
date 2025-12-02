@@ -1,0 +1,3 @@
+# Este archivo es para Railway deployment
+# El código real está en nanevida-backend/
+-r nanevida-backend/requirements.txt
