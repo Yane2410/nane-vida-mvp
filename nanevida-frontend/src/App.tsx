@@ -52,12 +52,26 @@ export default function App(){
               </Button>
             </Link>
             {isAuth && (
-              <Link to="/profile">
-                <Button variant="secondary" size="md">
-                  <span>👤</span>
-                  Perfil
-                </Button>
-              </Link>
+              <>
+                <Link to="/statistics">
+                  <Button variant="secondary" size="md">
+                    <span>📊</span>
+                    Estadísticas
+                  </Button>
+                </Link>
+                <Link to="/profile">
+                  <Button variant="secondary" size="md">
+                    <span>👤</span>
+                    Perfil
+                  </Button>
+                </Link>
+                <Link to="/settings">
+                  <Button variant="secondary" size="md">
+                    <span>⚙️</span>
+                    Configuración
+                  </Button>
+                </Link>
+              </>
             )}
             <Link to="/sos">
               <Button variant="secondary" size="md">
