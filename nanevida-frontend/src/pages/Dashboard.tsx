@@ -34,30 +34,41 @@ export default function Dashboard() {
 
   async function loadDashboard() {
     try {
-      const [statsRes, profileRes] = await Promise.all([
-        api.get('/entries/stats/'),
-        api.get('/profile/')
-      ])
-      setStats(statsRes.data)
+      // Intentar cargar stats y profile
+      const profileRes = await api.get('/profile/')
       setProfile(profileRes.data)
-    } catch (e: any) {
-      if (e?.response?.status === 404) {
-        // Si no existe el endpoint de stats, usar valores por defecto
+      
+      // Intentar cargar stats (puede no existir el endpoint)
+      try {
+        const statsRes = await api.get('/entries/stats/')
+        setStats(statsRes.data)
+      } catch (statsError: any) {
+        // Si no existe el endpoint, usar valores por defecto
+        console.log('Stats endpoint no disponible, usando valores por defecto')
         setStats({
           total_entries: 0,
           entries_this_week: 0,
           entries_this_month: 0,
           streak_days: 0
         })
-        try {
-          const profileRes = await api.get('/profile/')
-          setProfile(profileRes.data)
-        } catch {
-          setError('Error al cargar el perfil')
-        }
-      } else {
-        setError('Error al cargar el dashboard')
       }
+    } catch (e: any) {
+      console.error('Error loading dashboard:', e)
+      // Si falla el profile, mostrar valores por defecto para todo
+      setError('Error al cargar el dashboard. Verifica tu conexión.')
+      setStats({
+        total_entries: 0,
+        entries_this_week: 0,
+        entries_this_month: 0,
+        streak_days: 0
+      })
+      setProfile({
+        username: 'Usuario',
+        email: '',
+        bio: '',
+        avatar: null,
+        created_at: new Date().toISOString()
+      })
     } finally {
       setLoading(false)
     }
