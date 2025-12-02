@@ -1,12 +1,10 @@
 [phases.setup]
 nixPkgs = ["python311", "postgresql"]
-aptPkgs = []
 
 [phases.install]
 cmds = [
-  "cd nanevida-backend",
   "pip install --upgrade pip",
-  "pip install -r requirements.txt"
+  "cd nanevida-backend && pip install -r requirements.txt"
 ]
 
 [phases.build]
