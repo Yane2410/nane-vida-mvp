@@ -267,6 +267,11 @@ if IS_DEVELOPMENT:
 if FRONTEND_ORIGIN:
     CORS_ALLOWED_ORIGINS.append(FRONTEND_ORIGIN)
 
+# Permitir todos los subdominios de Vercel para deployments preview
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    r"^https://.*\.vercel\.app$",
+]
+
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = [
     "accept",
@@ -296,6 +301,12 @@ if FRONTEND_ORIGIN:
     CSRF_TRUSTED_ORIGINS.append(FRONTEND_ORIGIN)
 if BACKEND_ORIGIN:
     CSRF_TRUSTED_ORIGINS.append(BACKEND_ORIGIN)
+
+# Permitir subdominios de Vercel en CSRF
+CSRF_TRUSTED_ORIGINS.extend([
+    "https://*.vercel.app",
+])
+
 
 # === Content Security Policy (CSP) - django-csp 4.0+ format ===
 CONTENT_SECURITY_POLICY = {
