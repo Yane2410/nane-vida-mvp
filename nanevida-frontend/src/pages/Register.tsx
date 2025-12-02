@@ -181,7 +181,8 @@ export default function Register() {
             variant="primary"
             size="lg"
             fullWidth
-            disabled={loading}
+            isLoading={loading}
+            icon={<span>✨</span>}
           >
             {loading ? 'Registrando...' : 'Crear cuenta'}
           </Button>
@@ -192,7 +193,7 @@ export default function Register() {
             ¿Ya tienes cuenta?{' '}
             <Link
               to="/login"
-              className="text-emerald-600 hover:text-emerald-700 font-medium"
+              className="text-emerald-600 hover:text-emerald-700 font-medium transition-colors duration-200 hover:underline"
             >
               Inicia sesión
             </Link>

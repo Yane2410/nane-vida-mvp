@@ -83,8 +83,8 @@ export default function Login(){
               type="submit"
               variant="primary"
               fullWidth
-              disabled={loading}
-              icon={loading ? <span className="animate-spin">⏳</span> : <span>🚀</span>}
+              isLoading={loading}
+              icon={<span>🚀</span>}
             >
               {loading ? 'Entrando...' : 'Entrar'}
             </Button>
@@ -104,7 +104,7 @@ export default function Login(){
             ¿No tienes cuenta?{' '}
             <Link
               to="/register"
-              className="text-emerald-600 hover:text-emerald-700 font-medium"
+              className="text-emerald-600 hover:text-emerald-700 font-medium transition-colors duration-200 hover:underline"
             >
               Regístrate aquí
             </Link>
