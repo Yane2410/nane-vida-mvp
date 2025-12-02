@@ -4,6 +4,14 @@ import { api } from '../api'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
+import AppHeader from '../components/ui/AppHeader'
+import EmotionalCard from '../components/ui/EmotionalCard'
+import {
+  JournalIcon,
+  HeartIcon,
+  CalmIcon,
+  SparkleIcon,
+} from '../assets/icons'
 
 type DashboardStats = {
   total_entries: number
@@ -85,9 +93,13 @@ export default function Dashboard() {
   if (error) {
     return (
       <Card className="text-center">
-        <p className="text-red-600 mb-4">⚠️ {error}</p>
-        <Button variant="secondary" onClick={loadDashboard}>
-          Reintentar
+        <div className="text-5xl mb-4" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>😔</div>
+        <h3 className="text-xl font-bold text-[#333333] mb-3">
+          Algo no salió como esperábamos
+        </h3>
+        <p className="text-[#555555] mb-6">{error}</p>
+        <Button variant="primary" onClick={loadDashboard}>
+          Intentar nuevamente
         </Button>
       </Card>
     )
@@ -102,181 +114,181 @@ export default function Dashboard() {
     : 'Desconocido'
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-8 animate-fadeIn">
       {/* Welcome Header */}
+      <AppHeader 
+        greeting={`Hola, ${profile?.username}`}
+        subtitle="Tu espacio personal de bienestar. Estamos aquí para acompañarte."
+      />
+
+      {/* Profile Card */}
       <Card gradient className="relative overflow-hidden">
-        {/* Decorative circles */}
-        <div className="absolute top-0 right-0 w-64 h-64 bg-gradient-to-br from-indigo-400/20 to-purple-500/20 rounded-full blur-3xl -translate-y-1/2 translate-x-1/2" />
-        <div className="absolute bottom-0 left-0 w-48 h-48 bg-gradient-to-br from-emerald-400/20 to-teal-500/20 rounded-full blur-3xl translate-y-1/2 -translate-x-1/2" />
-        
-        <div className="relative flex flex-col sm:flex-row items-center gap-6">
+        <div className="flex flex-col sm:flex-row items-center gap-6">
           {profile?.avatar ? (
             <img 
               src={profile.avatar} 
               alt="Avatar" 
-              className="w-24 h-24 rounded-2xl border-4 border-white/60 shadow-2xl object-cover ring-4 ring-indigo-500/20"
+              className="w-20 h-20 rounded-2xl border-4 border-white/60 shadow-lg object-cover"
             />
           ) : (
-            <div className="w-24 h-24 rounded-2xl bg-gradient-to-br from-indigo-500 via-purple-600 to-pink-600 flex items-center justify-center text-5xl border-4 border-white/60 shadow-2xl ring-4 ring-indigo-500/20">
-              👤
+            <div className="w-20 h-20 rounded-2xl bg-gradient-to-br from-[#A78BFA] to-[#C4B5FD] flex items-center justify-center text-4xl border-4 border-white/60 shadow-lg">
+              <HeartIcon size={32} color="white" />
             </div>
           )}
           <div className="text-center sm:text-left flex-1">
-            <h1 className="text-4xl font-bold text-slate-800 mb-2">
-              ¡Hola, {profile?.username}! 👋
-            </h1>
-            <p className="text-slate-600 font-medium mb-1">
+            <h2 className="text-2xl font-bold text-[#333333] mb-1">
+              {profile?.username}
+            </h2>
+            <p className="text-[#555555] text-sm mb-2">
               Miembro desde {memberSince}
             </p>
             {profile?.bio && (
-              <p className="text-sm text-slate-500 mt-3 italic max-w-2xl bg-white/50 px-4 py-2 rounded-lg">
+              <p className="text-sm text-[#666666] italic bg-white/60 px-4 py-2 rounded-xl max-w-xl">
                 "{profile.bio}"
               </p>
             )}
           </div>
+          <Link to="/profile">
+            <Button variant="secondary" size="sm">
+              Editar perfil
+            </Button>
+          </Link>
         </div>
       </Card>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {/* Total Entries */}
-        <Card hover className="text-center group relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <div className="relative">
-            <div className="text-5xl mb-3">📝</div>
-            <div className="text-4xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-1">
-              {stats?.total_entries || 0}
-            </div>
-            <div className="text-sm text-slate-600 font-semibold">Entradas Totales</div>
+        <Card hover className="text-center">
+          <div className="text-4xl mb-3" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>📝</div>
+          <div className="text-3xl font-bold text-[#A78BFA] mb-1">
+            {stats?.total_entries || 0}
           </div>
+          <div className="text-sm text-[#555555] font-medium">Entradas totales</div>
         </Card>
 
         {/* This Week */}
-        <Card hover className="text-center group relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-teal-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <div className="relative">
-            <div className="text-5xl mb-3">📅</div>
-            <div className="text-4xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent mb-1">
-              {stats?.entries_this_week || 0}
-            </div>
-            <div className="text-sm text-slate-600 font-semibold">Esta Semana</div>
+        <Card hover className="text-center">
+          <div className="text-4xl mb-3" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>📅</div>
+          <div className="text-3xl font-bold text-[#7DD3FC] mb-1">
+            {stats?.entries_this_week || 0}
           </div>
+          <div className="text-sm text-[#555555] font-medium">Esta semana</div>
         </Card>
 
         {/* This Month */}
-        <Card hover className="text-center group relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <div className="relative">
-            <div className="text-5xl mb-3">🗓️</div>
-            <div className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-1">
-              {stats?.entries_this_month || 0}
-            </div>
-            <div className="text-sm text-slate-600 font-semibold">Este Mes</div>
+        <Card hover className="text-center">
+          <div className="text-4xl mb-3" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>🗓️</div>
+          <div className="text-3xl font-bold text-[#FBCFE8] mb-1">
+            {stats?.entries_this_month || 0}
           </div>
+          <div className="text-sm text-[#555555] font-medium">Este mes</div>
         </Card>
 
         {/* Streak */}
-        <Card hover className="text-center group relative overflow-hidden">
-          <div className="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-red-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <div className="relative">
-            <div className="text-5xl mb-3">🔥</div>
-            <div className="text-4xl font-bold bg-gradient-to-r from-orange-600 to-red-600 bg-clip-text text-transparent mb-1">
-              {stats?.streak_days || 0}
-            </div>
-            <div className="text-sm text-slate-600 font-semibold">Racha (días)</div>
+        <Card hover className="text-center">
+          <div className="text-4xl mb-3" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>🔥</div>
+          <div className="text-3xl font-bold text-[#FED7AA] mb-1">
+            {stats?.streak_days || 0}
           </div>
+          <div className="text-sm text-[#555555] font-medium">Racha (días)</div>
         </Card>
       </div>
 
       {/* Quick Actions */}
-      <Card>
-        <h2 className="text-2xl font-bold text-slate-800 mb-5 flex items-center gap-3">
-          <span className="text-3xl">⚡</span>
-          <span>Acciones Rápidas</span>
+      <div>
+        <h2 className="text-2xl font-bold text-[#333333] mb-6 text-center">
+          ¿Qué te gustaría hacer hoy?
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-          <Link to="/diary">
-            <Button variant="primary" size="lg" fullWidth icon={<span>✍️</span>}>
-              Nueva Entrada
-            </Button>
-          </Link>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <EmotionalCard
+            title="Nueva Entrada"
+            description="Escribe sobre cómo te sientes hoy. Tu voz importa."
+            icon={<JournalIcon size={32} />}
+            color="#A78BFA"
+            href="/diary"
+          />
           
-          <Link to="/diary">
-            <Button variant="secondary" size="lg" fullWidth icon={<span>📔</span>}>
-              Ver Diario
-            </Button>
-          </Link>
+          <EmotionalCard
+            title="Ver mi Diario"
+            description="Revisa tus entradas anteriores y observa tu progreso."
+            icon={<JournalIcon size={32} />}
+            color="#7DD3FC"
+            href="/diary"
+          />
 
-          <Link to="/profile">
-            <Button variant="secondary" size="lg" fullWidth icon={<span>👤</span>}>
-              Editar Perfil
-            </Button>
-          </Link>
+          <EmotionalCard
+            title="Ejercicios de Calma"
+            description="Técnicas para encontrar paz cuando más lo necesitas."
+            icon={<CalmIcon size={32} />}
+            color="#BBF7D0"
+            href="/calm"
+          />
 
-          <Link to="/sos">
-            <Button variant="danger" size="lg" fullWidth icon={<span>🆘</span>}>
-              Líneas de Ayuda
-            </Button>
-          </Link>
+          <EmotionalCard
+            title="Líneas de Ayuda"
+            description="Acceso inmediato a recursos de apoyo profesional."
+            icon={<HeartIcon size={32} />}
+            color="#FBCFE8"
+            href="/sos"
+          />
 
-          <Link to="/statistics">
-            <Button variant="secondary" size="lg" fullWidth icon={<span>📊</span>}>
-              Estadísticas
-            </Button>
-          </Link>
+          <EmotionalCard
+            title="Mis Estadísticas"
+            description="Visualiza patrones y celebra tus logros."
+            icon={<SparkleIcon size={32} />}
+            color="#C4B5FD"
+            href="/statistics"
+          />
 
-          <Link to="/settings">
-            <Button variant="secondary" size="lg" fullWidth icon={<span>⚙️</span>}>
-              Configuración
-            </Button>
-          </Link>
+          <EmotionalCard
+            title="Configuración"
+            description="Personaliza tu experiencia según tus necesidades."
+            icon={<span className="text-2xl">⚙️</span>}
+            color="#FED7AA"
+            href="/settings"
+          />
         </div>
-      </Card>
+      </div>
 
       {/* Recent Activity */}
       {stats?.last_entry_date && (
-        <Card className="relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-indigo-400/10 to-purple-500/10 rounded-full blur-2xl" />
-          <div className="relative">
-            <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-              <span className="text-2xl">🕒</span>
-              <span>Actividad Reciente</span>
-            </h3>
-            <div className="bg-gradient-to-r from-indigo-50/80 to-purple-50/80 backdrop-blur-sm border border-indigo-200/40 rounded-xl p-5">
-              <p className="text-slate-700 font-medium">
-                <strong className="text-indigo-600">Última entrada:</strong>{' '}
-                {new Date(stats.last_entry_date).toLocaleString('es-ES', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                  hour: '2-digit',
-                  minute: '2-digit'
-                })}
+        <Card>
+          <h3 className="text-xl font-bold text-[#333333] mb-4 flex items-center gap-2">
+            <span className="text-2xl" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>🕒</span>
+            <span>Actividad reciente</span>
+          </h3>
+          <div className="bg-gradient-to-r from-[#A78BFA]/10 to-[#C4B5FD]/10 border border-[#A78BFA]/20 rounded-2xl p-5">
+            <p className="text-[#444444] font-medium">
+              <strong className="text-[#A78BFA]">Última entrada:</strong>{' '}
+              {new Date(stats.last_entry_date).toLocaleString('es-ES', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric',
+                hour: '2-digit',
+                minute: '2-digit'
+              })}
+            </p>
+            {stats.average_mood && (
+              <p className="text-[#444444] font-medium mt-2">
+                <strong className="text-[#A78BFA]">Estado de ánimo promedio:</strong> {stats.average_mood}
               </p>
-              {stats.average_mood && (
-                <p className="text-slate-700 font-medium mt-2">
-                  <strong className="text-purple-600">Estado de ánimo promedio:</strong> {stats.average_mood}
-                </p>
-              )}
-            </div>
+            )}
           </div>
         </Card>
       )}
 
       {/* Tips Card */}
-      <Card className="relative overflow-hidden">
-        <div className="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-emerald-400/10 to-teal-500/10 rounded-full blur-2xl" />
-        <div className="relative">
-          <h3 className="text-xl font-bold text-slate-800 mb-4 flex items-center gap-2">
-            <span className="text-2xl">💡</span>
-            <span>Consejo del Día</span>
-          </h3>
-          <p className="text-slate-700 leading-relaxed font-medium bg-gradient-to-r from-emerald-50/80 to-teal-50/80 backdrop-blur-sm border border-emerald-200/40 rounded-xl p-5">
-            Escribir en tu diario regularmente puede ayudarte a procesar emociones, 
-            reducir el estrés y mejorar tu bienestar mental. ¡Intenta escribir al menos 
-            una entrada por semana!
-          </p>
-        </div>
+      <Card>
+        <h3 className="text-xl font-bold text-[#333333] mb-4 flex items-center gap-2">
+          <span className="text-2xl" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>💡</span>
+          <span>Recuerda</span>
+        </h3>
+        <p className="text-[#444444] leading-relaxed bg-gradient-to-r from-[#BBF7D0]/20 to-[#7DD3FC]/20 border border-[#BBF7D0]/30 rounded-2xl p-5">
+          Escribir en tu diario es una forma poderosa de conectar contigo mismo. 
+          No importa si escribes mucho o poco, lo importante es que estés aquí, 
+          dándote este espacio. Cada palabra cuenta, cada sentimiento es válido. 💚
+        </p>
       </Card>
     </div>
   )
