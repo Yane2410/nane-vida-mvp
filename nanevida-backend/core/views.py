@@ -1,11 +1,10 @@
 from rest_framework import viewsets, permissions, status, generics
 from rest_framework.response import Response
 from rest_framework.decorators import action, api_view, permission_classes
+from rest_framework.throttling import AnonRateThrottle, UserRateThrottle
+from rest_framework_simplejwt.views import TokenObtainPairView
 from django.db.models import Count
 from datetime import datetime, timedelta
-from django_ratelimit.decorators import ratelimit
-from django.utils.decorators import method_decorator
-from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import Entry, SOSResource, UserProfile
 from .serializers import (
     EntrySerializer,
@@ -16,22 +15,36 @@ from .serializers import (
 from .permissions import IsOwner
 
 
-# Rate Limited Token View
-@method_decorator(ratelimit(key='ip', rate='5/m', method='POST'), name='post')
-class RateLimitedTokenObtainPairView(TokenObtainPairView):
-    """Vista de login con rate limiting: 5 intentos por minuto por IP"""
-    pass
+# Custom throttle for login
+class LoginRateThrottle(AnonRateThrottle):
+    """Rate limit para login: 5 intentos por minuto"""
+    rate = '5/min'
 
-@method_decorator(ratelimit(key='ip', rate='10/m', method='POST'), name='create')
+
+# Custom throttle for entry creation
+class EntryCreationThrottle(UserRateThrottle):
+    """Rate limit para creación de entradas: 10 por minuto"""
+    rate = '10/min'
+
+
+class RateLimitedTokenObtainPairView(TokenObtainPairView):
+    """Vista de login con rate limiting: 5 intentos por minuto"""
+    throttle_classes = [LoginRateThrottle]
+
+
 class EntryViewSet(viewsets.ModelViewSet):
     serializer_class = EntrySerializer
     permission_classes = [permissions.IsAuthenticated, IsOwner]
+    throttle_classes = [EntryCreationThrottle]
 
     def get_queryset(self):
-        return Entry.objects.filter(owner=self.request.user).order_by('-created_at')
+        return Entry.objects.filter(
+            owner=self.request.user
+        ).order_by('-created_at')
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
+
 
 class SOSResourceViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = SOSResource.objects.filter(active=True).order_by('priority')
