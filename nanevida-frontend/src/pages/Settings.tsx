@@ -5,6 +5,7 @@ import Button from '../components/ui/Button'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
 import { Link, useNavigate } from 'react-router-dom'
 import { useOnboarding } from '../contexts/OnboardingContext'
+import ReminderSettings from '../components/ui/ReminderSettings'
 
 type Profile = {
   username: string
@@ -190,6 +191,18 @@ export default function Settings() {
           <p className="font-medium">{message}</p>
         </Card>
       )}
+
+      {/* Reminders Section */}
+      <Card>
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center gap-2">
+          <span>⏰</span>
+          Recordatorios
+        </h2>
+        <p className="text-gray-600 dark:text-gray-300 mb-6">
+          Configura recordatorios para no olvidar tus ejercicios de bienestar emocional.
+        </p>
+        <ReminderSettings />
+      </Card>
 
       {/* Profile Settings */}
       <Card>

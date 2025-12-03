@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ToastProvider } from './contexts/ToastContext'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { OnboardingProvider } from './contexts/OnboardingContext'
+import { ReminderProvider } from './contexts/ReminderContext'
 import App from './App'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -43,9 +44,11 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider>
       <ToastProvider>
-        <OnboardingProvider>
-          <RouterProvider router={router} />
-        </OnboardingProvider>
+        <ReminderProvider>
+          <OnboardingProvider>
+            <RouterProvider router={router} />
+          </OnboardingProvider>
+        </ReminderProvider>
       </ToastProvider>
     </ThemeProvider>
   </React.StrictMode>
