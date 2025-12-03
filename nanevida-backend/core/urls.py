@@ -20,5 +20,7 @@ urlpatterns = [
     path('register/', UserRegistrationView.as_view(), name='register'),
     path('profile/', UserProfileView.as_view(), name='profile'),
     path('mood-stats/', mood_stats, name='mood-stats'),
+    # Alias para compatibilidad con frontend
+    path('entries/stats/', mood_stats, name='entries-stats'),
 ]
 
