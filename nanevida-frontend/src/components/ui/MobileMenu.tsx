@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import Button from './Button'
 
@@ -14,11 +15,11 @@ export default function MobileMenu({ isAuth, onLogout }: MobileMenuProps) {
   const closeMenu = () => setIsOpen(false)
 
   return (
-    <div className="md:hidden">
+    <>
       {/* Hamburger Button */}
       <button
         onClick={toggleMenu}
-        className="p-2 rounded-lg hover:bg-white/50 transition-colors"
+        className="md:hidden p-2 rounded-lg hover:bg-white/50 transition-colors relative z-10"
         aria-label="Menú"
       >
         <svg
@@ -38,20 +39,23 @@ export default function MobileMenu({ isAuth, onLogout }: MobileMenuProps) {
         </svg>
       </button>
 
-      {/* Overlay */}
-      {isOpen && (
-        <div
-          className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40"
-          onClick={closeMenu}
-        />
-      )}
+      {/* Portal para Overlay y Menu Panel */}
+      {createPortal(
+        <>
+          {/* Overlay */}
+          <div
+            className={`fixed inset-0 bg-black/30 backdrop-blur-sm transition-opacity duration-300 ${
+              isOpen ? 'opacity-100 z-[9998]' : 'opacity-0 pointer-events-none -z-10'
+            }`}
+            onClick={closeMenu}
+          />
 
-      {/* Menu Panel */}
-      <div
-        className={`fixed top-0 right-0 h-full w-72 bg-white shadow-2xl z-50 transform transition-transform duration-300 ease-in-out ${
-          isOpen ? 'translate-x-0' : 'translate-x-full'
-        }`}
-      >
+          {/* Menu Panel */}
+          <div
+            className={`fixed top-0 right-0 h-full w-72 bg-white shadow-2xl z-[9999] transform transition-transform duration-300 ease-in-out ${
+              isOpen ? 'translate-x-0' : 'translate-x-full'
+            }`}
+          >
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-slate-200">
@@ -172,6 +176,9 @@ export default function MobileMenu({ isAuth, onLogout }: MobileMenuProps) {
           </nav>
         </div>
       </div>
-    </div>
+    </>,
+    document.body
+  )}
+</>
   )
 }
