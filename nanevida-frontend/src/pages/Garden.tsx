@@ -28,7 +28,7 @@ export default function Garden() {
   const getGentleMessage = () => {
     if (!garden) return ''
     if (garden.total_plants === 0) {
-      return '¡Bienvenida a tu jardín! Cada vez que practiques autocuidado, plantarás una semilla.'
+      return '¡Te damos la bienvenida a tu jardín! Cada vez que practiques autocuidado, plantarás una semilla.'
     }
     if (garden.current_gentle_streak >= 7) {
       return `Has cuidado tu jardín ${garden.current_gentle_streak} días. Tu dedicación florece hermosamente. 🌸`

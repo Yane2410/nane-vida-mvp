@@ -27,7 +27,7 @@ const MOOD_CONFIG: Record<string, { label: string; emoji: string; color: string 
   happy: { label: 'Feliz', emoji: '🙂', color: '#84cc16' },
   neutral: { label: 'Neutral', emoji: '😐', color: '#6b7280' },
   sad: { label: 'Triste', emoji: '😢', color: '#3b82f6' },
-  anxious: { label: 'Ansioso/a', emoji: '😰', color: '#eab308' },
+  anxious: { label: 'Ansios@', emoji: '😰', color: '#eab308' },
   angry: { label: 'Enojado/a', emoji: '😡', color: '#ef4444' },
 };
 

@@ -14,7 +14,7 @@ const MOOD_MAP: Record<string, { emoji: string; label: string; color: string }> 
   happy: { emoji: '🙂', label: 'Feliz', color: 'bg-lime-100 text-lime-800' },
   neutral: { emoji: '😐', label: 'Neutral', color: 'bg-gray-100 text-gray-800' },
   sad: { emoji: '😢', label: 'Triste', color: 'bg-blue-100 text-blue-800' },
-  anxious: { emoji: '😰', label: 'Ansioso/a', color: 'bg-yellow-100 text-yellow-800' },
+  anxious: { emoji: '😰', label: 'Ansios@', color: 'bg-yellow-100 text-yellow-800' },
   angry: { emoji: '😡', label: 'Enojado/a', color: 'bg-red-100 text-red-800' },
 }
 

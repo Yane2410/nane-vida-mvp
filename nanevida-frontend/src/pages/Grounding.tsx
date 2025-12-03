@@ -186,7 +186,7 @@ export default function Grounding() {
               ¡Excelente trabajo!
             </h2>
             <p className={`text-[#555555] mb-6 ${isSmall ? 'text-base' : 'text-lg'}`}>
-              Has completado el ejercicio de grounding. ¿Te sientes más presente y conectado con el momento actual?
+              Has completado el ejercicio de grounding. ¿Te sientes más presente y conectad@ con el momento actual?
             </p>
             
             <div className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/50 mb-6">
@@ -259,7 +259,7 @@ export default function Grounding() {
                   Recuerda
                 </h4>
                 <p className="text-[#555555] text-sm">
-                  Puedes usar esta técnica en cualquier momento que te sientas abrumado, ansioso o desconectado. 
+                  Puedes usar esta técnica en cualquier momento que te sientas abrum@d@, ansios@ o desconectad@. 
                   Es una herramienta poderosa para volver al aquí y ahora.
                 </p>
               </div>
@@ -292,7 +292,7 @@ export default function Grounding() {
                 Técnica de Grounding 5-4-3-2-1
               </h1>
               <p className="text-[#555555] text-lg">
-                Un ejercicio sensorial para conectarte con el presente cuando te sientas abrumado o ansioso
+                Un ejercicio sensorial para conectarte con el presente cuando te sientas abrum@d@ o ansios@
               </p>
             </div>
           </div>

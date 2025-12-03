@@ -101,7 +101,7 @@ export default function GardenWidget() {
           <p className="text-sm text-gray-700 dark:text-gray-300 italic text-center">
             {garden.current_gentle_streak > 0 
               ? `✨ ${garden.current_gentle_streak} ${garden.current_gentle_streak === 1 ? 'día' : 'días'} nutriendo tu bienestar`
-              : '🌱 Tu jardín te espera cuando estés listo'
+              : '🌱 Tu jardín te espera cuando estés list@'
             }
           </p>
         </div>

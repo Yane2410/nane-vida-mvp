@@ -16,8 +16,8 @@ const EMOJIS = [
   { emoji: '', label: 'Feliz' },
   { emoji: '', label: 'Triste' },
   { emoji: '', label: 'Enojado' },
-  { emoji: '', label: 'Ansioso' },
-  { emoji: '', label: 'Cansado' },
+  { emoji: '', label: 'Ansios@' },
+  { emoji: '', label: 'Cansad@' },
   { emoji: '', label: 'Emocionado' },
   { emoji: '', label: 'Tranquilo' },
   { emoji: '', label: 'Agradecido' },
@@ -28,7 +28,7 @@ const MOODS = [
   { value: 'happy', emoji: '', label: 'Feliz' },
   { value: 'neutral', emoji: '', label: 'Neutral' },
   { value: 'sad', emoji: '', label: 'Triste' },
-  { value: 'anxious', emoji: '', label: 'Ansioso/a' },
+  { value: 'anxious', emoji: '', label: 'Ansios@' },
   { value: 'angry', emoji: '', label: 'Enojado/a' },
 ];
 

@@ -43,7 +43,7 @@ export default function Register() {
       await api.post('/register/', formData)
       // Registro exitoso, redirigir al login
       nav('/login', { 
-        state: { message: '¡Bienvenido! Ahora puedes iniciar sesión y comenzar tu camino.' } 
+        state: { message: '¡Te damos la bienvenida! Ahora puedes iniciar sesión y comenzar tu camino.' } 
       })
     } catch (err: any) {
       if (err?.response?.data) {

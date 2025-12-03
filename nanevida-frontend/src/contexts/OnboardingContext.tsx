@@ -27,7 +27,7 @@ const ONBOARDING_KEY = 'nanevida_onboarding_completed'
 export const onboardingSteps: OnboardingStep[] = [
   {
     id: 1,
-    title: '¡Bienvenida a Nane Vida! 💜',
+    title: '¡Te damos la bienvenida a Nane Vida! 💜',
     description: 'Un espacio seguro para cuidar tu salud mental y emocional. Aquí encontrarás herramientas diseñadas para acompañarte en tu camino hacia el bienestar.',
     icon: '🌸'
   },
@@ -63,8 +63,8 @@ export const onboardingSteps: OnboardingStep[] = [
   },
   {
     id: 7,
-    title: '¡Estás lista para comenzar! 🎉',
-    description: 'Recuerda: esto es un viaje, no un destino. Avanza a tu propio ritmo y sé amable contigo misma.',
+    title: '¡Ya puedes comenzar! 🎉',
+    description: 'Recuerda: esto es un viaje, no un destino. Avanza a tu propio ritmo y sé amable contigo.',
     icon: '🦋'
   }
 ]

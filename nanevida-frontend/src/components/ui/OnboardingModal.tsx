@@ -35,23 +35,22 @@ export default function OnboardingModal() {
 
           {/* Content */}
           <div className="p-8 sm:p-12">
-            {/* Logo - Solo en el primer paso */}
-            {isFirstStep && (
-              <div className="flex justify-center mb-6">
-                <img 
-                  src="/icons/logo-icon.png" 
-                  alt="Nane Vida" 
-                  className="h-16 w-auto"
-                />
-              </div>
-            )}
-            
-            {/* Icon */}
+            {/* Logo / Icon */}
             <div className="text-center mb-6">
               <AnimatedCore mode="pulse" duration={600} loop={false}>
-                <div className="text-7xl sm:text-8xl mb-4 inline-block">
-                  {step.icon}
-                </div>
+                {isFirstStep ? (
+                  <div className="flex justify-center mb-4">
+                    <img 
+                      src="/icons/logo-icon.png" 
+                      alt="Nane Vida" 
+                      className="h-24 sm:h-28 w-auto rounded-3xl shadow-lg"
+                    />
+                  </div>
+                ) : (
+                  <div className="text-7xl sm:text-8xl mb-4 inline-block">
+                    {step.icon}
+                  </div>
+                )}
               </AnimatedCore>
               <div className="text-sm font-medium text-primary-400 dark:text-primary-300 mb-2">
                 Paso {currentStep + 1} de {totalSteps}

@@ -175,7 +175,7 @@ export default function Home() {
           <div className="text-4xl mb-3" style={{ filter: 'contrast(1.2) saturate(1.3)' }}></div>
           <h4 className="font-bold text-[#333333] mb-2">A Tu Ritmo</h4>
           <p className="text-sm text-[#555555]">
-            No hay prisas. Avanza a tu propio paso, cuando te sientas listo.
+            No hay prisas. Avanza a tu propio paso, cuando te sientas list@.
           </p>
         </Card>
       </div>
