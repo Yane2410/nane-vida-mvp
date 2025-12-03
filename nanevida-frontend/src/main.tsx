@@ -73,7 +73,8 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   </React.StrictMode>
 )
 
-// Register Service Worker for PWA functionality
+// Register Service Worker for PWA functionality - DISABLED FOR DEBUGGING
+/*
 if ('serviceWorker' in navigator) {
   window.addEventListener('load', () => {
     navigator.serviceWorker
@@ -102,6 +103,17 @@ if ('serviceWorker' in navigator) {
       .catch((error) => {
         console.warn('⚠️ Service Worker registration failed:', error)
       })
+  })
+}
+*/
+
+// Unregister existing service workers
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.getRegistrations().then((registrations) => {
+    for (const registration of registrations) {
+      registration.unregister()
+      console.log('🗑️ Service Worker unregistered')
+    }
   })
 }
 
