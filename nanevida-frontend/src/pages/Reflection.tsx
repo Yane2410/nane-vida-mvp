@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import { FlowerIcon, SparkleIcon } from '../assets/icons';
+import AnimatedCore from '../components/AnimatedCore';
 
 interface ReflectionPrompt {
   id: number;
@@ -247,12 +248,14 @@ export default function Reflection() {
               <span className="inline-block px-4 py-1 rounded-full text-sm font-medium bg-white/50 text-[#555555] mb-4">
                 {selectedPrompt.category}
               </span>
-              <h2 className="text-2xl sm:text-3xl font-bold text-[#333333] mb-3">
+              <AnimatedCore mode="fadeIn" duration={800} loop={false}>
+                <h2 className="text-2xl sm:text-3xl font-bold text-[#333333] mb-3">
                 {selectedPrompt.question}
               </h2>
               <p className="text-[#555555]">
                 {selectedPrompt.subtitle}
               </p>
+              </AnimatedCore>
             </div>
           </Card>
 

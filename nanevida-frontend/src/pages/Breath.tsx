@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import { BreathIcon } from '../assets/icons';
+import AnimatedCore from '../components/AnimatedCore';
 
 type BreathPhase = 'inhale' | 'hold' | 'exhale' | 'rest';
 
@@ -134,15 +135,20 @@ export default function Breath() {
             </div>
 
             {/* Breathing Circle Animation */}
-            <div className="relative w-80 h-80 mx-auto mb-8">
-              <div
-                className="absolute inset-0 rounded-full flex items-center justify-center transition-all duration-1000 ease-in-out"
-                style={{
-                  transform: `scale(${scale})`,
-                  background: `radial-gradient(circle, ${selectedPattern.color}40, ${selectedPattern.color}20)`,
-                  boxShadow: `0 0 ${scale * 60}px ${selectedPattern.color}60`
-                }}
-              >
+            <AnimatedCore
+              mode="breath"
+              duration={currentCycle.duration * 1000}
+              loop={false}
+              scaleRange={[1, scale]}
+            >
+              <div className="relative w-80 h-80 mx-auto mb-8">
+                <div
+                  className="absolute inset-0 rounded-full flex items-center justify-center transition-all duration-1000 ease-in-out"
+                  style={{
+                    background: `radial-gradient(circle, ${selectedPattern.color}40, ${selectedPattern.color}20)`,
+                    boxShadow: `0 0 ${scale * 60}px ${selectedPattern.color}60`
+                  }}
+                >
                 <div className="text-center">
                   <div className="text-6xl font-bold text-[#333333] mb-2">
                     {secondsLeft}
@@ -150,11 +156,11 @@ export default function Breath() {
                   <div className="text-xl font-medium text-[#555555]">
                     {currentCycle.instruction}
                   </div>
+                  </div>
                 </div>
-              </div>
 
-              {/* Outer ring */}
-              <svg className="absolute inset-0 w-full h-full -rotate-90">
+                {/* Outer ring */}
+                <svg className="absolute inset-0 w-full h-full -rotate-90">
                 <circle
                   cx="160"
                   cy="160"
@@ -174,8 +180,9 @@ export default function Breath() {
                   strokeDashoffset={942 - (942 * (currentCycle.duration - secondsLeft)) / currentCycle.duration}
                   className="transition-all duration-1000 ease-linear"
                 />
-              </svg>
-            </div>
+                </svg>
+              </div>
+            </AnimatedCore>
 
             {/* Phase Indicator */}
             <div className="flex justify-center gap-2 mb-8">

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import { CloudIcon, HeartIcon, CalmIcon } from '../assets/icons'
+import AnimatedCore from '../components/AnimatedCore'
 
 type Technique = {
   id: number
@@ -221,9 +222,16 @@ export default function Calm() {
     <div className="max-w-5xl mx-auto space-y-8 animate-fadeIn">
       {/* Header */}
       <Card gradient className="text-center">
-        <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl bg-[#7DD3FC]/20">
-          <CloudIcon size={32} color="#7DD3FC" />
-        </div>
+        <AnimatedCore
+          mode="pulse"
+          duration={6000}
+          loop={true}
+          scaleRange={[0.95, 1.05]}
+        >
+          <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl bg-[#7DD3FC]/20">
+            <CloudIcon size={32} color="#7DD3FC" />
+          </div>
+        </AnimatedCore>
         <h1 className="text-3xl sm:text-4xl font-bold text-[#333333] mb-3">
           Técnicas de Calma Rápida
         </h1>

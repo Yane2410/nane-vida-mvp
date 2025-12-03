@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import { CalmIcon } from '../assets/icons';
+import AnimatedCore from '../components/AnimatedCore';
 
 interface GroundingItem {
   id: number;
@@ -276,26 +277,33 @@ export default function Grounding() {
             const isClickable = index <= currentStep || (index > 0 && steps[index - 1].items.length === steps[index - 1].count);
 
             return (
-              <button
+              <AnimatedCore
                 key={step.id}
-                onClick={() => isClickable && goToStep(index)}
-                disabled={!isClickable}
-                className={`
-                  flex-shrink-0 px-4 py-2 rounded-xl font-medium transition-all duration-300
-                  ${isActive ? 'ring-4 ring-offset-2' : ''}
-                  ${stepComplete ? 'opacity-100' : isClickable ? 'opacity-100' : 'opacity-40'}
-                  ${isClickable ? 'cursor-pointer hover:-translate-y-0.5' : 'cursor-not-allowed'}
-                `}
-                style={{
-                  backgroundColor: isActive ? `${step.color}` : `${step.color}30`,
-                  color: isActive ? '#ffffff' : '#333333'
-                }}
+                mode="stepHighlight"
+                duration={2000}
+                loop={isActive}
+                scaleRange={[1, 1.05]}
               >
-                <div className="flex items-center gap-2">
-                  {stepComplete && <span>✓</span>}
-                  <span>{step.count} {step.category}</span>
-                </div>
-              </button>
+                <button
+                  onClick={() => isClickable && goToStep(index)}
+                  disabled={!isClickable}
+                  className={`
+                    flex-shrink-0 px-4 py-2 rounded-xl font-medium transition-all duration-300
+                    ${isActive ? 'ring-4 ring-offset-2' : ''}
+                    ${stepComplete ? 'opacity-100' : isClickable ? 'opacity-100' : 'opacity-40'}
+                    ${isClickable ? 'cursor-pointer hover:-translate-y-0.5' : 'cursor-not-allowed'}
+                  `}
+                  style={{
+                    backgroundColor: isActive ? `${step.color}` : `${step.color}30`,
+                    color: isActive ? '#ffffff' : '#333333'
+                  }}
+                >
+                  <div className="flex items-center gap-2">
+                    {stepComplete && <span>✓</span>}
+                    <span>{step.count} {step.category}</span>
+                  </div>
+                </button>
+              </AnimatedCore>
             );
           })}
         </div>
