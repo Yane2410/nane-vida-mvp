@@ -92,11 +92,8 @@ if ('serviceWorker' in navigator) {
           if (newWorker) {
             newWorker.addEventListener('statechange', () => {
               if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
-                // New service worker available, show update notification
-                if (confirm('🎉 Nueva versión disponible. ¿Actualizar ahora?')) {
-                  newWorker.postMessage({ type: 'SKIP_WAITING' })
-                  window.location.reload()
-                }
+                // New service worker available, just log it (no auto-reload)
+                console.log('🎉 Nueva versión disponible del Service Worker')
               }
             })
           }
