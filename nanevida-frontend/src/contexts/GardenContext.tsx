@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
-import { api } from '../api'
+import { api, getToken } from '../api'
 
 // Types
 export interface FlowerType {
@@ -67,9 +67,14 @@ export function GardenProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
-  // Load garden on mount
+  // Load garden on mount only if user is authenticated
   useEffect(() => {
-    loadGarden()
+    const token = getToken()
+    if (token) {
+      loadGarden()
+    } else {
+      setLoading(false)
+    }
   }, [])
 
   async function loadGarden() {
