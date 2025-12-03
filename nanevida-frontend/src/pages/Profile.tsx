@@ -177,6 +177,8 @@ export default function Profile() {
               <img
                 src={avatarPreview}
                 alt="Avatar"
+                loading="lazy"
+                decoding="async"
                 className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg"
               />
             ) : (
@@ -217,6 +219,8 @@ export default function Profile() {
                   <img
                     src={avatarPreview}
                     alt="Avatar preview"
+                    loading="lazy"
+                    decoding="async"
                     className="w-20 h-20 rounded-full object-cover border-2 border-gray-200"
                   />
                 ) : (

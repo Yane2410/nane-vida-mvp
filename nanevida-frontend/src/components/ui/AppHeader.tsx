@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { SparkleIcon } from '../../assets/icons'
 
 interface AppHeaderProps {
@@ -7,7 +8,7 @@ interface AppHeaderProps {
   className?: string
 }
 
-export default function AppHeader({
+const AppHeader = memo(function AppHeader({
   greeting,
   subtitle,
   showIcon = true,
@@ -59,4 +60,6 @@ export default function AppHeader({
       <div className="absolute bottom-4 left-4 w-16 h-16 bg-energy/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }} />
     </div>
   )
-}
+})
+
+export default AppHeader

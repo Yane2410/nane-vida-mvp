@@ -1,9 +1,11 @@
+import { memo } from 'react'
+
 interface LoadingSpinnerProps {
   size?: 'sm' | 'md' | 'lg'
   text?: string
 }
 
-export default function LoadingSpinner({ size = 'md', text }: LoadingSpinnerProps) {
+const LoadingSpinner = memo(function LoadingSpinner({ size = 'md', text }: LoadingSpinnerProps) {
   const sizes = {
     sm: 'w-5 h-5 border-2',
     md: 'w-8 h-8 border-3',
@@ -32,4 +34,6 @@ export default function LoadingSpinner({ size = 'md', text }: LoadingSpinnerProp
       )}
     </div>
   )
-}
+})
+
+export default LoadingSpinner

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import {
   CalmMoodIcon,
   AnxiousMoodIcon,
@@ -32,7 +32,7 @@ interface MoodSelectorProps {
   className?: string
 }
 
-export default function MoodSelector({ value, onChange, className = '' }: MoodSelectorProps) {
+const MoodSelector = memo(function MoodSelector({ value, onChange, className = '' }: MoodSelectorProps) {
   const [selected, setSelected] = useState<Mood | undefined>(value)
   const [hoveredMood, setHoveredMood] = useState<Mood | null>(null)
 
@@ -102,4 +102,6 @@ export default function MoodSelector({ value, onChange, className = '' }: MoodSe
       )}
     </div>
   )
-}
+})
+
+export default MoodSelector

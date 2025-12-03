@@ -133,7 +133,9 @@ export default function Dashboard() {
           {profile?.avatar ? (
             <img 
               src={profile.avatar} 
-              alt="Avatar" 
+              alt="Avatar"
+              loading="lazy"
+              decoding="async"
               className="w-20 h-20 rounded-2xl border-4 border-white/60 shadow-lg object-cover"
             />
           ) : (

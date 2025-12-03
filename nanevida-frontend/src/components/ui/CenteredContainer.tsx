@@ -1,5 +1,5 @@
 // Responsiveness update – centered layout container
-import { ReactNode, CSSProperties } from 'react';
+import { ReactNode, CSSProperties, memo } from 'react';
 import { useWindowDimensions } from '../../hooks/useWindowDimensions';
 
 interface CenteredContainerProps {
@@ -11,7 +11,7 @@ interface CenteredContainerProps {
   maxWidth?: number;
 }
 
-export default function CenteredContainer({
+const CenteredContainer = memo(function CenteredContainer({
   children,
   padding = 'md',
   backgroundColor = 'transparent',
@@ -55,4 +55,6 @@ export default function CenteredContainer({
       </div>
     </div>
   );
-}
+});
+
+export default CenteredContainer;
