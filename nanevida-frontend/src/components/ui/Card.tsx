@@ -1,4 +1,4 @@
-import { ReactNode, CSSProperties } from 'react'
+import { ReactNode, CSSProperties, memo } from 'react'
 
 interface CardProps {
   children: ReactNode
@@ -9,7 +9,7 @@ interface CardProps {
   style?: CSSProperties
 }
 
-export default function Card({
+const Card = memo(function Card({
   children,
   className = '',
   hover = false,
@@ -43,5 +43,6 @@ export default function Card({
       {children}
     </div>
   )
-}
+})
 
+export default Card

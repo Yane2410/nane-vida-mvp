@@ -1,4 +1,4 @@
-import { ButtonHTMLAttributes, ReactNode } from 'react'
+import { ButtonHTMLAttributes, ReactNode, memo } from 'react'
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   variant?: 'primary' | 'secondary' | 'ghost' | 'danger' | 'success'
@@ -9,7 +9,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode
 }
 
-export default function Button({
+const Button = memo(function Button({
   variant = 'secondary',
   size = 'md',
   fullWidth = false,
@@ -81,4 +81,6 @@ export default function Button({
       <span className={isLoading ? 'opacity-70' : ''}>{children}</span>
     </button>
   )
-}
+})
+
+export default Button

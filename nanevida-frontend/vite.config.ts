@@ -32,19 +32,44 @@ export default defineConfig({
     // Production optimizations
     minify: 'terser',
     sourcemap: false,
+    // Increase chunk size warning limit
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
+        // Optimized manual chunks for better caching and performance
         manualChunks: {
-          'react-vendor': ['react', 'react-dom', 'react-router-dom'],
+          // Core React libraries
+          'react-vendor': ['react', 'react-dom'],
+          // Router (separate for better caching)
+          'router-vendor': ['react-router-dom'],
+          // HTTP client
           'axios-vendor': ['axios'],
-        }
+          // Context providers (loaded early)
+          'contexts': [
+            './src/contexts/ToastContext.tsx',
+            './src/contexts/ThemeContext.tsx',
+            './src/contexts/OnboardingContext.tsx',
+            './src/contexts/ReminderContext.tsx'
+          ],
+          // Shared UI components (used across pages)
+          'ui-components': [
+            './src/components/ui/Button.tsx',
+            './src/components/ui/Card.tsx',
+            './src/components/ui/LoadingSpinner.tsx'
+          ]
+        },
+        // Optimize chunk file names
+        chunkFileNames: 'assets/[name]-[hash].js',
+        entryFileNames: 'assets/[name]-[hash].js',
+        assetFileNames: 'assets/[name]-[hash].[ext]'
       }
     },
     // Security: remove console logs in production
     terserOptions: {
       compress: {
         drop_console: true,
-        drop_debugger: true
+        drop_debugger: true,
+        pure_funcs: ['console.log', 'console.info', 'console.debug']
       }
     }
   },

@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useMemo, useCallback } from 'react'
 import { Link } from 'react-router-dom'
 import { api } from '../api'
 import Card from '../components/ui/Card'
@@ -40,7 +40,7 @@ export default function Dashboard() {
     loadDashboard()
   }, [])
 
-  async function loadDashboard() {
+  const loadDashboard = useCallback(async () => {
     try {
       // Intentar cargar stats y profile
       const profileRes = await api.get('/profile/')
@@ -80,7 +80,21 @@ export default function Dashboard() {
     } finally {
       setLoading(false)
     }
-  }
+  }, [])
+
+  // Memoize computed values
+  const memberSince = useMemo(() => {
+    if (!profile?.created_at) return ''
+    const date = new Date(profile.created_at)
+    return date.toLocaleDateString('es-ES', { year: 'numeric', month: 'long' })
+  }, [profile?.created_at])
+
+  const streakMessage = useMemo(() => {
+    const days = stats?.streak_days || 0
+    if (days === 0) return '¡Comienza tu racha hoy!'
+    if (days === 1) return '¡1 día de racha!'
+    return `¡${days} días de racha!`
+  }, [stats?.streak_days])
 
   if (loading) {
     return (
@@ -104,14 +118,6 @@ export default function Dashboard() {
       </Card>
     )
   }
-
-  const memberSince = profile?.created_at 
-    ? new Date(profile.created_at).toLocaleDateString('es-ES', { 
-        year: 'numeric', 
-        month: 'long', 
-        day: 'numeric' 
-      })
-    : 'Desconocido'
 
   return (
     <div className="space-y-8 animate-fadeIn">

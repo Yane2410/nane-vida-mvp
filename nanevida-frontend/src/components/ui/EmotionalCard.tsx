@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, memo } from 'react'
 import Card from './Card'
 
 interface EmotionalCardProps {
@@ -11,7 +11,7 @@ interface EmotionalCardProps {
   className?: string
 }
 
-export default function EmotionalCard({
+const EmotionalCard = memo(function EmotionalCard({
   title,
   description,
   icon,
@@ -96,4 +96,6 @@ export default function EmotionalCard({
   }
 
   return content
-}
+})
+
+export default EmotionalCard
