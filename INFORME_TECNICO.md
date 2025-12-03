@@ -20,13 +20,15 @@
 **NANE VIDA** es una plataforma MVP (Minimum Viable Product) de bienestar emocional desarrollada con arquitectura cliente-servidor moderna, enfocada en proporcionar herramientas terapéuticas accesibles y un espacio seguro para el autocuidado mental.
 
 ### Indicadores Clave
-- **Líneas de código**: ~15,000+ líneas (Frontend + Backend)
-- **Páginas funcionales**: 14 páginas completas
-- **Componentes reutilizables**: 20+ componentes UI
+- **Líneas de código**: ~18,000+ líneas (Frontend + Backend)
+- **Páginas funcionales**: 15 páginas completas (incluye Garden)
+- **Componentes reutilizables**: 25+ componentes UI
 - **Tiempo de build**: 24.18s (optimizado)
 - **Tamaño CSS**: 39.91 kB (comprimido: 6.91 kB)
 - **Tamaño JS**: 485.18 kB (comprimido: 132.14 kB)
 - **Cobertura de tipos**: 100% TypeScript
+- **Sistema de gamificación**: Garden of Wellness integrado
+- **Notificaciones**: ActivityCompletionModal en todas las actividades
 
 ---
 
@@ -60,6 +62,11 @@
 │  - Diary entries (encriptación recomendada)                │
 │  - SOS resources                                            │
 │  - User profiles y preferences                              │
+│  - Garden profiles (gamificación)                           │
+│  - Plants (sistema de crecimiento)                          │
+│  - Wellness activities (tracking)                           │
+│  - Milestones (logros)                                      │
+│  - Flower types (7 tipos de flores)                        │
 └─────────────────────────────────────────────────────────────┘
 ```
 
@@ -93,6 +100,123 @@
 3. **Composition over Inheritance**:
    - Uso extensivo de props y children
    - Higher-Order Components (HOC) como RequireAuth
+
+### 2.3 Sistema de Gamificación - Garden of Wellness
+
+El sistema de gamificación "Garden of Wellness" implementa un enfoque mindful de engagement sin presión, donde cada actividad de bienestar permite al usuario cultivar su jardín digital.
+
+#### Arquitectura del Sistema Garden
+
+**Modelos de Base de Datos**:
+```python
+# GardenProfile: Perfil del jardín del usuario
+- total_plants: Número total de plantas
+- current_month_plants: Plantas del mes actual
+- total_mindful_minutes: Minutos totales de práctica
+- current_gentle_streak: Racha actual de días
+- longest_gentle_streak: Racha más larga alcanzada
+- garden_started: Fecha de inicio del jardín
+
+# Plant: Plantas individuales en el jardín
+- growth_stage: seed | sprout | growing | blooming
+- times_watered: Número de veces regada
+- planted_date: Fecha de plantado
+- bloomed_date: Fecha de florecimiento
+- position_x, position_y: Posición en el jardín
+
+# FlowerType: Tipos de flores por actividad
+- activity_type: breath, diary, calm, reflection, grounding
+- flower_name: Nombre de la flor (Lirio, Rosa, Lavanda, etc.)
+- flower_emoji: Emoji representativo
+- color: Color hex de la flor
+- description: Descripción motivacional
+
+# WellnessActivity: Registro de actividades
+- activity_type: Tipo de actividad completada
+- duration_minutes: Duración en minutos
+- plant: Planta asociada
+- completed_at: Timestamp de completación
+
+# Milestone: Logros y celebraciones
+- milestone_type: first_plant, streak_7, plants_10, etc.
+- title: Título del logro
+- description: Descripción del milestone
+- icon: Emoji del logro
+- achieved_at: Fecha de logro
+- is_viewed: Si el usuario ya vio el milestone
+```
+
+**API Endpoints**:
+```
+GET  /api/garden/              - Obtener perfil del jardín
+POST /api/garden/plant_seed/   - Plantar semilla después de actividad
+GET  /api/garden/stats/        - Estadísticas del jardín
+GET  /api/garden/milestones/   - Obtener milestones del usuario
+POST /api/garden/mark_milestone_viewed/ - Marcar milestone como visto
+```
+
+**Lógica de Crecimiento**:
+1. **Plantado**: Usuario completa actividad → se planta semilla (stage: seed)
+2. **Riego**: Completar misma actividad riega planta existente → times_watered++
+3. **Crecimiento**: 
+   - 3 riegos → sprout (brote)
+   - 7 riegos → growing (creciendo)
+   - 12 riegos → blooming (floreciendo)
+4. **Persistencia**: Las plantas permanecen en el jardín como historial visual
+
+**Tipos de Flores Implementadas**:
+- 🌸 **Lirio** (breath): Respiración consciente
+- 🌹 **Rosa** (diary): Diario emocional
+- 💜 **Lavanda** (calm): Técnicas de calma
+- 🌷 **Tulipán** (reflection): Reflexiones guiadas
+- 🌻 **Girasol** (grounding): Ejercicios de grounding
+- 🪷 **Loto** (meditation): Meditación (preparado)
+- 🌼 **Margarita** (sos): Recursos SOS (preparado)
+
+**Frontend - GardenContext**:
+```typescript
+interface GardenContextType {
+  garden: GardenProfile | null
+  loading: boolean
+  error: string
+  plantSeed: (activityType: string, durationMinutes?: number) => Promise<any>
+  refreshGarden: () => Promise<void>
+  markMilestoneViewed: (milestoneId: number) => Promise<void>
+  showNewMilestones: () => void
+}
+```
+
+**Características Clave**:
+- ✅ Sin presión: Crecimiento natural basado en práctica regular
+- ✅ Visualización: Plantas organizadas por etapa de crecimiento
+- ✅ Tracking mindful: Minutos de práctica y rachas de días
+- ✅ Celebración: Sistema de milestones para reconocer progreso
+- ✅ Personalización: Cada actividad genera un tipo único de flor
+- ✅ Persistencia: Historial visual del viaje de bienestar
+
+**Sistema de Notificaciones - ActivityCompletionModal**:
+
+Implementado en todas las actividades con diseño consistente:
+```typescript
+<ActivityCompletionModal
+  isOpen={showCompletionModal}
+  activityName="Respiración Consciente"
+  activityIcon="🌸"
+  plantName="Flor de Respiración"
+  onClose={() => setShowCompletionModal(false)}
+/>
+```
+
+**Botones de Acción**:
+1. 🌳 "Ver mi Jardín" → Navega a /garden para ver el progreso
+2. ✨ "Continuar" → Cierra modal y continúa en la app
+
+**Integrado en**:
+- ✅ Breath.tsx (Respiración Consciente)
+- ✅ Diary.tsx (Entrada de Diario)
+- ✅ Calm.tsx (Técnica de Calma)
+- ✅ Reflection.tsx (Reflexión Guiada)
+- ✅ Grounding.tsx (Ejercicio de Grounding)
 
 ---
 
@@ -1568,6 +1692,49 @@ Este proyecto está abierto a contribuciones. Por favor:
 
 ## 14. Changelog Resumido
 
+### v1.2.0 (Diciembre 3, 2024) - Gamification & UX Enhancements
+- ✨ **Garden of Wellness**: Sistema completo de gamificación
+  - Plantado automático de semillas al completar actividades
+  - 7 tipos de flores únicas (Lirio, Rosa, Lavanda, Tulipán, Girasol, Loto, Margarita)
+  - 4 etapas de crecimiento (seed → sprout → growing → blooming)
+  - Sistema de riego para plantas existentes
+  - Tracking de rachas y minutos mindful
+  - Milestones y logros celebratorios
+- 🎉 **ActivityCompletionModal**: Notificaciones después de completar actividades
+  - Diseño consistente con gradientes y tema purple
+  - 2 botones de acción: Ver Jardín / Continuar
+  - Integrado en las 5 actividades principales
+- 🗺️ **Menú Jardín**: Navegación visible en desktop y móvil
+  - Ícono 🌱 en menú principal
+  - Solo visible para usuarios autenticados
+- 🎨 **Optimización de Herramientas**:
+  - Eliminación de ejercicio "Respiración 4-7-8" duplicado en Calm
+  - Nueva técnica "Escaneo Corporal" agregada a Calm
+  - Sin duplicación entre herramientas
+- 📊 **Modelos de Base de Datos**:
+  - GardenProfile, Plant, FlowerType, WellnessActivity, Milestone
+  - 5 nuevas tablas en PostgreSQL
+- 🔧 **API Endpoints**:
+  - GET /api/garden/ - Perfil del jardín
+  - POST /api/garden/plant_seed/ - Plantar semilla
+  - GET /api/garden/stats/ - Estadísticas
+  - GET /api/garden/milestones/ - Logros
+  - POST /api/garden/mark_milestone_viewed/ - Marcar visto
+
+### v1.1.0 (Diciembre 2, 2024) - Branding & Inclusive Language
+- 🎨 **Logos de Nane Vida**:
+  - logo-full.png en header y páginas principales
+  - logo-icon.png en login, register, onboarding, garden
+  - Bordes redondeados (rounded-3xl)
+  - Favicon actualizado
+- 💜 **Lenguaje Inclusivo**:
+  - Uso de "@" para términos con género (Ansios@, Cansad@, list@)
+  - Frases neutrales ("Te damos la bienvenida")
+  - Actualizado en 11 archivos
+- 🐛 **Bug Fix Crítico**: 
+  - Solucionado infinite reload loop en GardenContext
+  - Verificación de autenticación antes de cargar datos
+
 ### v1.0.0 (Diciembre 2024) - MVP Launch
 - ✨ Sistema de autenticación JWT
 - ✨ Diario emocional con CRUD completo
@@ -1591,8 +1758,8 @@ Este proyecto es propiedad de NANE VIDA y su uso está restringido según los t�
 
 ---
 
-**Documento generado el**: Diciembre 2, 2024
-**Versión del informe**: 1.0.0
+**Documento generado el**: Diciembre 3, 2024
+**Versión del informe**: 1.2.0
 **Autor**: Equipo de desarrollo NANE VIDA
 
 ---
