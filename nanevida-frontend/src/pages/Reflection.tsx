@@ -4,6 +4,7 @@ import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import { FlowerIcon, SparkleIcon } from '../assets/icons';
 import AnimatedCore from '../components/AnimatedCore';
+import { soundController } from '../utils/soundController';
 
 interface ReflectionPrompt {
   id: number;
@@ -86,6 +87,21 @@ export default function Reflection() {
   const [savedReflections, setSavedReflections] = useState<SavedReflection[]>([]);
   const [showSaved, setShowSaved] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+
+  // Sound management - water loop
+  useEffect(() => {
+    soundController.playLoop('water', 0.15);
+    return () => {
+      soundController.stopAll();
+    };
+  }, []);
+
+  // Play bell when selecting a new prompt
+  useEffect(() => {
+    if (selectedPrompt) {
+      soundController.playOnce('bell', 0.4);
+    }
+  }, [selectedPrompt]);
 
   useEffect(() => {
     // Load saved reflections from localStorage

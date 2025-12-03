@@ -4,6 +4,7 @@ import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import { BreathIcon } from '../assets/icons';
 import AnimatedCore from '../components/AnimatedCore';
+import { soundController } from '../utils/soundController';
 
 type BreathPhase = 'inhale' | 'hold' | 'exhale' | 'rest';
 
@@ -45,6 +46,23 @@ export default function Breath() {
   const [secondsLeft, setSecondsLeft] = useState(0);
   const [completedCycles, setCompletedCycles] = useState(0);
   const [scale, setScale] = useState(1);
+
+  // Sound management - wind loop when active
+  useEffect(() => {
+    if (isActive && selectedPattern) {
+      soundController.playLoop('wind', 0.2);
+    }
+    return () => {
+      soundController.stopAll();
+    };
+  }, [isActive, selectedPattern]);
+
+  // Play bell on phase change
+  useEffect(() => {
+    if (isActive && selectedPattern) {
+      soundController.playOnce('bell', 0.4);
+    }
+  }, [currentCycleIndex]);
 
   useEffect(() => {
     if (!isActive || !selectedPattern) return;

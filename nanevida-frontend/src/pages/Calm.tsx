@@ -1,8 +1,9 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import { CloudIcon, HeartIcon, CalmIcon } from '../assets/icons'
 import AnimatedCore from '../components/AnimatedCore'
+import { soundController } from '../utils/soundController'
 
 type Technique = {
   id: number
@@ -89,6 +90,14 @@ export default function Calm() {
   const [selectedTechnique, setSelectedTechnique] = useState<Technique | null>(null)
   const [currentStep, setCurrentStep] = useState(0)
   const [isActive, setIsActive] = useState(false)
+
+  // Sound management - soft wind loop
+  useEffect(() => {
+    soundController.playLoop('wind', 0.1);
+    return () => {
+      soundController.stopAll();
+    };
+  }, []);
 
   const startTechnique = (technique: Technique) => {
     setSelectedTechnique(technique)

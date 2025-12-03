@@ -1,9 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import { CalmIcon } from '../assets/icons';
 import AnimatedCore from '../components/AnimatedCore';
+import { soundController } from '../utils/soundController';
 
 interface GroundingItem {
   id: number;
@@ -69,6 +70,20 @@ export default function Grounding() {
   const [steps, setSteps] = useState<GroundingItem[]>(groundingSteps);
   const [currentInput, setCurrentInput] = useState('');
   const [isComplete, setIsComplete] = useState(false);
+
+  // Cleanup sounds on unmount
+  useEffect(() => {
+    return () => {
+      soundController.stopAll();
+    };
+  }, []);
+
+  // Play bell when advancing to next step
+  useEffect(() => {
+    if (currentStep > 0) {
+      soundController.playOnce('bell', 0.4);
+    }
+  }, [currentStep]);
 
   const currentStepData = steps[currentStep];
   const isStepComplete = currentStepData.items.length === currentStepData.count;
