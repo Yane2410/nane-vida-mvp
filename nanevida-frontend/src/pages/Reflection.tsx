@@ -11,6 +11,7 @@ import AnimatedCore from '../components/AnimatedCore';
 import { soundController } from '../utils/soundController';
 import { haptics } from '../sound-engine/utils/haptics';
 import { useWindowDimensions } from '../hooks/useWindowDimensions';
+import ActivityCompletionModal from '../components/ActivityCompletionModal';
 
 interface ReflectionPrompt {
   id: number;
@@ -91,7 +92,8 @@ export default function Reflection() {
   const { isSmall, isTablet } = useWindowDimensions();
   const toast = useToast();
   const { plantSeed } = useGarden();
-  const [selectedPrompt, setSelectedPrompt] = useState<ReflectionPrompt | null>(null);
+  const [showCompletionModal, setShowCompletionModal] = useState(false);
+  const [selectedPrompt, setSelectedPrompt] = useState<typeof reflectionPrompts[0] | null>(null);
   const [reflectionText, setReflectionText] = useState('');
   const [savedReflections, setSavedReflections] = useState<SavedReflection[]>([]);
   const [showSaved, setShowSaved] = useState(false);
@@ -154,7 +156,7 @@ export default function Reflection() {
     // Plant seed after saving reflection
     try {
       await plantSeed('reflection', 0); // Reflections don't track duration
-      toast.success('🌷 Has plantado una semilla de claridad en tu jardín');
+      setShowCompletionModal(true);
     } catch (error) {
       console.error('Error planting seed:', error);
     }
@@ -526,6 +528,15 @@ export default function Reflection() {
         </div>
         </div>
       </CenteredContainer>
+
+      {/* Activity Completion Modal */}
+      <ActivityCompletionModal
+        isOpen={showCompletionModal}
+        activityName="Reflexión Guiada"
+        activityIcon="🌷"
+        plantName="Tulipán de Claridad"
+        onClose={() => setShowCompletionModal(false)}
+      />
     </div>
   );
 }

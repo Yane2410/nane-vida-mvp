@@ -11,6 +11,7 @@ import LoadingSpinner from '../components/ui/LoadingSpinner'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import { JournalIcon } from '../assets/icons'
+import ActivityCompletionModal from '../components/ActivityCompletionModal'
 
 type Entry = { id:number; title:string; content:string; emoji?:string; mood?:string; created_at:string }
 
@@ -21,6 +22,7 @@ export default function Diary(){
   const [saving, setSaving] = useState(false)
   const [showStats, setShowStats] = useState(false)
   const [editingEntry, setEditingEntry] = useState<Entry | null>(null)
+  const [showCompletionModal, setShowCompletionModal] = useState(false)
   const nav = useNavigate()
   const toast = useToast()
   const { plantSeed } = useGarden()
@@ -53,7 +55,7 @@ export default function Diary(){
       // Plant seed after saving diary entry
       try {
         await plantSeed('diary', 0); // Diary doesn't track duration
-        toast.success('🌹 Has plantado una semilla de autoconocimiento en tu jardín');
+        setShowCompletionModal(true);
       } catch (error) {
         console.error('Error planting seed:', error);
       }
@@ -169,6 +171,15 @@ export default function Diary(){
           onCancel={handleCancelEdit}
         />
       )}
+
+      {/* Activity Completion Modal */}
+      <ActivityCompletionModal
+        isOpen={showCompletionModal}
+        activityName="Entrada de Diario"
+        activityIcon="🌹"
+        plantName="Rosa de Autoconocimiento"
+        onClose={() => setShowCompletionModal(false)}
+      />
     </div>
   )
 }

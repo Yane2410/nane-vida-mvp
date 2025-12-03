@@ -11,6 +11,7 @@ import CenteredContainer from '../components/ui/CenteredContainer';
 import { useWindowDimensions } from '../hooks/useWindowDimensions';
 import { useToast } from '../contexts/ToastContext';
 import { useGarden } from '../contexts/GardenContext';
+import ActivityCompletionModal from '../components/ActivityCompletionModal';
 
 type BreathPhase = 'inhale' | 'hold' | 'exhale' | 'rest';
 
@@ -49,6 +50,7 @@ export default function Breath() {
   const { width, isSmall, isTablet } = useWindowDimensions();
   const toast = useToast();
   const { plantSeed } = useGarden();
+  const [showCompletionModal, setShowCompletionModal] = useState(false);
   
   // Dynamic circle size based on screen
   const getCircleSize = () => {
@@ -177,7 +179,7 @@ export default function Breath() {
       try {
         const durationMinutes = Math.ceil((completedCycles * (selectedPattern?.cycles.reduce((sum, c) => sum + c.duration, 0) || 0)) / 60);
         await plantSeed('breath', durationMinutes);
-        toast.success('🌸 Has plantado una semilla en tu jardín de bienestar');
+        setShowCompletionModal(true);
       } catch (error) {
         console.error('Error planting seed:', error);
       }
@@ -462,6 +464,15 @@ export default function Breath() {
           </Button>
         </div>
       </CenteredContainer>
+
+      {/* Activity Completion Modal */}
+      <ActivityCompletionModal
+        isOpen={showCompletionModal}
+        activityName="Respiración Consciente"
+        activityIcon="🌸"
+        plantName="Flor de Respiración"
+        onClose={() => setShowCompletionModal(false)}
+      />
     </div>
   );
 }

@@ -10,6 +10,7 @@ import CenteredContainer from '../components/ui/CenteredContainer'
 import { useWindowDimensions } from '../hooks/useWindowDimensions'
 import { useGarden } from '../contexts/GardenContext'
 import { useToast } from '../contexts/ToastContext'
+import ActivityCompletionModal from '../components/ActivityCompletionModal'
 
 type Technique = {
   id: number
@@ -24,23 +25,6 @@ type Technique = {
 const techniques: Technique[] = [
   {
     id: 1,
-    title: 'Respiración 4-7-8',
-    description: 'Una técnica simple que ayuda a calmar el sistema nervioso en minutos.',
-    duration: '3-5 minutos',
-    icon: <CloudIcon size={32} />,
-    color: '#7DD3FC',
-    steps: [
-      'Siéntate cómodamente con la espalda recta',
-      'Exhala completamente por la boca haciendo un sonido suave',
-      'Inhala por la nariz contando hasta 4',
-      'Mantén la respiración contando hasta 7',
-      'Exhala por la boca contando hasta 8',
-      'Repite este ciclo 4 veces',
-      'Observa cómo tu cuerpo se relaja con cada respiración'
-    ]
-  },
-  {
-    id: 2,
     title: 'Relajación Muscular Progresiva',
     description: 'Libera la tensión física que a menudo acompaña la ansiedad.',
     duration: '5-7 minutos',
@@ -57,7 +41,7 @@ const techniques: Technique[] = [
     ]
   },
   {
-    id: 3,
+    id: 2,
     title: 'Visualización del Lugar Seguro',
     description: 'Crea un refugio mental donde puedas sentirte protegido y en paz.',
     duration: '5 minutos',
@@ -74,7 +58,7 @@ const techniques: Technique[] = [
     ]
   },
   {
-    id: 4,
+    id: 3,
     title: 'Técnica de la Mano',
     description: 'Un ejercicio táctil que puedes hacer en cualquier momento y lugar.',
     duration: '2-3 minutos',
@@ -89,6 +73,24 @@ const techniques: Technique[] = [
       'Siente la conexión entre tu respiración y el movimiento',
       'Repite si lo necesitas hasta sentirte más tranquilo'
     ]
+  },
+  {
+    id: 4,
+    title: 'Escaneo Corporal',
+    description: 'Conecta con cada parte de tu cuerpo para soltar la tensión acumulada.',
+    duration: '7-10 minutos',
+    icon: <CloudIcon size={32} />,
+    color: '#7DD3FC',
+    steps: [
+      'Acuéstate o siéntate cómodamente en un lugar tranquilo',
+      'Cierra los ojos y respira profundamente tres veces',
+      'Dirige tu atención a la coronilla de tu cabeza',
+      'Baja lentamente: frente, ojos, mejillas, mandíbula',
+      'Continúa con cuello, hombros, brazos, manos',
+      'Pecho, abdomen, espalda, caderas, piernas',
+      'Termina en los pies, sintiendo todo tu cuerpo relajado',
+      'Permanece unos momentos disfrutando de la calma'
+    ]
   }
 ]
 
@@ -97,6 +99,7 @@ export default function Calm() {
   const { plantSeed } = useGarden();
   const toast = useToast();
   const [selectedTechnique, setSelectedTechnique] = useState<Technique | null>(null)
+  const [showCompletionModal, setShowCompletionModal] = useState(false)
   const [currentStep, setCurrentStep] = useState(0)
   const [isActive, setIsActive] = useState(false)
   const [enableHaptics, setEnableHaptics] = useState(true)
@@ -148,7 +151,7 @@ export default function Calm() {
         const durationMatch = selectedTechnique.duration.match(/(\d+)/);
         const durationMinutes = durationMatch ? parseInt(durationMatch[0]) : 5;
         await plantSeed('calm', durationMinutes);
-        toast.success('💜 Has plantado una semilla de calma en tu jardín');
+        setShowCompletionModal(true);
       } catch (error) {
         console.error('Error planting seed:', error);
       }
@@ -383,6 +386,15 @@ export default function Calm() {
           </li>
         </ul>
       </Card>
+
+      {/* Activity Completion Modal */}
+      <ActivityCompletionModal
+        isOpen={showCompletionModal}
+        activityName="Técnica de Calma"
+        activityIcon="💜"
+        plantName="Flor de Calma"
+        onClose={() => setShowCompletionModal(false)}
+      />
     </CenteredContainer>
   )
 }

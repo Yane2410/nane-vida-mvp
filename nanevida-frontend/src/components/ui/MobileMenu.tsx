@@ -97,6 +97,15 @@ export default function MobileMenu({ isAuth, onLogout }: MobileMenuProps) {
                 </Link>
               )}
 
+              {isAuth && (
+                <Link to="/garden" onClick={closeMenu}>
+                  <Button variant="secondary" size="md" className="w-full justify-start">
+                    <span>🌱</span>
+                    Jardín
+                  </Button>
+                </Link>
+              )}
+
               <Link to="/diary" onClick={closeMenu}>
                 <Button variant="secondary" size="md" className="w-full justify-start">
                   <span>📔</span>

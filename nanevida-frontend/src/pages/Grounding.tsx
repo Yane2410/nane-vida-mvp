@@ -11,6 +11,7 @@ import { haptics } from '../sound-engine/utils/haptics';
 import { useWindowDimensions } from '../hooks/useWindowDimensions';
 import { useGarden } from '../contexts/GardenContext';
 import { useToast } from '../contexts/ToastContext';
+import ActivityCompletionModal from '../components/ActivityCompletionModal';
 
 interface GroundingItem {
   id: number;
@@ -75,6 +76,7 @@ export default function Grounding() {
   const { isSmall, isTablet } = useWindowDimensions();
   const { plantSeed } = useGarden();
   const toast = useToast();
+  const [showCompletionModal, setShowCompletionModal] = useState(false);
   const [currentStep, setCurrentStep] = useState(0);
   const [steps, setSteps] = useState<GroundingItem[]>(groundingSteps);
   const [currentInput, setCurrentInput] = useState('');
@@ -131,7 +133,7 @@ export default function Grounding() {
           // Plant seed when completing grounding exercise
           try {
             await plantSeed('grounding', 5); // 5-4-3-2-1 takes about 5 minutes
-            toast.success('🌻 Has plantado una semilla de presencia en tu jardín');
+            setShowCompletionModal(true);
           } catch (error) {
             console.error('Error planting seed:', error);
           }
@@ -482,6 +484,15 @@ export default function Grounding() {
         </div>
         </div>
       </CenteredContainer>
+
+      {/* Activity Completion Modal */}
+      <ActivityCompletionModal
+        isOpen={showCompletionModal}
+        activityName="Ejercicio de Grounding 5-4-3-2-1"
+        activityIcon="🌻"
+        plantName="Girasol de Presencia"
+        onClose={() => setShowCompletionModal(false)}
+      />
     </div>
   );
 }
