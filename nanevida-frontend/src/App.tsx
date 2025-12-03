@@ -4,6 +4,7 @@ import Button from './components/ui/Button'
 import MobileMenu from './components/ui/MobileMenu'
 import ThemeToggle from './components/ui/ThemeToggle'
 import OnboardingModal from './components/ui/OnboardingModal'
+import MilestoneModal from './components/MilestoneModal'
 
 export default function App(){
   const nav = useNavigate()
@@ -124,6 +125,9 @@ export default function App(){
 
       {/* Onboarding Modal */}
       <OnboardingModal />
+
+      {/* Milestone Modal */}
+      <MilestoneModal />
 
       {/* Footer */}
       <footer className="backdrop-blur-xl bg-white/60 border-t border-white/40 shadow-inner">

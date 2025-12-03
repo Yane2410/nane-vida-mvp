@@ -8,6 +8,8 @@ import { soundController } from '../utils/soundController'
 import { haptics } from '../sound-engine/utils/haptics'
 import CenteredContainer from '../components/ui/CenteredContainer'
 import { useWindowDimensions } from '../hooks/useWindowDimensions'
+import { useGarden } from '../contexts/GardenContext'
+import { useToast } from '../contexts/ToastContext'
 
 type Technique = {
   id: number
@@ -92,6 +94,8 @@ const techniques: Technique[] = [
 
 export default function Calm() {
   const { isSmall, isTablet } = useWindowDimensions();
+  const { plantSeed } = useGarden();
+  const toast = useToast();
   const [selectedTechnique, setSelectedTechnique] = useState<Technique | null>(null)
   const [currentStep, setCurrentStep] = useState(0)
   const [isActive, setIsActive] = useState(false)
@@ -136,7 +140,20 @@ export default function Calm() {
     }
   }
 
-  const closeTechnique = () => {
+  const closeTechnique = async () => {
+    // Plant seed when completing a technique
+    if (selectedTechnique && currentStep === selectedTechnique.steps.length - 1) {
+      try {
+        // Extract approximate duration in minutes
+        const durationMatch = selectedTechnique.duration.match(/(\d+)/);
+        const durationMinutes = durationMatch ? parseInt(durationMatch[0]) : 5;
+        await plantSeed('calm', durationMinutes);
+        toast.success('💜 Has plantado una semilla de calma en tu jardín');
+      } catch (error) {
+        console.error('Error planting seed:', error);
+      }
+    }
+    
     setIsActive(false)
     setSelectedTechnique(null)
     setCurrentStep(0)

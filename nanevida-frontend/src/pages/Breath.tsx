@@ -10,6 +10,7 @@ import { haptics } from '../sound-engine/utils/haptics';
 import CenteredContainer from '../components/ui/CenteredContainer';
 import { useWindowDimensions } from '../hooks/useWindowDimensions';
 import { useToast } from '../contexts/ToastContext';
+import { useGarden } from '../contexts/GardenContext';
 
 type BreathPhase = 'inhale' | 'hold' | 'exhale' | 'rest';
 
@@ -47,6 +48,7 @@ export default function Breath() {
   const navigate = useNavigate();
   const { width, isSmall, isTablet } = useWindowDimensions();
   const toast = useToast();
+  const { plantSeed } = useGarden();
   
   // Dynamic circle size based on screen
   const getCircleSize = () => {
@@ -167,9 +169,18 @@ export default function Breath() {
     setScale(1);
   };
 
-  const stopExercise = () => {
+  const stopExercise = async () => {
     if (completedCycles > 0) {
       toast.success(`Sesión completada: ${completedCycles} ciclo${completedCycles !== 1 ? 's' : ''}`);
+      
+      // Plant a seed in the garden
+      try {
+        const durationMinutes = Math.ceil((completedCycles * (selectedPattern?.cycles.reduce((sum, c) => sum + c.duration, 0) || 0)) / 60);
+        await plantSeed('breath', durationMinutes);
+        toast.success('🌸 Has plantado una semilla en tu jardín de bienestar');
+      } catch (error) {
+        console.error('Error planting seed:', error);
+      }
     }
     setIsActive(false);
     setSelectedPattern(null);

@@ -6,6 +6,7 @@ import Button from '../components/ui/Button'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
 import AppHeader from '../components/ui/AppHeader'
 import EmotionalCard from '../components/ui/EmotionalCard'
+import GardenWidget from '../components/GardenWidget'
 import {
   JournalIcon,
   HeartIcon,
@@ -163,6 +164,9 @@ export default function Dashboard() {
           </Link>
         </div>
       </Card>
+
+      {/* Garden Widget */}
+      <GardenWidget />
 
       {/* Stats Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">

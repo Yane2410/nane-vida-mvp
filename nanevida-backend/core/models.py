@@ -1,6 +1,12 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+# Import Garden models
+from .garden_models import (
+    GardenProfile, FlowerType, Plant, 
+    WellnessActivity, Milestone
+)
+
 
 class UserProfile(models.Model):
     """Perfil extendido del usuario con foto y descripción"""

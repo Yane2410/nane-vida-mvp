@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { api } from '../api'
 import { useNavigate } from 'react-router-dom'
 import { useToast } from '../contexts/ToastContext'
+import { useGarden } from '../contexts/GardenContext'
 import EntryForm from '../components/EntryForm'
 import EntryList from '../components/EntryList'
 import EditEntryModal from '../components/EditEntryModal'
@@ -22,6 +23,7 @@ export default function Diary(){
   const [editingEntry, setEditingEntry] = useState<Entry | null>(null)
   const nav = useNavigate()
   const toast = useToast()
+  const { plantSeed } = useGarden()
 
   async function load(){
     try{
@@ -47,6 +49,14 @@ export default function Diary(){
       setItems([data, ...items])
       setError('')
       toast.success('Entrada guardada exitosamente')
+      
+      // Plant seed after saving diary entry
+      try {
+        await plantSeed('diary', 0); // Diary doesn't track duration
+        toast.success('🌹 Has plantado una semilla de autoconocimiento en tu jardín');
+      } catch (error) {
+        console.error('Error planting seed:', error);
+      }
     }catch(e:any){
       if (e?.response?.status === 401) { nav('/login'); return }
       setError('No pudimos guardar tu entrada. Intenta nuevamente.')

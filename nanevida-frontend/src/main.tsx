@@ -5,6 +5,7 @@ import { ToastProvider } from './contexts/ToastContext'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { OnboardingProvider } from './contexts/OnboardingContext'
 import { ReminderProvider } from './contexts/ReminderContext'
+import { GardenProvider } from './contexts/GardenContext'
 import App from './App'
 import LoadingSpinner from './components/ui/LoadingSpinner'
 import RequireAuth from './components/RequireAuth'
@@ -24,6 +25,7 @@ const Calm = lazy(() => import('./pages/Calm'))
 const Breath = lazy(() => import('./pages/Breath'))
 const Reflection = lazy(() => import('./pages/Reflection'))
 const Grounding = lazy(() => import('./pages/Grounding'))
+const Garden = lazy(() => import('./pages/Garden'))
 
 // Suspense wrapper component
 const SuspenseWrapper = ({ children }: { children: React.ReactNode }) => (
@@ -44,6 +46,7 @@ const router = createBrowserRouter([
     { path: 'dashboard', element: <SuspenseWrapper><RequireAuth><Dashboard/></RequireAuth></SuspenseWrapper> },
     { path: 'diary', element: <SuspenseWrapper><RequireAuth><Diary/></RequireAuth></SuspenseWrapper> },
     { path: 'statistics', element: <SuspenseWrapper><RequireAuth><Statistics/></RequireAuth></SuspenseWrapper> },
+    { path: 'garden', element: <SuspenseWrapper><RequireAuth><Garden/></RequireAuth></SuspenseWrapper> },
     { path: 'settings', element: <SuspenseWrapper><RequireAuth><Settings/></RequireAuth></SuspenseWrapper> },
     { path: 'profile', element: <SuspenseWrapper><RequireAuth><Profile/></RequireAuth></SuspenseWrapper> },
     { path: 'sos', element: <SuspenseWrapper><SOS/></SuspenseWrapper> },
@@ -60,7 +63,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
       <ToastProvider>
         <ReminderProvider>
           <OnboardingProvider>
-            <RouterProvider router={router} />
+            <GardenProvider>
+              <RouterProvider router={router} />
+            </GardenProvider>
           </OnboardingProvider>
         </ReminderProvider>
       </ToastProvider>

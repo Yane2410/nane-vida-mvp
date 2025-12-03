@@ -9,6 +9,8 @@ import AnimatedCore from '../components/AnimatedCore';
 import { soundController } from '../utils/soundController';
 import { haptics } from '../sound-engine/utils/haptics';
 import { useWindowDimensions } from '../hooks/useWindowDimensions';
+import { useGarden } from '../contexts/GardenContext';
+import { useToast } from '../contexts/ToastContext';
 
 interface GroundingItem {
   id: number;
@@ -71,6 +73,8 @@ const groundingSteps: GroundingItem[] = [
 export default function Grounding() {
   const navigate = useNavigate();
   const { isSmall, isTablet } = useWindowDimensions();
+  const { plantSeed } = useGarden();
+  const toast = useToast();
   const [currentStep, setCurrentStep] = useState(0);
   const [steps, setSteps] = useState<GroundingItem[]>(groundingSteps);
   const [currentInput, setCurrentInput] = useState('');
@@ -116,13 +120,20 @@ export default function Grounding() {
 
     // Auto-advance to next step when current is complete
     if (updatedSteps[currentStep].items.length === currentStepData.count) {
-      setTimeout(() => {
+      setTimeout(async () => {
         if (currentStep < steps.length - 1) {
           setCurrentStep(currentStep + 1);
         } else {
           setIsComplete(true);
           if (enableHaptics) {
             haptics.sessionEnd();
+          }
+          // Plant seed when completing grounding exercise
+          try {
+            await plantSeed('grounding', 5); // 5-4-3-2-1 takes about 5 minutes
+            toast.success('🌻 Has plantado una semilla de presencia en tu jardín');
+          } catch (error) {
+            console.error('Error planting seed:', error);
           }
         }
       }, 500);

@@ -8,10 +8,12 @@ from .views import (
     mood_stats,
     RateLimitedTokenObtainPairView
 )
+from .garden_views import GardenViewSet
 
 router = DefaultRouter()
 router.register(r'entries', EntryViewSet, basename='entry')
 router.register(r'sos', SOSResourceViewSet, basename='sos')
+router.register(r'garden', GardenViewSet, basename='garden')
 
 urlpatterns = [
     path('', include(router.urls)),

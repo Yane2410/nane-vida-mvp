@@ -2,6 +2,7 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useToast } from '../contexts/ToastContext';
+import { useGarden } from '../contexts/GardenContext';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import CenteredContainer from '../components/ui/CenteredContainer';
@@ -89,6 +90,7 @@ export default function Reflection() {
   const navigate = useNavigate();
   const { isSmall, isTablet } = useWindowDimensions();
   const toast = useToast();
+  const { plantSeed } = useGarden();
   const [selectedPrompt, setSelectedPrompt] = useState<ReflectionPrompt | null>(null);
   const [reflectionText, setReflectionText] = useState('');
   const [savedReflections, setSavedReflections] = useState<SavedReflection[]>([]);
@@ -126,7 +128,7 @@ export default function Reflection() {
     }
   }, []);
 
-  const saveReflection = () => {
+  const saveReflection = async () => {
     if (!selectedPrompt || !reflectionText.trim()) return;
 
     setIsSaving(true);
@@ -148,6 +150,14 @@ export default function Reflection() {
     }
     
     toast.success('Reflexión guardada exitosamente');
+    
+    // Plant seed after saving reflection
+    try {
+      await plantSeed('reflection', 0); // Reflections don't track duration
+      toast.success('🌷 Has plantado una semilla de claridad en tu jardín');
+    } catch (error) {
+      console.error('Error planting seed:', error);
+    }
 
     // Show success animation
     setTimeout(() => {
