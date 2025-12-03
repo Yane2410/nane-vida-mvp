@@ -18,25 +18,25 @@ export default function Card({
   style
 }: CardProps) {
   const hoverStyles = hover
-    ? 'hover:shadow-2xl hover:-translate-y-1 hover:border-[#A78BFA]/40 cursor-pointer'
+    ? 'hover:shadow-strong hover:-translate-y-1 hover:border-primary-400/40 cursor-pointer'
     : ''
   const gradientStyles = gradient
-    ? 'bg-gradient-to-br from-white/95 via-[#F7F5FF]/50 to-[#E0D9FF]/30'
-    : 'bg-white/90'
-  const animationStyles = animated ? 'animate-scaleIn' : ''
+    ? 'bg-gradient-to-br from-white/95 via-primary-50/50 to-primary-100/30'
+    : 'glass'
+  const animationStyles = animated ? 'animate-scale-in' : ''
 
   return (
     <div
       className={`
-        rounded-3xl border-2 border-[#A78BFA]/20 p-6 sm:p-8
+        rounded-3xl border-2 border-primary-400/20 p-6 sm:p-8
         backdrop-blur-xl
-        shadow-lg
+        shadow-soft
         transition-all duration-300 ease-out
         ${gradientStyles} ${hoverStyles} ${animationStyles}
         ${className}
       `}
       style={{
-        boxShadow: '0 8px 32px rgba(167, 139, 250, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.5) inset',
+        boxShadow: '0 8px 32px rgba(139, 92, 246, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.5) inset',
         ...style,
       }}
     >

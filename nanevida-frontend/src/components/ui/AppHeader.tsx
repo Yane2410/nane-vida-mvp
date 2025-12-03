@@ -35,28 +35,28 @@ export default function AppHeader({
   return (
     <div className={`relative ${className}`}>
       {/* Decorative background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[#A78BFA]/10 via-[#7DD3FC]/5 to-transparent rounded-3xl" />
+      <div className="absolute inset-0 bg-gradient-to-br from-primary-400/10 via-calm/5 to-transparent rounded-3xl" />
       
       {/* Content */}
       <div className="relative p-8 sm:p-10 text-center">
         {showIcon && (
-          <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl bg-gradient-to-br from-[#A78BFA]/20 to-[#C4B5FD]/20 animate-pulse">
-            <SparkleIcon size={32} color="#A78BFA" />
+          <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl bg-gradient-to-br from-primary-400/20 to-primary-300/20 animate-pulse">
+            <SparkleIcon size={32} color="#8B5CF6" />
           </div>
         )}
         
-        <h1 className="text-3xl sm:text-4xl font-bold text-[#333333] mb-3">
+        <h1 className="text-h1 text-gray-900 mb-3">
           {getGreeting()}
         </h1>
         
-        <p className="text-base sm:text-lg text-[#444444] max-w-2xl mx-auto leading-relaxed">
+        <p className="text-body-lg text-gray-700 max-w-2xl mx-auto">
           {getSubtitle()}
         </p>
       </div>
 
       {/* Decorative elements */}
-      <div className="absolute top-4 right-4 w-20 h-20 bg-[#FBCFE8]/20 rounded-full blur-2xl animate-pulse" />
-      <div className="absolute bottom-4 left-4 w-16 h-16 bg-[#BBF7D0]/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }} />
+      <div className="absolute top-4 right-4 w-20 h-20 bg-gentle/20 rounded-full blur-2xl animate-pulse" />
+      <div className="absolute bottom-4 left-4 w-16 h-16 bg-energy/20 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }} />
     </div>
   )
 }

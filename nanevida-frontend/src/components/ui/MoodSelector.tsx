@@ -18,12 +18,12 @@ interface MoodOption {
 }
 
 const moods: MoodOption[] = [
-  { id: 'calm', label: 'Calmo', color: '#A78BFA', Icon: CalmMoodIcon },
-  { id: 'anxious', label: 'Ansioso', color: '#FED7AA', Icon: AnxiousMoodIcon },
+  { id: 'calm', label: 'Calmo', color: '#8B5CF6', Icon: CalmMoodIcon },
+  { id: 'anxious', label: 'Ansioso', color: '#FBBF24', Icon: AnxiousMoodIcon },
   { id: 'sad', label: 'Triste', color: '#7DD3FC', Icon: SadMoodIcon },
-  { id: 'tired', label: 'Cansado', color: '#C4B5FD', Icon: TiredMoodIcon },
-  { id: 'neutral', label: 'Neutral', color: '#BBBBBB', Icon: NeutralMoodIcon },
-  { id: 'happy', label: 'Alegre', color: '#BBF7D0', Icon: HappyMoodIcon },
+  { id: 'tired', label: 'Cansado', color: '#A78BFA', Icon: TiredMoodIcon },
+  { id: 'neutral', label: 'Neutral', color: '#9CA3AF', Icon: NeutralMoodIcon },
+  { id: 'happy', label: 'Alegre', color: '#34D399', Icon: HappyMoodIcon },
 ]
 
 interface MoodSelectorProps {
@@ -58,10 +58,8 @@ export default function MoodSelector({ value, onChange, className = '' }: MoodSe
                 mood-option
                 flex flex-col items-center gap-3 p-4 sm:p-6
                 rounded-2xl sm:rounded-3xl
-                transition-all duration-300
-                ${isSelected ? 'ring-4 ring-offset-2' : ''}
-                ${isHovered ? 'scale-105' : 'scale-100'}
-                active:scale-95
+                transition-all duration-300 interactive
+                ${isSelected ? 'ring-4 ring-offset-2 shadow-medium' : 'shadow-soft'}
               `}
               style={{
                 backgroundColor: isSelected || isHovered ? `${color}15` : '#FFFFFF',
@@ -79,7 +77,7 @@ export default function MoodSelector({ value, onChange, className = '' }: MoodSe
                 className={`
                   text-sm sm:text-base font-semibold
                   transition-colors duration-300
-                  ${isSelected ? '' : 'text-gray-600'}
+                  ${isSelected ? '' : 'text-gray-700'}
                 `}
                 style={{ color: isSelected ? color : undefined }}
               >
@@ -97,7 +95,7 @@ export default function MoodSelector({ value, onChange, className = '' }: MoodSe
             backgroundColor: `${moods.find((m) => m.id === selected)?.color}15`,
           }}
         >
-          <p className="text-gray-600 text-sm sm:text-base">
+          <p className="text-gray-700 text-small">
             Gracias por compartir cómo te sientes. Recuerda que está bien sentirse así.
           </p>
         </div>

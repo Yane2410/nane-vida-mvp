@@ -38,7 +38,7 @@ export default function EmotionalCard({
       <div className="relative z-10 flex items-start gap-4">
         {/* Icon container */}
         <div
-          className="flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3"
+          className="flex-shrink-0 w-14 h-14 rounded-2xl flex items-center justify-center transition-all duration-300 group-hover:scale-110 group-hover:rotate-3 shadow-soft"
           style={{
             backgroundColor: `${color}20`,
             boxShadow: `0 4px 12px ${color}30`,
@@ -49,10 +49,10 @@ export default function EmotionalCard({
 
         {/* Text */}
         <div className="flex-1 min-w-0">
-          <h3 className="text-lg font-bold text-[#333333] mb-2 group-hover:text-[#555555] transition-colors">
+          <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors">
             {title}
           </h3>
-          <p className="text-sm text-[#555555] leading-relaxed line-clamp-2">
+          <p className="text-sm text-gray-600 leading-relaxed line-clamp-2">
             {description}
           </p>
         </div>
