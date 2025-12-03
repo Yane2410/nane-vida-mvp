@@ -1,9 +1,12 @@
+// Responsiveness update - centered layout with dynamic sizing
 import { useState, useEffect } from 'react'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import { CloudIcon, HeartIcon, CalmIcon } from '../assets/icons'
 import AnimatedCore from '../components/AnimatedCore'
 import { soundController } from '../utils/soundController'
+import CenteredContainer from '../components/ui/CenteredContainer'
+import { useWindowDimensions } from '../hooks/useWindowDimensions'
 
 type Technique = {
   id: number
@@ -87,6 +90,7 @@ const techniques: Technique[] = [
 ]
 
 export default function Calm() {
+  const { isSmall, isTablet } = useWindowDimensions();
   const [selectedTechnique, setSelectedTechnique] = useState<Technique | null>(null)
   const [currentStep, setCurrentStep] = useState(0)
   const [isActive, setIsActive] = useState(false)
@@ -125,16 +129,16 @@ export default function Calm() {
 
   if (isActive && selectedTechnique) {
     return (
-      <div className="max-w-3xl mx-auto animate-fadeIn">
+      <CenteredContainer padding="md" fullHeight>
         <Card gradient className="mb-6">
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl" style={{ backgroundColor: `${selectedTechnique.color}40` }}>
               {selectedTechnique.icon}
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#333333] mb-2">
+            <h2 className={`${isSmall ? 'text-xl' : isTablet ? 'text-2xl' : 'text-3xl'} font-bold text-[#333333] mb-2`}>
               {selectedTechnique.title}
             </h2>
-            <p className="text-[#555555] mb-2">
+            <p className={`text-[#555555] mb-2 ${isSmall ? 'text-sm' : ''}`}>
               {selectedTechnique.description}
             </p>
             <span className="inline-block px-4 py-1 rounded-full text-sm font-medium" style={{ backgroundColor: `${selectedTechnique.color}30`, color: '#333333' }}>
@@ -167,7 +171,7 @@ export default function Calm() {
         {/* Current Step */}
         <Card className="mb-6 text-center min-h-[200px] flex items-center justify-center">
           <div className="max-w-xl mx-auto">
-            <p className="text-xl sm:text-2xl text-[#333333] leading-relaxed font-medium">
+            <p className={`${isSmall ? 'text-lg' : isTablet ? 'text-xl' : 'text-2xl'} text-[#333333] leading-relaxed font-medium`}>
               {selectedTechnique.steps[currentStep]}
             </p>
           </div>
@@ -180,6 +184,7 @@ export default function Calm() {
             onClick={previousStep}
             disabled={currentStep === 0}
             fullWidth
+            size={isSmall ? 'md' : 'lg'}
           >
             ← Anterior
           </Button>
@@ -189,6 +194,7 @@ export default function Calm() {
               variant="primary"
               onClick={nextStep}
               fullWidth
+              size={isSmall ? 'md' : 'lg'}
             >
               Siguiente →
             </Button>
@@ -197,6 +203,7 @@ export default function Calm() {
               variant="success"
               onClick={closeTechnique}
               fullWidth
+              size={isSmall ? 'md' : 'lg'}
             >
               ✓ Completado
             </Button>
@@ -205,6 +212,7 @@ export default function Calm() {
           <Button
             variant="ghost"
             onClick={closeTechnique}
+            size={isSmall ? 'md' : 'lg'}
           >
             Salir
           </Button>
@@ -223,12 +231,12 @@ export default function Calm() {
             </div>
           </Card>
         )}
-      </div>
+      </CenteredContainer>
     )
   }
 
   return (
-    <div className="max-w-5xl mx-auto space-y-8 animate-fadeIn">
+    <CenteredContainer padding="md">
       {/* Header */}
       <Card gradient className="text-center">
         <AnimatedCore
@@ -241,10 +249,10 @@ export default function Calm() {
             <CloudIcon size={32} color="#7DD3FC" />
           </div>
         </AnimatedCore>
-        <h1 className="text-3xl sm:text-4xl font-bold text-[#333333] mb-3">
+        <h1 className={`${isSmall ? 'text-2xl' : isTablet ? 'text-3xl' : 'text-4xl'} font-bold text-[#333333] mb-3`}>
           Técnicas de Calma Rápida
         </h1>
-        <p className="text-[#444444] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+        <p className={`text-[#444444] ${isSmall ? 'text-sm' : 'text-base sm:text-lg'} max-w-2xl mx-auto leading-relaxed`}>
           Cuando sientas ansiedad o estrés, estas técnicas pueden ayudarte a encontrar paz en pocos minutos.
           Elige la que más resuene contigo en este momento.
         </p>
@@ -262,7 +270,7 @@ export default function Calm() {
                 {technique.icon}
               </div>
               <div className="flex-1">
-                <h3 className="text-xl font-bold text-[#333333] mb-1">
+                <h3 className={`${isSmall ? 'text-lg' : 'text-xl'} font-bold text-[#333333] mb-1`}>
                   {technique.title}
                 </h3>
                 <span className="inline-block px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: `${technique.color}30`, color: '#555555' }}>
@@ -271,7 +279,7 @@ export default function Calm() {
               </div>
             </div>
             
-            <p className="text-[#555555] mb-4 flex-1">
+            <p className={`text-[#555555] mb-4 flex-1 ${isSmall ? 'text-sm' : ''}`}>
               {technique.description}
             </p>
 
@@ -285,6 +293,7 @@ export default function Calm() {
               variant="primary"
               onClick={() => startTechnique(technique)}
               fullWidth
+              size={isSmall ? 'md' : 'lg'}
             >
               Comenzar ejercicio
             </Button>
@@ -294,11 +303,11 @@ export default function Calm() {
 
       {/* Tips */}
       <Card>
-        <h3 className="text-xl font-bold text-[#333333] mb-4 flex items-center gap-2">
+        <h3 className={`${isSmall ? 'text-lg' : 'text-xl'} font-bold text-[#333333] mb-4 flex items-center gap-2`}>
           <span style={{ filter: 'contrast(1.2) saturate(1.3)' }}>💡</span>
           Consejos para aprovechar al máximo
         </h3>
-        <ul className="space-y-3 text-[#555555]">
+        <ul className={`space-y-3 text-[#555555] ${isSmall ? 'text-sm' : ''}`}>
           <li className="flex items-start gap-2">
             <span className="text-[#22C55E] font-bold mt-1">✓</span>
             <span>Encuentra un lugar tranquilo donde no te interrumpan</span>
@@ -317,6 +326,6 @@ export default function Calm() {
           </li>
         </ul>
       </Card>
-    </div>
+    </CenteredContainer>
   )
 }

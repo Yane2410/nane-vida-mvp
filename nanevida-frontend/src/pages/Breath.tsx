@@ -1,3 +1,4 @@
+// Responsiveness update - centered layout with dynamic sizing
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from '../components/ui/Card';
@@ -5,6 +6,8 @@ import Button from '../components/ui/Button';
 import { BreathIcon } from '../assets/icons';
 import AnimatedCore from '../components/AnimatedCore';
 import { soundController } from '../utils/soundController';
+import CenteredContainer from '../components/ui/CenteredContainer';
+import { useWindowDimensions } from '../hooks/useWindowDimensions';
 
 type BreathPhase = 'inhale' | 'hold' | 'exhale' | 'rest';
 
@@ -40,6 +43,18 @@ const breathingPatterns = [
 
 export default function Breath() {
   const navigate = useNavigate();
+  const { width, isSmall, isTablet } = useWindowDimensions();
+  
+  // Dynamic circle size based on screen
+  const getCircleSize = () => {
+    if (isSmall) return Math.min(width * 0.7, 280);
+    if (isTablet) return 360;
+    return 320;
+  };
+  const circleSize = getCircleSize();
+  const radius = circleSize / 2 - 10;
+  const circumference = 2 * Math.PI * radius;
+  
   const [selectedPattern, setSelectedPattern] = useState<typeof breathingPatterns[0] | null>(null);
   const [isActive, setIsActive] = useState(false);
   const [currentCycleIndex, setCurrentCycleIndex] = useState(0);
@@ -140,7 +155,7 @@ export default function Breath() {
     
     return (
       <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] p-4 sm:p-8 flex items-center justify-center animate-fadeIn">
-        <div className="max-w-3xl w-full">
+        <CenteredContainer padding="md" fullHeight>
           <Card className="text-center">
             {/* Header */}
             <div className="mb-8">
@@ -159,7 +174,7 @@ export default function Breath() {
               loop={false}
               scaleRange={[1, scale]}
             >
-              <div className="relative w-80 h-80 mx-auto mb-8">
+              <div className="relative w-80 h-80 mx-auto mb-8" style={{ width: `${circleSize}px`, height: `${circleSize}px` }}>
                 <div
                   className="absolute inset-0 rounded-full flex items-center justify-center transition-all duration-1000 ease-in-out"
                   style={{
@@ -168,10 +183,10 @@ export default function Breath() {
                   }}
                 >
                 <div className="text-center">
-                  <div className="text-6xl font-bold text-[#333333] mb-2">
+                  <div className={`${isSmall ? 'text-5xl' : 'text-6xl'} font-bold text-[#333333] mb-2`}>
                     {secondsLeft}
                   </div>
-                  <div className="text-xl font-medium text-[#555555]">
+                  <div className={`${isSmall ? 'text-lg' : 'text-xl'} font-medium text-[#555555]`}>
                     {currentCycle.instruction}
                   </div>
                   </div>
@@ -180,22 +195,22 @@ export default function Breath() {
                 {/* Outer ring */}
                 <svg className="absolute inset-0 w-full h-full -rotate-90">
                 <circle
-                  cx="160"
-                  cy="160"
-                  r="150"
+                  cx={circleSize / 2}
+                  cy={circleSize / 2}
+                  r={radius}
                   stroke={`${selectedPattern.color}30`}
                   strokeWidth="4"
                   fill="none"
                 />
                 <circle
-                  cx="160"
-                  cy="160"
-                  r="150"
+                  cx={circleSize / 2}
+                  cy={circleSize / 2}
+                  r={radius}
                   stroke={selectedPattern.color}
                   strokeWidth="4"
                   fill="none"
-                  strokeDasharray={942}
-                  strokeDashoffset={942 - (942 * (currentCycle.duration - secondsLeft)) / currentCycle.duration}
+                  strokeDasharray={circumference}
+                  strokeDashoffset={circumference - (circumference * (currentCycle.duration - secondsLeft)) / currentCycle.duration}
                   className="transition-all duration-1000 ease-linear"
                 />
                 </svg>
@@ -222,14 +237,14 @@ export default function Breath() {
               <Button
                 onClick={pauseExercise}
                 variant="secondary"
-                size="lg"
+                size={isSmall ? 'md' : 'lg'}
               >
                 {isActive ? 'Pausar' : 'Reanudar'}
               </Button>
               <Button
                 onClick={stopExercise}
                 variant="ghost"
-                size="lg"
+                size={isSmall ? 'md' : 'lg'}
               >
                 Terminar
               </Button>
@@ -253,14 +268,14 @@ export default function Breath() {
               </Card>
             )}
           </Card>
-        </div>
+        </CenteredContainer>
       </div>
     );
   }
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] p-4 sm:p-8 animate-fadeIn">
-      <div className="max-w-4xl mx-auto">
+      <CenteredContainer padding="md">
         {/* Header */}
         <Card
           className="mb-8"
@@ -300,10 +315,10 @@ export default function Breath() {
                   >
                     <BreathIcon size={24} color={pattern.color} />
                   </div>
-                  <h3 className="text-xl font-bold text-[#333333] mb-2">
+                  <h3 className={`${isSmall ? 'text-lg' : 'text-xl'} font-bold text-[#333333] mb-2`}>
                     {pattern.name}
                   </h3>
-                  <p className="text-[#555555] mb-4">
+                  <p className={`text-[#555555] mb-4 ${isSmall ? 'text-sm' : ''}`}>
                     {pattern.description}
                   </p>
                 </div>
@@ -324,6 +339,7 @@ export default function Breath() {
               <Button
                 variant="primary"
                 fullWidth
+                size={isSmall ? 'md' : 'lg'}
               >
                 Comenzar ejercicio
               </Button>
@@ -368,12 +384,12 @@ export default function Breath() {
           <Button
             onClick={() => navigate('/')}
             variant="secondary"
-            size="lg"
+            size={isSmall ? 'md' : 'lg'}
           >
             Volver al inicio
           </Button>
         </div>
-      </div>
+      </CenteredContainer>
     </div>
   );
 }
