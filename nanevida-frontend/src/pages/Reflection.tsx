@@ -1,6 +1,7 @@
 // Responsiveness update – centered layout + Audio/Haptics feedback
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useToast } from '../contexts/ToastContext';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
 import CenteredContainer from '../components/ui/CenteredContainer';
@@ -87,6 +88,7 @@ const reflectionPrompts: ReflectionPrompt[] = [
 export default function Reflection() {
   const navigate = useNavigate();
   const { isSmall, isTablet } = useWindowDimensions();
+  const toast = useToast();
   const [selectedPrompt, setSelectedPrompt] = useState<ReflectionPrompt | null>(null);
   const [reflectionText, setReflectionText] = useState('');
   const [savedReflections, setSavedReflections] = useState<SavedReflection[]>([]);
@@ -144,6 +146,8 @@ export default function Reflection() {
     if (enableHaptics) {
       haptics.trigger('success');
     }
+    
+    toast.success('Reflexión guardada exitosamente');
 
     // Show success animation
     setTimeout(() => {
@@ -157,6 +161,7 @@ export default function Reflection() {
     const updated = savedReflections.filter((r) => r.id !== id);
     setSavedReflections(updated);
     localStorage.setItem('nane_reflections', JSON.stringify(updated));
+    toast.info('Reflexión eliminada');
   };
 
   const selectRandomPrompt = () => {

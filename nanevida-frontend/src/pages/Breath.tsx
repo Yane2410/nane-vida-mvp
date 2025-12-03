@@ -9,6 +9,7 @@ import { soundController } from '../utils/soundController';
 import { haptics } from '../sound-engine/utils/haptics';
 import CenteredContainer from '../components/ui/CenteredContainer';
 import { useWindowDimensions } from '../hooks/useWindowDimensions';
+import { useToast } from '../contexts/ToastContext';
 
 type BreathPhase = 'inhale' | 'hold' | 'exhale' | 'rest';
 
@@ -45,6 +46,7 @@ const breathingPatterns = [
 export default function Breath() {
   const navigate = useNavigate();
   const { width, isSmall, isTablet } = useWindowDimensions();
+  const toast = useToast();
   
   // Dynamic circle size based on screen
   const getCircleSize = () => {
@@ -119,7 +121,13 @@ export default function Breath() {
           
           // Count completed full cycles
           if (nextIndex === 0) {
-            setCompletedCycles((c) => c + 1);
+            setCompletedCycles((c) => {
+              const newCount = c + 1;
+              if (newCount === 3) {
+                toast.success('¡Excelente! Has completado 3 ciclos de respiración');
+              }
+              return newCount;
+            });
           }
           
           return selectedPattern.cycles[nextIndex].duration;
@@ -160,6 +168,9 @@ export default function Breath() {
   };
 
   const stopExercise = () => {
+    if (completedCycles > 0) {
+      toast.success(`Sesión completada: ${completedCycles} ciclo${completedCycles !== 1 ? 's' : ''}`);
+    }
     setIsActive(false);
     setSelectedPattern(null);
     setCurrentCycleIndex(0);

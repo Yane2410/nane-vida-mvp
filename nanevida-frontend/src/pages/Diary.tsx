@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { api } from '../api'
 import { useNavigate } from 'react-router-dom'
+import { useToast } from '../contexts/ToastContext'
 import EntryForm from '../components/EntryForm'
 import EntryList from '../components/EntryList'
 import EditEntryModal from '../components/EditEntryModal'
@@ -20,6 +21,7 @@ export default function Diary(){
   const [showStats, setShowStats] = useState(false)
   const [editingEntry, setEditingEntry] = useState<Entry | null>(null)
   const nav = useNavigate()
+  const toast = useToast()
 
   async function load(){
     try{
@@ -44,9 +46,11 @@ export default function Diary(){
       const { data } = await api.post('/entries/', entry)
       setItems([data, ...items])
       setError('')
+      toast.success('Entrada guardada exitosamente')
     }catch(e:any){
       if (e?.response?.status === 401) { nav('/login'); return }
       setError('No pudimos guardar tu entrada. Intenta nuevamente.')
+      toast.error('Error al guardar la entrada')
     } finally {
       setSaving(false)
     }
@@ -57,9 +61,11 @@ export default function Diary(){
       await api.delete(`/entries/${id}/`)
       setItems(items.filter(i=>i.id!==id))
       setError('')
+      toast.info('Entrada eliminada')
     }catch(e:any){
       if (e?.response?.status === 401) { nav('/login'); return }
       setError('No pudimos eliminar la entrada.')
+      toast.error('Error al eliminar')
     }
   }
 
@@ -74,9 +80,11 @@ export default function Diary(){
       setItems(items.map(i => i.id === id ? updated : i));
       setEditingEntry(null);
       setError('');
+      toast.success('Entrada actualizada');
     } catch(e: any) {
       if (e?.response?.status === 401) { nav('/login'); return }
       setError('No pudimos actualizar la entrada.')
+      toast.error('Error al actualizar')
     } finally {
       setSaving(false);
     }
