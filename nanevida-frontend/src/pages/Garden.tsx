@@ -77,6 +77,13 @@ export default function Garden() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-violet-50 via-sky-50 to-rose-50 pb-24">
+      <div className="flex justify-center pt-6 pb-4">
+        <img 
+          src="/icons/logo-icon.png" 
+          alt="Nane Vida" 
+          className="h-12 w-auto opacity-80"
+        />
+      </div>
       <AppHeader greeting="Tu Jardín de Bienestar" subtitle="Tu viaje de autocuidado florece aquí" />
       
       <div className="max-w-4xl mx-auto px-4 py-6 space-y-6">

@@ -75,8 +75,12 @@ export default function Register() {
     <div className="min-h-screen flex items-center justify-center px-4 py-8 animate-fadeIn">
       <Card className="w-full max-w-md" gradient>
         <div className="text-center mb-6">
-          <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl bg-[#BBF7D0]/30">
-            <SparkleIcon size={32} color="#22C55E" />
+          <div className="flex justify-center mb-4">
+            <img 
+              src="/icons/logo-icon.png" 
+              alt="Nane Vida" 
+              className="h-20 w-auto"
+            />
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-[#333333] mb-2">
             Empieza tu viaje de bienestar

@@ -35,6 +35,17 @@ export default function OnboardingModal() {
 
           {/* Content */}
           <div className="p-8 sm:p-12">
+            {/* Logo - Solo en el primer paso */}
+            {isFirstStep && (
+              <div className="flex justify-center mb-6">
+                <img 
+                  src="/icons/logo-icon.png" 
+                  alt="Nane Vida" 
+                  className="h-16 w-auto"
+                />
+              </div>
+            )}
+            
             {/* Icon */}
             <div className="text-center mb-6">
               <AnimatedCore mode="pulse" duration={600} loop={false}>

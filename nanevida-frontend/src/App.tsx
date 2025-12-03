@@ -26,13 +26,12 @@ export default function App(){
           {/* Top Bar - Logo + Theme Toggle + Mobile Menu */}
           <div className="flex items-center justify-between mb-3 md:mb-4">
             {/* Brand */}
-            <div className="text-left">
-              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight">
-                NANE VIDA
-              </h1>
-              <p className="text-slate-600 dark:text-slate-300 text-xs md:text-sm lg:text-base font-medium transition-colors">
-                Tu espacio de bienestar emocional
-              </p>
+            <div className="text-left flex items-center gap-3">
+              <img 
+                src="/icons/logo-full.png" 
+                alt="Nane Vida" 
+                className="h-10 md:h-12 lg:h-14 w-auto"
+              />
             </div>
 
             {/* Theme Toggle + Mobile Menu */}

@@ -38,8 +38,12 @@ export default function Login(){
   return (
     <div className="max-w-md mx-auto animate-fadeIn">
       <Card gradient className="text-center mb-6">
-        <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl bg-[#A78BFA]/20">
-          <HeartIcon size={32} color="#A78BFA" />
+        <div className="flex justify-center mb-4">
+          <img 
+            src="/icons/logo-icon.png" 
+            alt="Nane Vida" 
+            className="h-20 w-auto"
+          />
         </div>
         <h2 className="text-2xl sm:text-3xl font-bold text-[#333333] mb-2">
           Nos alegra verte de nuevo

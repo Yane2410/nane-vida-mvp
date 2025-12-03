@@ -21,6 +21,18 @@ export default function Home() {
 
   return (
     <div className="min-h-screen py-8 space-y-8 animate-fadeIn">
+      {/* Hero section con logo */}
+      <div className="flex flex-col items-center justify-center text-center space-y-4 mb-8">
+        <img 
+          src="/icons/logo-full.png" 
+          alt="Nane Vida" 
+          className="h-16 sm:h-20 md:h-24 w-auto"
+        />
+        <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl px-4">
+          Tu espacio seguro para cuidar tu salud mental y emocional
+        </p>
+      </div>
+
       <AppHeader />
 
       <Card gradient animated>
