@@ -49,10 +49,10 @@ export default function EmotionalCard({
 
         {/* Text */}
         <div className="flex-1 min-w-0">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2 group-hover:text-gray-700 transition-colors">
+          <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-2 group-hover:text-gray-700 dark:group-hover:text-gray-200 transition-colors">
             {title}
           </h3>
-          <p className="text-sm text-gray-600 leading-relaxed line-clamp-2">
+          <p className="text-sm text-gray-600 dark:text-gray-300 leading-relaxed line-clamp-2">
             {description}
           </p>
         </div>

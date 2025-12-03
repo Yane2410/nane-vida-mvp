@@ -2,6 +2,7 @@ import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { getToken } from './api'
 import Button from './components/ui/Button'
 import MobileMenu from './components/ui/MobileMenu'
+import ThemeToggle from './components/ui/ThemeToggle'
 
 export default function App(){
   const nav = useNavigate()
@@ -16,24 +17,27 @@ export default function App(){
   }
 
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen flex flex-col dark:bg-gray-900">
       {/* Header */}
-      <header className="backdrop-blur-xl bg-white/70 border-b border-white/40 shadow-lg sticky top-0 z-50">
+      <header className="backdrop-blur-xl bg-white/70 dark:bg-gray-800/70 border-b border-white/40 dark:border-gray-700/40 shadow-lg sticky top-0 z-50 transition-colors duration-300">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4">
-          {/* Top Bar - Logo + Mobile Menu */}
+          {/* Top Bar - Logo + Theme Toggle + Mobile Menu */}
           <div className="flex items-center justify-between mb-3 md:mb-4">
             {/* Brand */}
             <div className="text-left">
               <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight">
                 NANE VIDA
               </h1>
-              <p className="text-slate-600 text-xs md:text-sm lg:text-base font-medium">
+              <p className="text-slate-600 dark:text-slate-300 text-xs md:text-sm lg:text-base font-medium transition-colors">
                 Tu espacio de bienestar emocional
               </p>
             </div>
 
-            {/* Mobile Menu */}
-            <MobileMenu isAuth={isAuth} onLogout={handleLogout} />
+            {/* Theme Toggle + Mobile Menu */}
+            <div className="flex items-center gap-3">
+              <ThemeToggle />
+              <MobileMenu isAuth={isAuth} onLogout={handleLogout} />
+            </div>
           </div>
 
           {/* Desktop Navigation */}

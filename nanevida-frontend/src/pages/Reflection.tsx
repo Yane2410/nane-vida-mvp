@@ -222,10 +222,10 @@ export default function Reflection() {
               <div className="text-6xl mb-4" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>
                 🌸
               </div>
-              <h3 className="text-xl font-bold text-[#333333] mb-2">
+              <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
                 Aún no hay reflexiones
               </h3>
-              <p className="text-[#555555] mb-6">
+              <p className="text-gray-700 dark:text-gray-300 mb-6">
                 Empieza tu práctica de reflexión y tus pensamientos aparecerán aquí
               </p>
               <Button
@@ -241,19 +241,19 @@ export default function Reflection() {
                 <Card key={reflection.id} className="hover:shadow-lg transition-shadow">
                   <div className="flex items-start justify-between gap-4 mb-3">
                     <div className="flex-1">
-                      <p className="text-sm text-[#888888] mb-2">
+                      <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
                         {formatDate(reflection.date)}
                       </p>
-                      <h3 className="text-lg font-bold text-[#333333] mb-3">
+                      <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">
                         {reflection.question}
                       </h3>
-                      <p className="text-[#555555] whitespace-pre-wrap leading-relaxed">
+                      <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
                         {reflection.answer}
                       </p>
                     </div>
                     <button
                       onClick={() => deleteReflection(reflection.id)}
-                      className="text-[#EC4899] hover:text-[#DB2777] transition-colors p-2"
+                      className="text-red-500 hover:text-red-600 dark:text-red-400 dark:hover:text-red-300 transition-colors p-2"
                       title="Eliminar reflexión"
                     >
                       <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -284,14 +284,14 @@ export default function Reflection() {
               }}
             >
               <div className="text-center">
-                <span className={`inline-block px-4 py-1 rounded-full font-medium bg-white/50 text-[#555555] mb-4 ${isSmall ? 'text-xs' : 'text-sm'}`}>
+                <span className={`inline-block px-4 py-1 rounded-full font-medium bg-white/50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 mb-4 ${isSmall ? 'text-xs' : 'text-sm'}`}>
                   {selectedPrompt.category}
                 </span>
                 <AnimatedCore mode="fadeIn" duration={800} loop={false}>
-                  <h2 className={`font-bold text-[#333333] mb-3 ${isSmall ? 'text-xl' : isTablet ? 'text-2xl' : 'text-3xl'}`}>
+                  <h2 className={`font-bold text-gray-900 dark:text-gray-100 mb-3 ${isSmall ? 'text-xl' : isTablet ? 'text-2xl' : 'text-3xl'}`}>
                     {selectedPrompt.question}
                   </h2>
-                  <p className={`text-[#555555] ${isSmall ? 'text-sm' : 'text-base'}`}>
+                  <p className={`text-gray-700 dark:text-gray-300 ${isSmall ? 'text-sm' : 'text-base'}`}>
                     {selectedPrompt.subtitle}
                   </p>
                 </AnimatedCore>
@@ -299,22 +299,22 @@ export default function Reflection() {
           </Card>
 
           <Card className="mb-6">
-            <label className="block text-sm font-medium text-[#444444] mb-3">
+            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
               Tu reflexión
             </label>
             <textarea
               value={reflectionText}
               onChange={(e) => setReflectionText(e.target.value)}
               placeholder="Escribe libremente lo que sientes, piensas o necesitas expresar..."
-              className="w-full min-h-[300px] p-4 border-2 border-[#A78BFA]/20 rounded-2xl focus:border-[#A78BFA] focus:ring-4 focus:ring-[#A78BFA]/20 outline-none transition-all resize-none text-[#333333]"
+              className="w-full min-h-[300px] p-4 border-2 border-primary-400/20 dark:border-primary-500/30 rounded-2xl focus:border-primary-400 dark:focus:border-primary-500 focus:ring-4 focus:ring-primary-400/20 dark:focus:ring-primary-500/30 outline-none transition-all resize-none text-gray-900 dark:text-gray-100 bg-white dark:bg-gray-800/50"
               style={{ fontSize: '16px', lineHeight: '1.6' }}
             />
             <div className="flex items-center justify-between mt-3">
-              <span className="text-sm text-[#888888]">
+              <span className="text-sm text-gray-500 dark:text-gray-400">
                 {reflectionText.length} caracteres
               </span>
               {reflectionText.length > 0 && (
-                <span className="text-sm text-[#22C55E]">
+                <span className="text-sm text-green-600 dark:text-green-400">
                   ✓ Muy bien, sigue escribiendo
                 </span>
               )}
@@ -382,10 +382,10 @@ export default function Reflection() {
                 <FlowerIcon size={32} color="#EC4899" />
               </div>
               <div className="flex-1">
-                <h1 className={`font-bold text-[#333333] mb-2 ${isSmall ? 'text-2xl' : 'text-3xl'}`}>
+                <h1 className={`font-bold text-gray-900 dark:text-gray-100 mb-2 ${isSmall ? 'text-2xl' : 'text-3xl'}`}>
                   Reflexión Guiada
                 </h1>
-              <p className="text-[#555555] text-lg">
+              <p className="text-gray-700 dark:text-gray-300 text-lg">
                 Tómate un momento para conectar contigo. Elige una pregunta o deja que el azar te guíe.
               </p>
             </div>

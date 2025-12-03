@@ -59,10 +59,10 @@ export default function MoodSelector({ value, onChange, className = '' }: MoodSe
                 flex flex-col items-center gap-3 p-4 sm:p-6
                 rounded-2xl sm:rounded-3xl
                 transition-all duration-300 interactive
-                ${isSelected ? 'ring-4 ring-offset-2 shadow-medium' : 'shadow-soft'}
+                ${isSelected ? 'ring-4 ring-offset-2 shadow-medium dark:ring-offset-gray-900' : 'shadow-soft'}
               `}
               style={{
-                backgroundColor: isSelected || isHovered ? `${color}15` : '#FFFFFF',
+                backgroundColor: isSelected || isHovered ? `${color}15` : (document.documentElement.classList.contains('dark') ? '#1f2937' : '#FFFFFF'),
                 transform: isHovered || isSelected ? 'translateY(-4px)' : 'translateY(0)',
                 boxShadow: isHovered || isSelected
                   ? `0 12px 32px ${color}30`
@@ -77,7 +77,7 @@ export default function MoodSelector({ value, onChange, className = '' }: MoodSe
                 className={`
                   text-sm sm:text-base font-semibold
                   transition-colors duration-300
-                  ${isSelected ? '' : 'text-gray-700'}
+                  ${isSelected ? '' : 'text-gray-700 dark:text-gray-300'}
                 `}
                 style={{ color: isSelected ? color : undefined }}
               >

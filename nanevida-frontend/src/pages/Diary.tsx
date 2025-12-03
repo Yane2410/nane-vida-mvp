@@ -101,10 +101,10 @@ export default function Diary(){
         <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl bg-[#A78BFA]/20">
           <JournalIcon size={32} color="#A78BFA" />
         </div>
-        <h2 className="text-3xl font-bold text-[#333333] mb-2">
+        <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-2">
           Mi Diario Personal
         </h2>
-        <p className="text-[#555555]">
+        <p className="text-gray-700 dark:text-gray-300">
           Este es tu espacio seguro para expresarte libremente
         </p>
       </Card>
@@ -123,7 +123,7 @@ export default function Diary(){
       {/* Error Alert */}
       {error && (
         <Card className="mb-6 bg-[#FBCFE8]/20 border-[#FBCFE8]/40">
-          <p className="text-[#444444]">{error}</p>
+          <p className="text-red-600 dark:text-red-400">{error}</p>
         </Card>
       )}
 
@@ -136,7 +136,7 @@ export default function Diary(){
           {saving ? (
             <Card gradient className="mb-8 text-center">
               <LoadingSpinner />
-              <p className="text-[#555555] mt-4">Guardando tu entrada...</p>
+              <p className="text-gray-700 dark:text-gray-300 mt-4">Guardando tu entrada...</p>
             </Card>
           ) : (
             <EntryForm onSave={save}/>

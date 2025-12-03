@@ -25,10 +25,10 @@ export default function Home() {
 
       <Card gradient animated>
         <div className="text-center mb-6">
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#333333] mb-3">
+          <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3">
             ¿Cómo te sientes hoy?
           </h2>
-          <p className="text-base sm:text-lg text-[#555555] max-w-xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 max-w-xl mx-auto">
             Está bien tomarte un momento para reconocer tus emociones.
             No hay respuestas correctas o incorrectas.
           </p>
@@ -56,7 +56,7 @@ export default function Home() {
       </Card>
 
       <div>
-        <h2 className="text-2xl sm:text-3xl font-bold text-[#333333] mb-6 text-center">
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-6 text-center">
           Herramientas para tu bienestar
         </h2>
 
