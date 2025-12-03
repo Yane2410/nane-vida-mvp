@@ -1,10 +1,13 @@
+// Responsiveness update – centered layout
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
+import CenteredContainer from '../components/ui/CenteredContainer';
 import { CalmIcon } from '../assets/icons';
 import AnimatedCore from '../components/AnimatedCore';
 import { soundController } from '../utils/soundController';
+import { useWindowDimensions } from '../hooks/useWindowDimensions';
 
 interface GroundingItem {
   id: number;
@@ -66,6 +69,7 @@ const groundingSteps: GroundingItem[] = [
 
 export default function Grounding() {
   const navigate = useNavigate();
+  const { isSmall, isTablet } = useWindowDimensions();
   const [currentStep, setCurrentStep] = useState(0);
   const [steps, setSteps] = useState<GroundingItem[]>(groundingSteps);
   const [currentInput, setCurrentInput] = useState('');
@@ -140,22 +144,23 @@ export default function Grounding() {
 
   if (isComplete) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] p-4 sm:p-8 flex items-center justify-center animate-fadeIn">
-        <div className="max-w-3xl w-full">
-          <Card
-            className="text-center mb-6"
-            style={{
-              background: 'linear-gradient(135deg, rgba(187, 247, 208, 0.2) 0%, rgba(187, 247, 208, 0.1) 100%)',
-              border: '1px solid rgba(187, 247, 208, 0.4)'
-            }}
-          >
+      <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] animate-fadeIn">
+        <CenteredContainer padding="md" fullHeight>
+          <div className="w-full max-w-3xl mx-auto">
+            <Card
+              className="text-center mb-6"
+              style={{
+                background: 'linear-gradient(135deg, rgba(187, 247, 208, 0.2) 0%, rgba(187, 247, 208, 0.1) 100%)',
+                border: '1px solid rgba(187, 247, 208, 0.4)'
+              }}
+            >
             <div className="text-6xl mb-4" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>
               ✨
             </div>
-            <h2 className="text-3xl font-bold text-[#333333] mb-3">
+            <h2 className={`font-bold text-[#333333] mb-3 ${isSmall ? 'text-2xl' : 'text-3xl'}`}>
               ¡Excelente trabajo!
             </h2>
-            <p className="text-[#555555] text-lg mb-6">
+            <p className={`text-[#555555] mb-6 ${isSmall ? 'text-base' : 'text-lg'}`}>
               Has completado el ejercicio de grounding. ¿Te sientes más presente y conectado con el momento actual?
             </p>
             
@@ -201,7 +206,7 @@ export default function Grounding() {
             <Button
               onClick={resetExercise}
               variant="primary"
-              size="lg"
+              size={isSmall ? 'md' : 'lg'}
               fullWidth
             >
               Hacer el ejercicio nuevamente
@@ -209,7 +214,7 @@ export default function Grounding() {
             <Button
               onClick={() => navigate('/')}
               variant="secondary"
-              size="lg"
+              size={isSmall ? 'md' : 'lg'}
             >
               Volver al inicio
             </Button>
@@ -235,15 +240,17 @@ export default function Grounding() {
               </div>
             </div>
           </Card>
-        </div>
+          </div>
+        </CenteredContainer>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] p-4 sm:p-8 animate-fadeIn">
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
+    <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] animate-fadeIn">
+      <CenteredContainer padding="md">
+        <div className="w-full max-w-4xl mx-auto">
+          {/* Header */}
         <Card
           className="mb-8"
           style={{
@@ -443,12 +450,13 @@ export default function Grounding() {
           <Button
             onClick={() => navigate('/')}
             variant="secondary"
-            size="lg"
+            size={isSmall ? 'md' : 'lg'}
           >
             Volver al inicio
           </Button>
         </div>
-      </div>
+        </div>
+      </CenteredContainer>
     </div>
   );
 }

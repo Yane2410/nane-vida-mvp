@@ -1,10 +1,13 @@
+// Responsiveness update – centered layout
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from '../components/ui/Card';
 import Button from '../components/ui/Button';
+import CenteredContainer from '../components/ui/CenteredContainer';
 import { FlowerIcon, SparkleIcon } from '../assets/icons';
 import AnimatedCore from '../components/AnimatedCore';
 import { soundController } from '../utils/soundController';
+import { useWindowDimensions } from '../hooks/useWindowDimensions';
 
 interface ReflectionPrompt {
   id: number;
@@ -82,6 +85,7 @@ const reflectionPrompts: ReflectionPrompt[] = [
 
 export default function Reflection() {
   const navigate = useNavigate();
+  const { isSmall, isTablet } = useWindowDimensions();
   const [selectedPrompt, setSelectedPrompt] = useState<ReflectionPrompt | null>(null);
   const [reflectionText, setReflectionText] = useState('');
   const [savedReflections, setSavedReflections] = useState<SavedReflection[]>([]);
@@ -164,37 +168,39 @@ export default function Reflection() {
 
   if (showSaved) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] p-4 sm:p-8 animate-fadeIn">
-        <div className="max-w-4xl mx-auto">
-          <Card
-            className="mb-8"
-            style={{
-              background: 'linear-gradient(135deg, rgba(251, 207, 232, 0.1) 0%, rgba(251, 207, 232, 0.05) 100%)',
-              border: '1px solid rgba(251, 207, 232, 0.3)'
-            }}
-          >
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-4">
-                <div className="w-12 h-12 rounded-2xl bg-[#FBCFE8]/20 flex items-center justify-center">
-                  <SparkleIcon size={24} color="#EC4899" />
+      <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] animate-fadeIn">
+        <CenteredContainer padding="md">
+          <div className="w-full max-w-4xl mx-auto">
+            <Card
+              className="mb-8"
+              style={{
+                background: 'linear-gradient(135deg, rgba(251, 207, 232, 0.1) 0%, rgba(251, 207, 232, 0.05) 100%)',
+                border: '1px solid rgba(251, 207, 232, 0.3)'
+              }}
+            >
+              <div className="flex items-center justify-between flex-wrap gap-4">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-[#FBCFE8]/20 flex items-center justify-center">
+                    <SparkleIcon size={24} color="#EC4899" />
+                  </div>
+                  <div>
+                    <h1 className={`font-bold text-[#333333] ${isSmall ? 'text-xl' : 'text-2xl'}`}>
+                      Mis Reflexiones
+                    </h1>
+                    <p className={`text-[#555555] ${isSmall ? 'text-sm' : 'text-base'}`}>
+                      {savedReflections.length} reflexión{savedReflections.length !== 1 ? 'es' : ''} guardada{savedReflections.length !== 1 ? 's' : ''}
+                    </p>
+                  </div>
                 </div>
-                <div>
-                  <h1 className="text-2xl font-bold text-[#333333]">
-                    Mis Reflexiones
-                  </h1>
-                  <p className="text-[#555555]">
-                    {savedReflections.length} reflexión{savedReflections.length !== 1 ? 'es' : ''} guardada{savedReflections.length !== 1 ? 's' : ''}
-                  </p>
-                </div>
+                <Button
+                  onClick={() => setShowSaved(false)}
+                  variant="secondary"
+                  size={isSmall ? 'sm' : 'md'}
+                >
+                  Volver
+                </Button>
               </div>
-              <Button
-                onClick={() => setShowSaved(false)}
-                variant="secondary"
-              >
-                Volver
-              </Button>
-            </div>
-          </Card>
+            </Card>
 
           {savedReflections.length === 0 ? (
             <Card className="text-center py-12">
@@ -244,34 +250,36 @@ export default function Reflection() {
               ))}
             </div>
           )}
-        </div>
+          </div>
+        </CenteredContainer>
       </div>
     );
   }
 
   if (selectedPrompt) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] p-4 sm:p-8 animate-fadeIn">
-        <div className="max-w-3xl mx-auto">
-          <Card
-            className="mb-6"
-            style={{
-              background: `linear-gradient(135deg, ${selectedPrompt.color}20 0%, ${selectedPrompt.color}10 100%)`,
-              border: `1px solid ${selectedPrompt.color}40`
-            }}
-          >
-            <div className="text-center">
-              <span className="inline-block px-4 py-1 rounded-full text-sm font-medium bg-white/50 text-[#555555] mb-4">
-                {selectedPrompt.category}
-              </span>
-              <AnimatedCore mode="fadeIn" duration={800} loop={false}>
-                <h2 className="text-2xl sm:text-3xl font-bold text-[#333333] mb-3">
-                {selectedPrompt.question}
-              </h2>
-              <p className="text-[#555555]">
-                {selectedPrompt.subtitle}
-              </p>
-              </AnimatedCore>
+      <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] animate-fadeIn">
+        <CenteredContainer padding="md" fullHeight>
+          <div className="w-full max-w-3xl mx-auto">
+            <Card
+              className="mb-6"
+              style={{
+                background: `linear-gradient(135deg, ${selectedPrompt.color}20 0%, ${selectedPrompt.color}10 100%)`,
+                border: `1px solid ${selectedPrompt.color}40`
+              }}
+            >
+              <div className="text-center">
+                <span className={`inline-block px-4 py-1 rounded-full font-medium bg-white/50 text-[#555555] mb-4 ${isSmall ? 'text-xs' : 'text-sm'}`}>
+                  {selectedPrompt.category}
+                </span>
+                <AnimatedCore mode="fadeIn" duration={800} loop={false}>
+                  <h2 className={`font-bold text-[#333333] mb-3 ${isSmall ? 'text-xl' : isTablet ? 'text-2xl' : 'text-3xl'}`}>
+                    {selectedPrompt.question}
+                  </h2>
+                  <p className={`text-[#555555] ${isSmall ? 'text-sm' : 'text-base'}`}>
+                    {selectedPrompt.subtitle}
+                  </p>
+                </AnimatedCore>
             </div>
           </Card>
 
@@ -336,30 +344,32 @@ export default function Reflection() {
               </div>
             </Card>
           )}
-        </div>
+          </div>
+        </CenteredContainer>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] p-4 sm:p-8 animate-fadeIn">
-      <div className="max-w-5xl mx-auto">
-        {/* Header */}
-        <Card
-          className="mb-8"
-          style={{
-            background: 'linear-gradient(135deg, rgba(251, 207, 232, 0.1) 0%, rgba(251, 207, 232, 0.05) 100%)',
-            border: '1px solid rgba(251, 207, 232, 0.3)'
-          }}
-        >
-          <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-[#FBCFE8]/20 flex items-center justify-center">
-              <FlowerIcon size={32} color="#EC4899" />
-            </div>
-            <div className="flex-1">
-              <h1 className="text-3xl font-bold text-[#333333] mb-2">
-                Reflexión Guiada
-              </h1>
+    <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] animate-fadeIn">
+      <CenteredContainer padding="md">
+        <div className="w-full max-w-5xl mx-auto">
+          {/* Header */}
+          <Card
+            className="mb-8"
+            style={{
+              background: 'linear-gradient(135deg, rgba(251, 207, 232, 0.1) 0%, rgba(251, 207, 232, 0.05) 100%)',
+              border: '1px solid rgba(251, 207, 232, 0.3)'
+            }}
+          >
+            <div className="flex items-start gap-4">
+              <div className="flex-shrink-0 w-16 h-16 rounded-2xl bg-[#FBCFE8]/20 flex items-center justify-center">
+                <FlowerIcon size={32} color="#EC4899" />
+              </div>
+              <div className="flex-1">
+                <h1 className={`font-bold text-[#333333] mb-2 ${isSmall ? 'text-2xl' : 'text-3xl'}`}>
+                  Reflexión Guiada
+                </h1>
               <p className="text-[#555555] text-lg">
                 Tómate un momento para conectar contigo. Elige una pregunta o deja que el azar te guíe.
               </p>
@@ -484,12 +494,13 @@ export default function Reflection() {
           <Button
             onClick={() => navigate('/')}
             variant="secondary"
-            size="lg"
+            size={isSmall ? 'md' : 'lg'}
           >
             Volver al inicio
           </Button>
         </div>
-      </div>
+        </div>
+      </CenteredContainer>
     </div>
   );
 }
