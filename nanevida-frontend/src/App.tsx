@@ -3,6 +3,7 @@ import { getToken } from './api'
 import Button from './components/ui/Button'
 import MobileMenu from './components/ui/MobileMenu'
 import ThemeToggle from './components/ui/ThemeToggle'
+import OnboardingModal from './components/ui/OnboardingModal'
 
 export default function App(){
   const nav = useNavigate()
@@ -120,6 +121,9 @@ export default function App(){
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Outlet/>
       </main>
+
+      {/* Onboarding Modal */}
+      <OnboardingModal />
 
       {/* Footer */}
       <footer className="backdrop-blur-xl bg-white/60 border-t border-white/40 shadow-inner">

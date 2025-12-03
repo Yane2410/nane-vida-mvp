@@ -4,6 +4,7 @@ import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
 import { Link, useNavigate } from 'react-router-dom'
+import { useOnboarding } from '../contexts/OnboardingContext'
 
 type Profile = {
   username: string
@@ -28,6 +29,7 @@ type PrivacySettings = {
 }
 
 export default function Settings() {
+  const { startOnboarding } = useOnboarding()
   const [profile, setProfile] = useState<Profile | null>(null)
   const [notifications, setNotifications] = useState<NotificationSettings>({
     email_notifications: true,
@@ -406,6 +408,25 @@ export default function Settings() {
           fullWidth
         >
           🗑️ Eliminar Cuenta Permanentemente
+        </Button>
+      </Card>
+
+      {/* Onboarding */}
+      <Card>
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center gap-2">
+          <span>🎓</span>
+          Tutorial de Bienvenida
+        </h2>
+        <p className="text-gray-600 dark:text-gray-300 mb-4">
+          ¿Necesitas un recordatorio de cómo funciona la app? Vuelve a ver el tutorial de introducción.
+        </p>
+        <Button 
+          onClick={startOnboarding} 
+          variant="secondary"
+          icon={<span>🌸</span>}
+          fullWidth
+        >
+          Ver Tutorial de Nuevo
         </Button>
       </Card>
 

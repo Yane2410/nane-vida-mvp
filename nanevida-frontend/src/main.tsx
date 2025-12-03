@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ToastProvider } from './contexts/ToastContext'
 import { ThemeProvider } from './contexts/ThemeContext'
+import { OnboardingProvider } from './contexts/OnboardingContext'
 import App from './App'
 import Login from './pages/Login'
 import Register from './pages/Register'
@@ -42,7 +43,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider>
       <ToastProvider>
-        <RouterProvider router={router} />
+        <OnboardingProvider>
+          <RouterProvider router={router} />
+        </OnboardingProvider>
       </ToastProvider>
     </ThemeProvider>
   </React.StrictMode>
