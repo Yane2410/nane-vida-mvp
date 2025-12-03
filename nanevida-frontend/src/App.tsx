@@ -3,7 +3,7 @@ import { getToken } from './api'
 import Button from './components/ui/Button'
 import MobileMenu from './components/ui/MobileMenu'
 import ThemeToggle from './components/ui/ThemeToggle'
-// import OnboardingModal from './components/ui/OnboardingModal'
+import OnboardingModal from './components/ui/OnboardingModal'
 import MilestoneModal from './components/MilestoneModal'
 
 export default function App(){
@@ -124,7 +124,7 @@ export default function App(){
       </main>
 
       {/* Onboarding Modal */}
-      {/* <OnboardingModal /> */}
+      <OnboardingModal />
 
       {/* Milestone Modal */}
       <MilestoneModal />
