@@ -1,4 +1,4 @@
-// Responsiveness update – centered layout
+// Responsiveness update – centered layout + Audio/Haptics feedback
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from '../components/ui/Card';
@@ -7,6 +7,7 @@ import CenteredContainer from '../components/ui/CenteredContainer';
 import { FlowerIcon, SparkleIcon } from '../assets/icons';
 import AnimatedCore from '../components/AnimatedCore';
 import { soundController } from '../utils/soundController';
+import { haptics } from '../sound-engine/utils/haptics';
 import { useWindowDimensions } from '../hooks/useWindowDimensions';
 
 interface ReflectionPrompt {
@@ -91,8 +92,9 @@ export default function Reflection() {
   const [savedReflections, setSavedReflections] = useState<SavedReflection[]>([]);
   const [showSaved, setShowSaved] = useState(false);
   const [isSaving, setIsSaving] = useState(false);
+  const [enableHaptics, setEnableHaptics] = useState(true);
 
-  // Sound management - water loop
+  // Ambient nature sound loop
   useEffect(() => {
     soundController.playLoop('water', 0.15);
     return () => {
@@ -100,12 +102,15 @@ export default function Reflection() {
     };
   }, []);
 
-  // Play bell when selecting a new prompt
+  // Play bell + haptic when selecting a new prompt
   useEffect(() => {
     if (selectedPrompt) {
-      soundController.playOnce('bell', 0.4);
+      soundController.playOnce('bell', 0.3);
+      if (enableHaptics) {
+        haptics.newPrompt();
+      }
     }
-  }, [selectedPrompt]);
+  }, [selectedPrompt, enableHaptics]);
 
   useEffect(() => {
     // Load saved reflections from localStorage
@@ -134,6 +139,11 @@ export default function Reflection() {
     const updated = [newReflection, ...savedReflections];
     setSavedReflections(updated);
     localStorage.setItem('nane_reflections', JSON.stringify(updated));
+
+    // Success feedback
+    if (enableHaptics) {
+      haptics.trigger('success');
+    }
 
     // Show success animation
     setTimeout(() => {

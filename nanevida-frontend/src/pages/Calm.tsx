@@ -1,10 +1,11 @@
-// Responsiveness update - centered layout with dynamic sizing
+// Responsiveness update - centered layout with dynamic sizing + Audio/Haptics sync
 import { useState, useEffect } from 'react'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
 import { CloudIcon, HeartIcon, CalmIcon } from '../assets/icons'
 import AnimatedCore from '../components/AnimatedCore'
 import { soundController } from '../utils/soundController'
+import { haptics } from '../sound-engine/utils/haptics'
 import CenteredContainer from '../components/ui/CenteredContainer'
 import { useWindowDimensions } from '../hooks/useWindowDimensions'
 
@@ -94,6 +95,7 @@ export default function Calm() {
   const [selectedTechnique, setSelectedTechnique] = useState<Technique | null>(null)
   const [currentStep, setCurrentStep] = useState(0)
   const [isActive, setIsActive] = useState(false)
+  const [enableHaptics, setEnableHaptics] = useState(true)
 
   // Sound management - soft wind loop
   useEffect(() => {
@@ -103,33 +105,50 @@ export default function Calm() {
     };
   }, []);
 
+  // Haptic feedback on step change
+  useEffect(() => {
+    if (isActive && enableHaptics) {
+      haptics.techniqueTransition();
+    }
+  }, [currentStep, isActive, enableHaptics]);
+
   const startTechnique = (technique: Technique) => {
     setSelectedTechnique(technique)
     setCurrentStep(0)
     setIsActive(true)
+    soundController.playOnce('bell', 0.3)
+    if (enableHaptics) {
+      haptics.sessionStart()
+    }
   }
 
   const nextStep = () => {
     if (selectedTechnique && currentStep < selectedTechnique.steps.length - 1) {
       setCurrentStep(currentStep + 1)
+      soundController.playOnce('bell', 0.2)
     }
   }
 
   const previousStep = () => {
     if (currentStep > 0) {
       setCurrentStep(currentStep - 1)
+      soundController.playOnce('bell', 0.2)
     }
   }
 
   const closeTechnique = () => {
+    setIsActive(false)
     setSelectedTechnique(null)
     setCurrentStep(0)
-    setIsActive(false)
+    if (enableHaptics) {
+      haptics.sessionEnd()
+    }
   }
 
   if (isActive && selectedTechnique) {
     return (
       <CenteredContainer padding="md" fullHeight>
+        <AnimatedCore mode="fadeIn" duration={500}>
         <Card gradient className="mb-6">
           <div className="text-center">
             <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl" style={{ backgroundColor: `${selectedTechnique.color}40` }}>
@@ -168,7 +187,8 @@ export default function Calm() {
           </div>
         </Card>
 
-        {/* Current Step */}
+        {/* Current Step - FadeIn animation per step */}
+        <AnimatedCore mode="fadeIn" duration={600} key={currentStep}>
         <Card className="mb-6 text-center min-h-[200px] flex items-center justify-center">
           <div className="max-w-xl mx-auto">
             <p className={`${isSmall ? 'text-lg' : isTablet ? 'text-xl' : 'text-2xl'} text-[#333333] leading-relaxed font-medium`}>
@@ -176,6 +196,7 @@ export default function Calm() {
             </p>
           </div>
         </Card>
+        </AnimatedCore>
 
         {/* Navigation */}
         <div className="flex flex-col sm:flex-row gap-3">
@@ -220,7 +241,8 @@ export default function Calm() {
 
         {/* Encouragement */}
         {currentStep === selectedTechnique.steps.length - 1 && (
-          <Card className="mt-6 bg-gradient-to-r from-[#BBF7D0]/30 to-[#7DD3FC]/30 border-[#BBF7D0]/40 animate-fadeIn">
+          <AnimatedCore mode="fadeIn" duration={800}>
+          <Card className="mt-6 bg-gradient-to-r from-[#BBF7D0]/30 to-[#7DD3FC]/30 border-[#BBF7D0]/40">
             <div className="text-center">
               <p className="text-[#333333] font-medium mb-2">
                 ¡Excelente trabajo! 🌟
@@ -230,7 +252,25 @@ export default function Calm() {
               </p>
             </div>
           </Card>
+          </AnimatedCore>
         )}
+        
+        {/* Haptics Toggle */}
+        {haptics.isAvailable() && (
+          <div className="flex items-center justify-center gap-2 text-sm text-[#555555] mt-4">
+            <input
+              type="checkbox"
+              id="calm-haptics-toggle"
+              checked={enableHaptics}
+              onChange={(e) => setEnableHaptics(e.target.checked)}
+              className="w-4 h-4 rounded border-gray-300"
+            />
+            <label htmlFor="calm-haptics-toggle" className="cursor-pointer">
+              Vibración activada
+            </label>
+          </div>
+        )}
+        </AnimatedCore>
       </CenteredContainer>
     )
   }

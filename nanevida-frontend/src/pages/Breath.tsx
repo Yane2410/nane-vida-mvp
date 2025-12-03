@@ -1,4 +1,4 @@
-// Responsiveness update - centered layout with dynamic sizing
+// Responsiveness update - centered layout with dynamic sizing + Audio/Haptics sync
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from '../components/ui/Card';
@@ -6,6 +6,7 @@ import Button from '../components/ui/Button';
 import { BreathIcon } from '../assets/icons';
 import AnimatedCore from '../components/AnimatedCore';
 import { soundController } from '../utils/soundController';
+import { haptics } from '../sound-engine/utils/haptics';
 import CenteredContainer from '../components/ui/CenteredContainer';
 import { useWindowDimensions } from '../hooks/useWindowDimensions';
 
@@ -61,23 +62,44 @@ export default function Breath() {
   const [secondsLeft, setSecondsLeft] = useState(0);
   const [completedCycles, setCompletedCycles] = useState(0);
   const [scale, setScale] = useState(1);
+  const [currentPhase, setCurrentPhase] = useState<'inhale' | 'hold' | 'exhale'>('inhale');
+  const [enableHaptics, setEnableHaptics] = useState(true);
 
   // Sound management - wind loop when active
   useEffect(() => {
     if (isActive && selectedPattern) {
-      soundController.playLoop('wind', 0.2);
+      soundController.playLoop('breath', 0.15);
     }
     return () => {
       soundController.stopAll();
     };
   }, [isActive, selectedPattern]);
 
-  // Play bell on phase change
+  // Enhanced phase change with audio + haptics sync
   useEffect(() => {
     if (isActive && selectedPattern) {
-      soundController.playOnce('bell', 0.4);
+      const currentCycle = selectedPattern.cycles[currentCycleIndex];
+      
+      // Play bell on phase transition
+      soundController.playOnce('bell', 0.3);
+      
+      // Trigger haptic feedback based on phase
+      if (enableHaptics) {
+        if (currentCycle.phase === 'inhale') {
+          haptics.breathPattern('inhale');
+        } else if (currentCycle.phase === 'hold' || currentCycle.phase === 'rest') {
+          haptics.breathPattern('hold');
+        } else if (currentCycle.phase === 'exhale') {
+          haptics.breathPattern('exhale');
+        }
+      }
+
+      // Update current phase for AnimatedCore
+      if (currentCycle.phase !== 'rest') {
+        setCurrentPhase(currentCycle.phase as 'inhale' | 'hold' | 'exhale');
+      }
     }
-  }, [currentCycleIndex]);
+  }, [currentCycleIndex, isActive, selectedPattern, enableHaptics]);
 
   useEffect(() => {
     if (!isActive || !selectedPattern) return;
@@ -144,10 +166,17 @@ export default function Breath() {
     setSecondsLeft(0);
     setCompletedCycles(0);
     setScale(1);
+    soundController.stopAll();
+    if (enableHaptics) {
+      haptics.sessionEnd();
+    }
   };
 
   const pauseExercise = () => {
     setIsActive(!isActive);
+    if (enableHaptics) {
+      haptics.trigger('medium');
+    }
   };
 
   if (selectedPattern && isActive !== null) {
@@ -167,12 +196,14 @@ export default function Breath() {
               </p>
             </div>
 
-            {/* Breathing Circle Animation */}
+            {/* Breathing Circle Animation - Enhanced with phase-based control */}
             <AnimatedCore
               mode="breath"
               duration={currentCycle.duration * 1000}
               loop={false}
-              scaleRange={[1, scale]}
+              scaleRange={[0.8, 1.2]}
+              breathPhase={currentCycle.phase !== 'rest' ? currentCycle.phase as 'inhale' | 'hold' | 'exhale' : 'exhale'}
+              easingFunction="cubic-bezier(0.4, 0, 0.2, 1)"
             >
               <div className="relative w-80 h-80 mx-auto mb-8" style={{ width: `${circleSize}px`, height: `${circleSize}px` }}>
                 <div
@@ -233,7 +264,7 @@ export default function Breath() {
             </div>
 
             {/* Controls */}
-            <div className="flex flex-col sm:flex-row gap-3 justify-center">
+            <div className="flex flex-col sm:flex-row gap-3 justify-center mb-4">
               <Button
                 onClick={pauseExercise}
                 variant="secondary"
@@ -249,6 +280,22 @@ export default function Breath() {
                 Terminar
               </Button>
             </div>
+
+            {/* Haptics Toggle */}
+            {haptics.isAvailable() && (
+              <div className="flex items-center justify-center gap-2 text-sm text-[#555555]">
+                <input
+                  type="checkbox"
+                  id="haptics-toggle"
+                  checked={enableHaptics}
+                  onChange={(e) => setEnableHaptics(e.target.checked)}
+                  className="w-4 h-4 rounded border-gray-300"
+                />
+                <label htmlFor="haptics-toggle" className="cursor-pointer">
+                  Vibración activada
+                </label>
+              </div>
+            )}
 
             {/* Tip */}
             {completedCycles >= 3 && (

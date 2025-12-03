@@ -9,6 +9,10 @@ interface AnimatedCoreProps {
   delay?: number;
   onStep?: () => void;
   className?: string;
+  // Enhanced breath control
+  breathPhase?: 'inhale' | 'hold' | 'exhale';
+  easingFunction?: string;
+  onPhaseChange?: (phase: 'inhale' | 'hold' | 'exhale') => void;
 }
 
 export default function AnimatedCore({
@@ -19,9 +23,13 @@ export default function AnimatedCore({
   loop = true,
   delay = 0,
   onStep,
-  className = ''
+  className = '',
+  breathPhase,
+  easingFunction = 'cubic-bezier(0.4, 0, 0.2, 1)',
+  onPhaseChange
 }: AnimatedCoreProps) {
   const [isVisible, setIsVisible] = useState(false);
+  const [currentScale, setCurrentScale] = useState(scaleRange[0]);
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -32,21 +40,48 @@ export default function AnimatedCore({
     return () => clearTimeout(timer);
   }, [delay, onStep]);
 
+  // Enhanced breath phase control with smooth transitions
+  useEffect(() => {
+    if (mode === 'breath' && breathPhase) {
+      const phaseScales: Record<typeof breathPhase, number> = {
+        inhale: scaleRange[1], // Max scale
+        hold: scaleRange[1], // Stay at max
+        exhale: scaleRange[0] // Min scale
+      };
+
+      setCurrentScale(phaseScales[breathPhase]);
+      
+      if (onPhaseChange) {
+        onPhaseChange(breathPhase);
+      }
+    }
+  }, [breathPhase, mode, scaleRange, onPhaseChange]);
+
   const getAnimationStyle = () => {
     const [minScale, maxScale] = scaleRange;
     const durationSec = duration / 1000;
 
+    // Manual breath control via breathPhase prop
+    if (mode === 'breath' && breathPhase) {
+      return {
+        transform: `scale(${currentScale})`,
+        transition: `transform ${durationSec}s ${easingFunction}`,
+        '--min-scale': minScale,
+        '--max-scale': maxScale
+      } as React.CSSProperties;
+    }
+
     switch (mode) {
       case 'pulse':
         return {
-          animation: `animatedPulse ${durationSec}s ease-in-out ${loop ? 'infinite' : '1'}`,
+          animation: `animatedPulse ${durationSec}s ${easingFunction} ${loop ? 'infinite' : '1'}`,
           '--min-scale': minScale,
           '--max-scale': maxScale
         } as React.CSSProperties;
 
       case 'breath':
         return {
-          animation: `animatedBreath ${durationSec}s ease-in-out ${loop ? 'infinite' : '1'}`,
+          animation: `animatedBreath ${durationSec}s ${easingFunction} ${loop ? 'infinite' : '1'}`,
           '--min-scale': minScale,
           '--max-scale': maxScale
         } as React.CSSProperties;

@@ -1,4 +1,4 @@
-// Responsiveness update – centered layout
+// Responsiveness update – centered layout + Audio/Haptics feedback
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from '../components/ui/Card';
@@ -7,6 +7,7 @@ import CenteredContainer from '../components/ui/CenteredContainer';
 import { CalmIcon } from '../assets/icons';
 import AnimatedCore from '../components/AnimatedCore';
 import { soundController } from '../utils/soundController';
+import { haptics } from '../sound-engine/utils/haptics';
 import { useWindowDimensions } from '../hooks/useWindowDimensions';
 
 interface GroundingItem {
@@ -74,20 +75,25 @@ export default function Grounding() {
   const [steps, setSteps] = useState<GroundingItem[]>(groundingSteps);
   const [currentInput, setCurrentInput] = useState('');
   const [isComplete, setIsComplete] = useState(false);
+  const [enableHaptics, setEnableHaptics] = useState(true);
 
-  // Cleanup sounds on unmount
+  // Ambient nature sound loop
   useEffect(() => {
+    soundController.playLoop('water', 0.1);
     return () => {
       soundController.stopAll();
     };
   }, []);
 
-  // Play bell when advancing to next step
+  // Play bell + haptic feedback when advancing to next step
   useEffect(() => {
     if (currentStep > 0) {
-      soundController.playOnce('bell', 0.4);
+      soundController.playOnce('bell', 0.3);
+      if (enableHaptics) {
+        haptics.stepComplete();
+      }
     }
-  }, [currentStep]);
+  }, [currentStep, enableHaptics]);
 
   const currentStepData = steps[currentStep];
   const isStepComplete = currentStepData.items.length === currentStepData.count;
@@ -103,6 +109,11 @@ export default function Grounding() {
     setSteps(updatedSteps);
     setCurrentInput('');
 
+    // Subtle haptic feedback on item added
+    if (enableHaptics) {
+      haptics.trigger('light');
+    }
+
     // Auto-advance to next step when current is complete
     if (updatedSteps[currentStep].items.length === currentStepData.count) {
       setTimeout(() => {
@@ -110,6 +121,9 @@ export default function Grounding() {
           setCurrentStep(currentStep + 1);
         } else {
           setIsComplete(true);
+          if (enableHaptics) {
+            haptics.sessionEnd();
+          }
         }
       }, 500);
     }
