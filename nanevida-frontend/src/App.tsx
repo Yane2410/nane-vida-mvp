@@ -22,106 +22,84 @@ export default function App(){
     <div className="min-h-screen flex flex-col dark:bg-gray-900">
       {/* Header */}
       <header className="backdrop-blur-xl bg-white/70 dark:bg-gray-800/70 border-b border-white/40 dark:border-gray-700/40 shadow-lg sticky top-0 z-50 transition-colors duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 md:py-3">
           {/* Top Bar - Logo + Theme Toggle + Mobile Menu */}
-          <div className="flex items-center justify-between mb-3 md:mb-4">
+          <div className="flex items-center justify-between">
             {/* Brand */}
-            <div className="text-left flex items-center gap-3">
+            <Link to="/" className="text-left flex items-center">
               <img 
                 src="/icons/logo-full.png" 
                 alt="Nane Vida" 
-                className="h-10 md:h-12 lg:h-14 w-auto"
+                className="h-8 md:h-10 w-auto"
               />
-            </div>
+            </Link>
+
+            {/* Desktop Navigation - Only essential items */}
+            <nav className="hidden md:flex items-center gap-2">
+              {isAuth && (
+                <>
+                  <Link to="/dashboard">
+                    <Button variant="ghost" size="sm">
+                      📊 Dashboard
+                    </Button>
+                  </Link>
+                  <Link to="/garden">
+                    <Button variant="ghost" size="sm">
+                      🌱 Jardín
+                    </Button>
+                  </Link>
+                  <Link to="/diary">
+                    <Button variant="ghost" size="sm">
+                      📔 Diario
+                    </Button>
+                  </Link>
+                </>
+              )}
+              {!isAuth && (
+                <>
+                  <Link to="/">
+                    <Button variant="ghost" size="sm">
+                      🏠 Inicio
+                    </Button>
+                  </Link>
+                  <Link to="/diary">
+                    <Button variant="ghost" size="sm">
+                      📔 Diario
+                    </Button>
+                  </Link>
+                </>
+              )}
+              <Link to="/sos">
+                <Button variant="secondary" size="sm">
+                  🆘 SOS
+                </Button>
+              </Link>
+              {!isAuth ? (
+                <>
+                  <Link to="/login">
+                    <Button variant="primary" size="sm">
+                      Iniciar sesión
+                    </Button>
+                  </Link>
+                  <Link to="/register">
+                    <Button variant="success" size="sm">
+                      Registrarse
+                    </Button>
+                  </Link>
+                </>
+              ) : (
+                <Button variant="ghost" size="sm" onClick={handleLogout}>
+                  👋 Salir
+                </Button>
+              )}
+            </nav>
 
             {/* Theme Toggle + Mobile Menu */}
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 md:gap-3">
               <ThemeToggle />
               <MobileMenu isAuth={isAuth} onLogout={handleLogout} />
             </div>
           </div>
-
-          {/* Desktop Navigation */}
-          <nav className="hidden md:flex flex-wrap gap-2 justify-center sm:justify-start">
-            <Link to="/">
-              <Button variant="secondary" size="md">
-                <span>🏠</span>
-                Inicio
-              </Button>
-            </Link>
-            {isAuth && (
-              <Link to="/dashboard">
-                <Button variant="primary" size="md">
-                  <span>📊</span>
-                  Dashboard
-                </Button>
-              </Link>
-            )}
-            {isAuth && (
-              <Link to="/garden">
-                <Button variant="secondary" size="md">
-                  <span>🌱</span>
-                  Jardín
-                </Button>
-              </Link>
-            )}
-            <Link to="/diary">
-              <Button variant="secondary" size="md">
-                <span>📔</span>
-                Diario
-              </Button>
-            </Link>
-            {isAuth && (
-              <>
-                <Link to="/statistics">
-                  <Button variant="secondary" size="md">
-                    <span>📊</span>
-                    Estadísticas
-                  </Button>
-                </Link>
-                <Link to="/profile">
-                  <Button variant="secondary" size="md">
-                    <span>👤</span>
-                    Perfil
-                  </Button>
-                </Link>
-                <Link to="/settings">
-                  <Button variant="secondary" size="md">
-                    <span>⚙️</span>
-                    Configuración
-                  </Button>
-                </Link>
-              </>
-            )}
-            <Link to="/sos">
-              <Button variant="secondary" size="md">
-                <span>🆘</span>
-                SOS
-              </Button>
-            </Link>
-            {!isAuth && (
-              <>
-                <Link to="/login">
-                  <Button variant="primary" size="md">
-                    <span>🔐</span>
-                    Iniciar sesión
-                  </Button>
-                </Link>
-                <Link to="/register">
-                  <Button variant="success" size="md">
-                    <span>✨</span>
-                    Registrarse
-                  </Button>
-                </Link>
-              </>
-            )}
-            {isAuth && (
-              <Button variant="ghost" size="md" onClick={handleLogout}>
-                <span>👋</span>
-                Salir
-              </Button>
-            )}
-          </nav>
         </div>
       </header>
 
