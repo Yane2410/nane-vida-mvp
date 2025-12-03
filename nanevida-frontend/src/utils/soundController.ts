@@ -13,6 +13,7 @@ interface AudioInstance {
 class SoundController {
   private sounds: Map<SoundName, AudioInstance> = new Map();
   private activeSounds: Set<SoundName> = new Set();
+  private enabled: boolean = false; // Sonidos desactivados por defecto
 
   // Sound file paths - files should be placed in /src/assets/sounds/
   private soundPaths: Record<SoundName, string> = {
@@ -23,9 +24,33 @@ class SoundController {
   };
 
   /**
+   * Enable sounds (call when user wants audio)
+   */
+  enable(): void {
+    this.enabled = true;
+  }
+
+  /**
+   * Disable sounds
+   */
+  disable(): void {
+    this.enabled = false;
+    this.stopAll();
+  }
+
+  /**
+   * Check if sounds are enabled
+   */
+  isEnabled(): boolean {
+    return this.enabled;
+  }
+
+  /**
    * Play a sound in loop
    */
   async playLoop(soundName: SoundName, volume: number = 0.3): Promise<void> {
+    if (!this.enabled) return; // Skip si sonidos desactivados
+    
     try {
       // Stop any other looping sounds
       this.stopAllLoops();
@@ -49,6 +74,8 @@ class SoundController {
    * Play a sound once
    */
   async playOnce(soundName: SoundName, volume: number = 0.5): Promise<void> {
+    if (!this.enabled) return; // Skip si sonidos desactivados
+    
     try {
       const audio = this.getOrCreateAudio(soundName, false);
       audio.volume = Math.max(0, Math.min(1, volume));

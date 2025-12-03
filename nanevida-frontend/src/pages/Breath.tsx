@@ -197,56 +197,59 @@ export default function Breath() {
             </div>
 
             {/* Breathing Circle Animation - Enhanced with phase-based control */}
-            <AnimatedCore
-              mode="breath"
-              duration={currentCycle.duration * 1000}
-              loop={false}
-              scaleRange={[0.8, 1.2]}
-              breathPhase={currentCycle.phase !== 'rest' ? currentCycle.phase as 'inhale' | 'hold' | 'exhale' : 'exhale'}
-              easingFunction="cubic-bezier(0.4, 0, 0.2, 1)"
-            >
-              <div className="relative w-80 h-80 mx-auto mb-8" style={{ width: `${circleSize}px`, height: `${circleSize}px` }}>
-                <div
-                  className="absolute inset-0 rounded-full flex items-center justify-center transition-all duration-1000 ease-in-out"
-                  style={{
-                    background: `radial-gradient(circle, ${selectedPattern.color}40, ${selectedPattern.color}20)`,
-                    boxShadow: `0 0 ${scale * 60}px ${selectedPattern.color}60`
-                  }}
-                >
-                <div className="text-center">
-                  <div className={`${isSmall ? 'text-5xl' : 'text-6xl'} font-bold text-[#333333] mb-2`}>
-                    {secondsLeft}
+            <div className="flex items-center justify-center mb-8">
+              <AnimatedCore
+                mode="breath"
+                duration={currentCycle.duration * 1000}
+                loop={false}
+                scaleRange={[0.8, 1.2]}
+                breathPhase={currentCycle.phase !== 'rest' ? currentCycle.phase as 'inhale' | 'hold' | 'exhale' : 'exhale'}
+                easingFunction="cubic-bezier(0.4, 0, 0.2, 1)"
+              >
+                <div className="relative" style={{ width: `${circleSize}px`, height: `${circleSize}px` }}>
+                  <div
+                    className="absolute inset-0 rounded-full flex items-center justify-center transition-all duration-1000 ease-in-out"
+                    style={{
+                      background: `radial-gradient(circle, ${selectedPattern.color}40, ${selectedPattern.color}20)`,
+                      boxShadow: `0 0 ${scale * 60}px ${selectedPattern.color}60`
+                    }}
+                  >
+                    <div className="text-center">
+                      <div className={`${isSmall ? 'text-5xl' : 'text-6xl'} font-bold text-[#333333] mb-2`}>
+                        {secondsLeft}
+                      </div>
+                      <div className={`${isSmall ? 'text-lg' : 'text-xl'} font-medium text-[#555555]`}>
+                        {currentCycle.instruction}
+                      </div>
+                    </div>
                   </div>
-                  <div className={`${isSmall ? 'text-lg' : 'text-xl'} font-medium text-[#555555]`}>
-                    {currentCycle.instruction}
-                  </div>
-                  </div>
-                </div>
 
-                {/* Outer ring */}
-                <svg className="absolute inset-0 w-full h-full -rotate-90">
-                <circle
-                  cx={circleSize / 2}
-                  cy={circleSize / 2}
-                  r={radius}
-                  stroke={`${selectedPattern.color}30`}
-                  strokeWidth="4"
-                  fill="none"
-                />
-                <circle
-                  cx={circleSize / 2}
-                  cy={circleSize / 2}
-                  r={radius}
-                  stroke={selectedPattern.color}
-                  strokeWidth="4"
-                  fill="none"
-                  strokeDasharray={circumference}
-                  strokeDashoffset={circumference - (circumference * (currentCycle.duration - secondsLeft)) / currentCycle.duration}
-                  className="transition-all duration-1000 ease-linear"
-                />
-                </svg>
-              </div>
-            </AnimatedCore>
+                  {/* Outer ring - Progreso completo */}
+                  <svg className="absolute inset-0 w-full h-full -rotate-90">
+                    <circle
+                      cx={circleSize / 2}
+                      cy={circleSize / 2}
+                      r={radius}
+                      stroke={`${selectedPattern.color}30`}
+                      strokeWidth="4"
+                      fill="none"
+                    />
+                    <circle
+                      cx={circleSize / 2}
+                      cy={circleSize / 2}
+                      r={radius}
+                      stroke={selectedPattern.color}
+                      strokeWidth="4"
+                      fill="none"
+                      strokeDasharray={circumference}
+                      strokeDashoffset={circumference * (1 - (currentCycle.duration - secondsLeft) / currentCycle.duration)}
+                      className="transition-all duration-1000 ease-linear"
+                      strokeLinecap="round"
+                    />
+                  </svg>
+                </div>
+              </AnimatedCore>
+            </div>
 
             {/* Phase Indicator */}
             <div className="flex justify-center gap-2 mb-8">
