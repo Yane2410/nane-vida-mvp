@@ -1,6 +1,7 @@
 import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { getToken } from './api'
 import Button from './components/ui/Button'
+import MobileMenu from './components/ui/MobileMenu'
 
 export default function App(){
   const nav = useNavigate()
@@ -18,19 +19,25 @@ export default function App(){
     <div className="min-h-screen flex flex-col">
       {/* Header */}
       <header className="backdrop-blur-xl bg-white/70 border-b border-white/40 shadow-lg sticky top-0 z-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
-          {/* Brand */}
-          <div className="text-center sm:text-left mb-4">
-            <h1 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent mb-1 tracking-tight">
-              NANE VIDA
-            </h1>
-            <p className="text-slate-600 text-sm sm:text-base font-medium">
-              Tu espacio de bienestar emocional
-            </p>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 md:py-4">
+          {/* Top Bar - Logo + Mobile Menu */}
+          <div className="flex items-center justify-between mb-3 md:mb-4">
+            {/* Brand */}
+            <div className="text-left">
+              <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent tracking-tight">
+                NANE VIDA
+              </h1>
+              <p className="text-slate-600 text-xs md:text-sm lg:text-base font-medium">
+                Tu espacio de bienestar emocional
+              </p>
+            </div>
+
+            {/* Mobile Menu */}
+            <MobileMenu isAuth={isAuth} onLogout={handleLogout} />
           </div>
 
-          {/* Navigation */}
-          <nav className="flex flex-wrap gap-2 justify-center sm:justify-start">
+          {/* Desktop Navigation */}
+          <nav className="hidden md:flex flex-wrap gap-2 justify-center sm:justify-start">
             <Link to="/">
               <Button variant="secondary" size="md">
                 <span>🏠</span>
