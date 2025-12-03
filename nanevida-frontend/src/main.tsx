@@ -103,15 +103,6 @@ if ('serviceWorker' in navigator) {
         console.warn('⚠️ Service Worker registration failed:', error)
       })
   })
-  
-  // Reload page when new service worker takes control
-  let refreshing = false
-  navigator.serviceWorker.addEventListener('controllerchange', () => {
-    if (!refreshing) {
-      refreshing = true
-      window.location.reload()
-    }
-  })
 }
 
 // PWA Install prompt
