@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sin conexión - Nane Vida</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+      background: linear-gradient(135deg, #A78BFA 0%, #C4B5FD 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+    
+    .container {
+      background: white;
+      border-radius: 24px;
+      padding: 48px 32px;
+      max-width: 500px;
+      text-align: center;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    }
+    
+    .icon {
+      font-size: 80px;
+      margin-bottom: 24px;
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    h1 {
+      color: #333;
+      font-size: 28px;
+      margin-bottom: 16px;
+      font-weight: 700;
+    }
+    
+    p {
+      color: #666;
+      font-size: 16px;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+    
+    .retry-button {
+      background: linear-gradient(135deg, #A78BFA 0%, #8B5CF6 100%);
+      color: white;
+      border: none;
+      padding: 16px 32px;
+      border-radius: 12px;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 12px rgba(167, 139, 250, 0.3);
+    }
+    
+    .retry-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(167, 139, 250, 0.4);
+    }
+    
+    .retry-button:active {
+      transform: translateY(0);
+    }
+    
+    .features {
+      margin-top: 32px;
+      padding-top: 32px;
+      border-top: 1px solid #e5e7eb;
+      text-align: left;
+    }
+    
+    .features h2 {
+      color: #333;
+      font-size: 18px;
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    
+    .feature {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 12px;
+      color: #555;
+      font-size: 14px;
+    }
+    
+    .feature-icon {
+      font-size: 24px;
+    }
+    
+    .status {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 8px 16px;
+      background: #FEF3C7;
+      color: #92400E;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="icon">🌸</div>
+    <h1>Sin conexión a Internet</h1>
+    <p>
+      No te preocupes, Nane Vida sigue contigo. Algunas funciones están disponibles sin conexión.
+    </p>
+    
+    <button class="retry-button" onclick="window.location.reload()">
+      🔄 Reintentar conexión
+    </button>
+    
+    <div class="status">
+      📡 Modo offline activo
+    </div>
+    
+    <div class="features">
+      <h2>✨ Disponible sin conexión:</h2>
+      <div class="feature">
+        <span class="feature-icon">🫁</span>
+        <span>Ejercicios de respiración consciente</span>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🧘</span>
+        <span>Meditaciones guiadas</span>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">🌿</span>
+        <span>Técnicas de grounding</span>
+      </div>
+      <div class="feature">
+        <span class="feature-icon">💭</span>
+        <span>Reflexiones personales (se guardarán cuando vuelvas a conectarte)</span>
+      </div>
+    </div>
+  </div>
+  
+  <script>
+    // Auto-retry connection every 30 seconds
+    setInterval(() => {
+      if (navigator.onLine) {
+        window.location.reload();
+      }
+    }, 30000);
+    
+    // Check online status
+    window.addEventListener('online', () => {
+      window.location.reload();
+    });
+  </script>
+</body>
+</html>

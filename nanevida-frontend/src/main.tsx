@@ -67,3 +67,78 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     </ThemeProvider>
   </React.StrictMode>
 )
+
+// Register Service Worker for PWA functionality
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker
+      .register('/sw.js')
+      .then((registration) => {
+        console.log('✅ Service Worker registered:', registration.scope)
+        
+        // Check for updates every hour
+        setInterval(() => {
+          registration.update()
+        }, 60 * 60 * 1000)
+        
+        // Listen for updates
+        registration.addEventListener('updatefound', () => {
+          const newWorker = registration.installing
+          if (newWorker) {
+            newWorker.addEventListener('statechange', () => {
+              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+                // New service worker available, show update notification
+                if (confirm('🎉 Nueva versión disponible. ¿Actualizar ahora?')) {
+                  newWorker.postMessage({ type: 'SKIP_WAITING' })
+                  window.location.reload()
+                }
+              }
+            })
+          }
+        })
+      })
+      .catch((error) => {
+        console.warn('⚠️ Service Worker registration failed:', error)
+      })
+  })
+  
+  // Reload page when new service worker takes control
+  let refreshing = false
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (!refreshing) {
+      refreshing = true
+      window.location.reload()
+    }
+  })
+}
+
+// PWA Install prompt
+let deferredPrompt: any = null
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent the mini-infobar from appearing
+  e.preventDefault()
+  // Stash the event so it can be triggered later
+  deferredPrompt = e
+  
+  // Show custom install button (could add this to Settings page)
+  console.log('💡 PWA install prompt available')
+})
+
+window.addEventListener('appinstalled', () => {
+  console.log('✅ PWA installed successfully')
+  deferredPrompt = null
+})
+
+// Export function to trigger install prompt
+;(window as any).showInstallPrompt = function showInstallPrompt() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt()
+    deferredPrompt.userChoice.then((choiceResult: any) => {
+      if (choiceResult.outcome === 'accepted') {
+        console.log('✅ User accepted the install prompt')
+      }
+      deferredPrompt = null
+    })
+  }
+}

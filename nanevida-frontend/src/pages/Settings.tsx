@@ -5,6 +5,7 @@ import Button from '../components/ui/Button'
 import LoadingSpinner from '../components/ui/LoadingSpinner'
 import { Link, useNavigate } from 'react-router-dom'
 import { useOnboarding } from '../contexts/OnboardingContext'
+import { useToast } from '../contexts/ToastContext'
 import ReminderSettings from '../components/ui/ReminderSettings'
 
 type Profile = {
@@ -31,6 +32,7 @@ type PrivacySettings = {
 
 export default function Settings() {
   const { startOnboarding } = useOnboarding()
+  const toast = useToast()
   const [profile, setProfile] = useState<Profile | null>(null)
   const [notifications, setNotifications] = useState<NotificationSettings>({
     email_notifications: true,
@@ -202,6 +204,63 @@ export default function Settings() {
           Configura recordatorios para no olvidar tus ejercicios de bienestar emocional.
         </p>
         <ReminderSettings />
+      </Card>
+
+      {/* PWA Installation Section */}
+      <Card>
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center gap-2">
+          <span>📱</span>
+          Aplicación Web Progresiva (PWA)
+        </h2>
+        <p className="text-gray-600 dark:text-gray-300 mb-4">
+          Instala Nane Vida como aplicación en tu dispositivo para acceso rápido y funcionalidad offline.
+        </p>
+        
+        <div className="space-y-3">
+          <div className="flex items-start gap-3 p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
+            <span className="text-xl">✨</span>
+            <div>
+              <h3 className="font-semibold text-gray-800 dark:text-gray-100">Acceso Rápido</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">Abre la app desde tu pantalla de inicio</p>
+            </div>
+          </div>
+          
+          <div className="flex items-start gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
+            <span className="text-xl">📴</span>
+            <div>
+              <h3 className="font-semibold text-gray-800 dark:text-gray-100">Modo Offline</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">Usa funciones básicas sin conexión</p>
+            </div>
+          </div>
+          
+          <div className="flex items-start gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
+            <span className="text-xl">🔔</span>
+            <div>
+              <h3 className="font-semibold text-gray-800 dark:text-gray-100">Notificaciones Push</h3>
+              <p className="text-sm text-gray-600 dark:text-gray-300">Recibe recordatorios directamente</p>
+            </div>
+          </div>
+          
+          <Button 
+            variant="primary" 
+            fullWidth
+            onClick={() => {
+              // @ts-ignore - showInstallPrompt is defined in main.tsx
+              if (window.showInstallPrompt) {
+                // @ts-ignore
+                window.showInstallPrompt()
+              } else if ('standalone' in navigator && (navigator as any).standalone) {
+                toast.info('La app ya está instalada')
+              } else if (window.matchMedia('(display-mode: standalone)').matches) {
+                toast.info('La app ya está instalada')
+              } else {
+                toast.info('Para instalar: Abre el menú de tu navegador y selecciona "Instalar app" o "Añadir a pantalla de inicio"')
+              }
+            }}
+          >
+            📲 Instalar Aplicación
+          </Button>
+        </div>
       </Card>
 
       {/* Profile Settings */}
