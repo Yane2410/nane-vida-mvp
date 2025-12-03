@@ -5,28 +5,37 @@
 @tailwind utilities;
 
 /* ===================================
-   CSS VARIABLES
+   CSS VARIABLES - Sistema Profesional
    =================================== */
 :root {
-  /* Colors */
-  --primary: #6366f1;
-  --primary-dark: #4f46e5;
-  --secondary: #10b981;
-  --danger: #ef4444;
-  --text: #1e293b;
-  --text-light: #475569;
-  --muted: #64748b;
+  /* Colores principales */
+  --primary-50: #F5F3FF;
+  --primary-500: #8B5CF6;
+  --primary-600: #7C3AED;
+  --primary-700: #6D28D9;
   
-  /* Effects */
-  --ring: rgba(99, 102, 241, 0.15);
+  /* Neutrales */
+  --gray-50: #F9FAFB;
+  --gray-100: #F3F4F6;
+  --gray-400: #9CA3AF;
+  --gray-600: #4B5563;
+  --gray-900: #111827;
   
-  /* Transitions */
+  /* Efectos */
+  --shadow-soft: 0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04);
+  --shadow-medium: 0 8px 30px -6px rgba(0, 0, 0, 0.1), 0 15px 35px -5px rgba(0, 0, 0, 0.08);
+  
+  /* Transiciones profesionales */
   --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
-  --transition-base: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-base: 300ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transition-slow: 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Espaciado base */
+  --space-unit: 0.25rem; /* 4px */
 }
 
 /* ===================================
-   BASE STYLES
+   BASE STYLES - Mejoras Tipográficas
    =================================== */
 @layer base {
   * {
@@ -40,12 +49,15 @@
     margin: 0;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
     background-attachment: fixed;
-    color: var(--text);
+    color: var(--gray-900);
     min-height: 100vh;
     position: relative;
+    font-size: 1rem;
+    line-height: 1.625;
+    letter-spacing: -0.011em;
   }
 
-  /* Decorative background circles */
+  /* Decorative background circles - Mejorados */
   body::before {
     content: '';
     position: fixed;
@@ -54,9 +66,9 @@
     right: 0;
     bottom: 0;
     background-image: 
-      radial-gradient(circle at 20% 50%, rgba(120, 119, 198, 0.15) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(239, 68, 68, 0.1) 0%, transparent 50%),
-      radial-gradient(circle at 40% 80%, rgba(16, 185, 129, 0.12) 0%, transparent 50%);
+      radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
+      radial-gradient(circle at 80% 80%, rgba(249, 168, 212, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 40% 80%, rgba(52, 211, 153, 0.1) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
   }
@@ -65,10 +77,36 @@
     position: relative;
     z-index: 1;
   }
+  
+  /* Tipografía profesional */
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    color: var(--gray-900);
+  }
+  
+  h1 { font-size: 2.5rem; line-height: 1.2; }
+  h2 { font-size: 2rem; line-height: 1.3; }
+  h3 { font-size: 1.5rem; line-height: 1.4; }
+  
+  p {
+    margin: 0;
+    line-height: 1.625;
+  }
+  
+  a {
+    color: var(--primary-600);
+    text-decoration: none;
+    transition: color var(--transition-fast);
+  }
+  
+  a:hover {
+    color: var(--primary-700);
+  }
 }
 
 /* ===================================
-   ANIMATIONS
+   ANIMATIONS - Sistema Completo
    =================================== */
 @keyframes scaleIn {
   from {
@@ -81,37 +119,114 @@
   }
 }
 
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes successPulse {
+  0%, 100% { 
+    transform: scale(1); 
+    opacity: 1; 
+  }
+  50% { 
+    transform: scale(1.05); 
+    opacity: 0.8; 
+  }
+}
+
 .animate-scaleIn {
   animation: scaleIn var(--transition-base) ease-out;
 }
 
+.animate-fadeIn {
+  animation: fadeIn var(--transition-base) ease-out;
+}
+
+.animate-slideUp {
+  animation: slideUp var(--transition-base) ease-out;
+}
+
+.animate-successPulse {
+  animation: successPulse 0.6s ease-out;
+}
+
 /* ===================================
-   FORM ELEMENTS
+   UTILITY CLASSES - Interactividad
+   =================================== */
+@layer utilities {
+  .interactive {
+    transition: all var(--transition-base);
+  }
+  
+  .interactive:hover {
+    transform: translateY(-2px);
+  }
+  
+  .interactive:active {
+    transform: translateY(0);
+  }
+  
+  /* Focus states accesibles */
+  .focus-ring:focus-visible {
+    outline: 3px solid var(--primary-500);
+    outline-offset: 2px;
+    border-radius: 0.75rem;
+  }
+  
+  /* Glassmorphism profesional */
+  .glass {
+    background: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+  }
+  
+  .glass-dark {
+    background: rgba(17, 24, 39, 0.7);
+    backdrop-filter: blur(20px) saturate(180%);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* ===================================
+   FORM ELEMENTS - Profesional
    =================================== */
 input,
 textarea,
 select {
   padding: 0.75rem 1rem;
-  border-radius: 12px;
-  border: 1px solid #e5e7eb;
+  border-radius: 0.75rem;
+  border: 2px solid var(--gray-200);
   font: inherit;
   background: white;
   transition: all var(--transition-fast);
   width: 100%;
+  min-height: 44px; /* Accesibilidad táctil */
 }
 
 input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px var(--ring);
+  border-color: var(--primary-500);
+  box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.1);
 }
 
-input:hover,
-textarea:hover,
-select:hover {
-  border-color: #cbd5e1;
+input:hover:not(:focus),
+textarea:hover:not(:focus),
+select:hover:not(:focus) {
+  border-color: var(--gray-300);
 }
 
 button:disabled {
@@ -122,7 +237,9 @@ button:disabled {
 
 label {
   font-weight: 500;
-  color: var(--text);
-  font-size: 14px;
+  color: var(--gray-700);
+  font-size: 0.875rem;
+  margin-bottom: 0.5rem;
+  display: block;
 }
 

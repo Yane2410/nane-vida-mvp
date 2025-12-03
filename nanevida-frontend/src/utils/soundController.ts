@@ -1,4 +1,4 @@
-/**
+  /**
  * SoundController - Centralized audio management for wellness tools
  * Uses Web Audio API (browser native, no dependencies)
  */
