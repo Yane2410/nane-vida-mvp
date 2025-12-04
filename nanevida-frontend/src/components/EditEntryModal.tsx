@@ -74,7 +74,7 @@ export default function EditEntryModal({ entry, onSave, onCancel }: Props) {
             </h3>
             <button
               onClick={onCancel}
-              className="text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-100 text-2xl leading-none"
+              className="text-gray-800 hover:text-gray-900 dark:text-slate-100 dark:hover:text-white text-2xl leading-none"
               title="Cerrar"
             >
               ✕

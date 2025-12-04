@@ -50,7 +50,7 @@ const AppHeader = memo(function AppHeader({
           {getGreeting()}
         </h1>
         
-        <p className="text-body-lg text-slate-800 dark:text-gray-50 font-medium max-w-2xl mx-auto">
+        <p className="text-body-lg text-slate-800 dark:text-white font-medium max-w-2xl mx-auto">
           {getSubtitle()}
         </p>
       </div>

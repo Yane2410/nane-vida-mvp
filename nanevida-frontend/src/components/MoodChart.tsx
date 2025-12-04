@@ -76,7 +76,7 @@ export default function MoodChart() {
         <h3 className="text-xl font-semibold text-black dark:text-white mb-2">
           No hay estadísticas todavía
         </h3>
-        <p className="text-slate-900 dark:text-gray-50">
+        <p className="text-slate-900 dark:text-white">
           Comienza a registrar tu estado de ánimo en tus entradas del diario
         </p>
       </Card>
@@ -139,9 +139,9 @@ export default function MoodChart() {
             </p>
           </div>
           <div className="text-right">
-            <p className="text-sm text-slate-900 dark:text-gray-50">Últimos</p>
+            <p className="text-sm text-slate-900 dark:text-white">Últimos</p>
             <p className="text-3xl font-bold text-emerald-600">{stats.days}</p>
-            <p className="text-sm text-slate-900 dark:text-gray-50">días</p>
+            <p className="text-sm text-slate-900 dark:text-white">días</p>
           </div>
         </div>
       </Card>
@@ -236,7 +236,7 @@ export default function MoodChart() {
               />
             </LineChart>
           </ResponsiveContainer>
-          <div className="mt-4 text-xs text-slate-900 dark:text-gray-50 space-y-1">
+          <div className="mt-4 text-xs text-slate-900 dark:text-white space-y-1">
             <p>5 = Muy feliz | 4 = Feliz | 3 = Neutral</p>
             <p>2 = Triste/Ansioso | 1 = Enojado</p>
           </div>

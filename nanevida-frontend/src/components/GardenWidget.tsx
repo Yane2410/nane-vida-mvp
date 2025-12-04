@@ -20,7 +20,7 @@ export default function GardenWidget() {
     <Link to="/garden">
       <Card hover className="cursor-pointer transition-all duration-300 hover:shadow-lg">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">
+          <h3 className="text-xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
             <span>🌸</span>
             Tu Jardín de Bienestar
           </h3>
@@ -88,7 +88,7 @@ export default function GardenWidget() {
                 </span>
               ))}
               {garden.recent_plants.length > 5 && (
-                <span className="text-sm text-slate-900 dark:text-gray-50 self-center">
+                <span className="text-sm text-slate-900 dark:text-white self-center">
                   +{garden.recent_plants.length - 5}
                 </span>
               )}

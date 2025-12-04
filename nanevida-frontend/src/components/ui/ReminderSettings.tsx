@@ -220,7 +220,7 @@ export default function ReminderSettings() {
           <div className="space-y-4">
             {/* Type */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-2">
                 Tipo de recordatorio
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
@@ -246,7 +246,7 @@ export default function ReminderSettings() {
 
             {/* Title */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-2">
                 Título
               </label>
               <input
@@ -260,7 +260,7 @@ export default function ReminderSettings() {
 
             {/* Message */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-2">
                 Mensaje
               </label>
               <textarea
@@ -274,7 +274,7 @@ export default function ReminderSettings() {
 
             {/* Time */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-2">
                 Hora
               </label>
               <input
@@ -287,7 +287,7 @@ export default function ReminderSettings() {
 
             {/* Days */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+              <label className="block text-sm font-medium text-gray-700 dark:text-slate-200 mb-2">
                 Días de la semana
               </label>
               <div className="flex flex-wrap gap-2">

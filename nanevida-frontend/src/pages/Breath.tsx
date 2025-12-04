@@ -436,19 +436,19 @@ export default function Breath() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex items-start gap-2">
               <span className="text-[#22C55E] font-bold mt-1">✓</span>
-              <span className="text-gray-700 dark:text-gray-300">Reduce la ansiedad y el estrés</span>
+              <span className="text-gray-700 dark:text-slate-200">Reduce la ansiedad y el estrés</span>
             </div>
             <div className="flex items-start gap-2">
               <span className="text-[#22C55E] font-bold mt-1">✓</span>
-              <span className="text-gray-700 dark:text-gray-300">Mejora la concentración</span>
+              <span className="text-gray-700 dark:text-slate-200">Mejora la concentración</span>
             </div>
             <div className="flex items-start gap-2">
               <span className="text-[#22C55E] font-bold mt-1">✓</span>
-              <span className="text-gray-700 dark:text-gray-300">Calma el sistema nervioso</span>
+              <span className="text-gray-700 dark:text-slate-200">Calma el sistema nervioso</span>
             </div>
             <div className="flex items-start gap-2">
               <span className="text-[#22C55E] font-bold mt-1">✓</span>
-              <span className="text-gray-700 dark:text-gray-300">Ayuda a conciliar el sueño</span>
+              <span className="text-gray-700 dark:text-slate-200">Ayuda a conciliar el sueño</span>
             </div>
           </div>
         </Card>

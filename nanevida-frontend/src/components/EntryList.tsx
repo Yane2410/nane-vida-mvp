@@ -59,7 +59,7 @@ export default function EntryList({ items, onDelete, onEdit }: Props){
                       {e.title || 'Sin título'}
                     </h4>
                     <div className="flex items-center gap-2 mt-1">
-                      <p className="text-xs text-slate-900 dark:text-gray-50">
+                      <p className="text-xs text-slate-900 dark:text-white">
                         {formattedDate} • {formattedTime}
                       </p>
                       {e.mood && MOOD_MAP[e.mood] && (

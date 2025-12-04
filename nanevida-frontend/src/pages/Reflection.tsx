@@ -253,7 +253,7 @@ export default function Reflection() {
                 <Card key={reflection.id} className="hover:shadow-lg transition-shadow">
                   <div className="flex items-start justify-between gap-4 mb-3">
                     <div className="flex-1">
-                      <p className="text-sm text-slate-900 dark:text-gray-50 mb-2">
+                      <p className="text-sm text-slate-900 dark:text-white mb-2">
                         {formatDate(reflection.date)}
                       </p>
                       <h3 className="text-lg font-bold text-black dark:text-white mb-3">
@@ -322,7 +322,7 @@ export default function Reflection() {
               style={{ fontSize: '16px', lineHeight: '1.6' }}
             />
             <div className="flex items-center justify-between mt-3">
-              <span className="text-sm text-slate-900 dark:text-gray-50">
+              <span className="text-sm text-slate-900 dark:text-white">
                 {reflectionText.length} caracteres
               </span>
               {reflectionText.length > 0 && (
