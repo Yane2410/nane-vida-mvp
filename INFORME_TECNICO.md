@@ -20,17 +20,19 @@
 **NANE VIDA** es una plataforma MVP (Minimum Viable Product) de bienestar emocional desarrollada con arquitectura cliente-servidor moderna, enfocada en proporcionar herramientas terapéuticas accesibles y un espacio seguro para el autocuidado mental.
 
 ### Indicadores Clave
-- **Líneas de código**: ~19,000+ líneas (Frontend + Backend)
+- **Líneas de código**: ~19,500+ líneas (Frontend + Backend)
 - **Páginas funcionales**: 15 páginas completas (incluye Garden)
-- **Componentes reutilizables**: 26+ componentes UI (nuevo: FloatingSOSButton)
+- **Componentes reutilizables**: 26+ componentes UI (FloatingSOSButton siempre visible)
 - **Tiempo de build**: 24.18s (optimizado)
 - **Tamaño CSS**: 39.91 kB (comprimido: 6.91 kB)
 - **Tamaño JS**: 485.18 kB (comprimido: 132.14 kB)
 - **Cobertura de tipos**: 100% TypeScript
 - **Sistema de gamificación**: Garden of Wellness integrado
 - **Notificaciones**: ActivityCompletionModal en todas las actividades
-- **Accesibilidad UX**: Contraste optimizado (WCAG AAA en textos)
-- **Navegación móvil**: Botón SOS flotante con efecto pulse
+- **Accesibilidad UX**: WCAG AAA en textos (text-black/white para máxima legibilidad)
+- **Navegación móvil**: Botón SOS flotante (z-100, siempre visible)
+- **Teoría del color**: Esquemas análogos y complementarios aplicados
+- **Tema automático**: Detección horaria (6AM-6PM light, 6PM-6AM dark)
 
 ---
 
@@ -749,26 +751,72 @@ const loadProfile = async () => {
 
 ### 7.1 Design System "Emotional Care"
 
-#### 7.1.1 Paleta de Colores Pastel
+#### 7.1.1 Paleta de Colores - Teoría del Color Aplicada
+
+**Esquema Principal: Analogous Harmony (Violeta → Púrpura → Rosa)**
 ```typescript
-const colors = {
-  lavender: '#F7F5FF',    // Backgrounds suaves
-  lilac: '#A78BFA',       // Primary actions
-  celeste: '#7DD3FC',     // Secondary, calma
-  pink: '#FBCFE8',        // Info, calidez
-  green: '#BBF7D0',       // Success, crecimiento
-  orange: '#FED7AA'       // Warm, energía
+const colorTheory = {
+  // Esquema análogo para identidad de marca
+  analogous1: {
+    violet: '#A78BFA',    // Violeta (base)
+    purple: '#C4B5FD',    // Púrpura (transición)
+    pink: '#FBCFE8',      // Rosa (complemento)
+  },
+  
+  // Esquema análogo para ejercicios mindfulness
+  analogous2: {
+    violet: '#F7F5FF',    // Violeta claro
+    purple: '#DDD6FE',    // Púrpura claro
+    indigo: '#E0F2FE',    // Índigo/azul claro
+  },
+  
+  // Esquema complementario para acentos
+  complementary: {
+    violet: '#A78BFA',    // Primario
+    emerald: '#BBF7D0',   // Verde (complementario)
+  }
 };
 ```
 
-**Psicología del color aplicada**:
-- **Lavanda/Lila**: Calma, espiritualidad, creatividad
-- **Celeste**: Serenidad, comunicación, claridad
-- **Rosa**: Empatía, cuidado, amor propio
-- **Verde**: Renovación, esperanza, balance
-- **Naranja**: Calidez, optimismo, vitalidad
+**Aplicación por Sección**:
+- **Garden**: Analogous 1 (violet → purple → pink) - Identidad de marca
+- **Statistics**: Analogous 1 (monochromático con acentos)
+- **Breath/Reflection/Grounding/MultiFlow**: Analogous 2 (violet → purple → indigo) - Calma y enfoque
+- **Dashboard Tips**: Complementary (violet + emerald) - Contraste estratégico
+- **Calm**: Analogous 2 con acentos verdes
 
-#### 7.1.2 Tipografía
+**Psicología del color aplicada**:
+- **Violeta**: Calma, espiritualidad, creatividad, introspección
+- **Púrpura**: Sabiduría, transformación, equilibrio emocional
+- **Rosa**: Empatía, cuidado, amor propio, compasión
+- **Verde**: Renovación, esperanza, balance, crecimiento
+- **Índigo/Azul**: Serenidad, comunicación, claridad mental
+
+#### 7.1.2 Sistema de Contraste y Legibilidad
+
+**Texto Principal (WCAG AAA Compliance)**:
+```typescript
+const textColors = {
+  light: {
+    primary: 'text-black',        // Negro puro - máximo contraste
+    secondary: 'text-slate-900',  // Gris oscuro - contraste alto
+    accent: 'text-violet-900',    // Violeta oscuro - acentos
+  },
+  dark: {
+    primary: 'text-white',        // Blanco puro - máximo contraste
+    secondary: 'text-slate-100',  // Gris claro - contraste alto
+    accent: 'text-violet-100',    // Violeta claro - acentos
+  }
+};
+```
+
+**Rationale**:
+- Textos principales en negro/blanco para máxima legibilidad
+- Fondos con gradientes violeta/púrpura para personalidad de marca
+- Balance entre estética y accesibilidad
+- Inspirado en apps profesionales (Calm, Headspace, BetterHelp)
+
+#### 7.1.3 Tipografía
 - **Fuente**: Inter (Google Fonts)
 - **Tamaños mínimos**: 16px para legibilidad
 - **Jerarquía clara**:
@@ -778,7 +826,7 @@ const colors = {
   - Body: 1rem (16px) - Texto normal
   - Small: 0.875rem (14px) - Metadatos
 
-#### 7.1.3 Spacing System (Escala 4pt)
+#### 7.1.4 Spacing System (Escala 4pt)
 ```typescript
 const spacing = {
   1: '0.25rem',  // 4px
@@ -791,7 +839,7 @@ const spacing = {
 };
 ```
 
-#### 7.1.4 Iconografía SVG
+#### 7.1.5 Iconografía SVG
 **15+ iconos personalizados**:
 - HeartIcon, BreathIcon, CalmIcon
 - JournalIcon, SparkleIcon, FlowerIcon
@@ -1864,6 +1912,50 @@ Este proyecto está abierto a contribuciones. Por favor:
 
 ## 14. Changelog Resumido
 
+### v1.4.0 (Diciembre 4, 2024) - Color Theory & Auto Theme
+- 🎨 **Teoría del Color Aplicada**:
+  - **Esquema análogo principal**: violeta → púrpura → rosa (Garden, Statistics)
+  - **Esquema análogo secundario**: violeta → púrpura → índigo/azul (Breath, Reflection, Grounding, MultiFlow)
+  - **Esquema complementario**: violeta + esmeralda (Dashboard tips)
+  - Eliminación de conflictos visuales: violet+sky+rose → esquemas armónicos profesionales
+  - **9 páginas actualizadas** con gradientes coherentes y armoniosos
+  - Inspiración: Apps profesionales de wellness (Calm, Headspace, BetterHelp)
+- 🌓 **Tema Automático por Horario**:
+  - Detección automática: **6AM-6PM = light mode**, **6PM-6AM = dark mode**
+  - Respeta preferencia manual del usuario (persistencia en localStorage)
+  - Implementado en `ThemeContext.tsx` con lógica horaria
+  - Solo se aplica en primera visita (sin preferencia guardada)
+  - Usuario puede cambiar tema manualmente en cualquier momento
+- ✨ **Eliminación Total de Grises**:
+  - Remoción completa de `text-gray-[1-9]` en todos los componentes
+  - Sistema de contraste WCAG AAA: `text-black` (light) / `text-white` (dark)
+  - Textos principales en negro/blanco para máxima legibilidad
+  - Fondos con gradientes violeta/púrpura para personalidad de marca
+  - **Balance perfecto**: estética + accesibilidad
+- 🔧 **Correcciones de Visibilidad**:
+  - **Garden empty state**: `text-violet-900` (light) / `text-violet-100` (dark)
+  - **AppHeader SparkleIcon**: `text-violet-600` (light) / `text-violet-300` (dark)
+  - **FloatingSOSButton**: eliminada restricción de autenticación, siempre visible
+  - **Button danger**: `text-gray-900` → `text-black` para consistencia
+  - **EditEntryModal**: simplificación de clases hover para mejor contraste
+  - **EmotionalCard**: `dark:group-hover:text-gray-200` → `dark:group-hover:text-slate-100`
+  - **Toast.tsx**: todos los `text-gray-900` → `text-black`
+  - **Garden loading**: background corregido para coincidir con tema principal
+- 🛠️ **Técnicas de Implementación**:
+  - PowerShell scripts con encoding UTF-8 explícito
+  - Preservación de caracteres españoles (¿Cómo, está, ñ)
+  - `[System.IO.File]::WriteAllText()` con UTF8 encoding
+  - Multi-replace operations para eficiencia
+  - 78 archivos TSX procesados sin corrupción
+- 📝 **Commits Asociados**:
+  - `227baa3`: feat: Auto-detectar tema según hora del día
+  - `69f3253`: fix: Eliminar todos los text-gray restantes en componentes
+  - `11c646a`: fix: Mejorar visibilidad del ícono de estrella en AppHeader
+  - `56f3e91`: refactor: Aplicar teoría del color en toda la aplicación (9 archivos)
+  - `3c391d3`: fix: Mejorar contraste de textos en Garden con teoría del color
+  - `eb3a26f`: fix: Garden dark mode + eliminación de mensaje personal en footer
+  - `b907fa2`: style: Agregar bordes redondeados a todos los logos
+
 ### v1.3.0 (Diciembre 4, 2024) - UX Accessibility & Contrast Optimization
 - ♿ **Mejoras de Accesibilidad UX**:
   - Eliminación total de tonos grises poco visibles (gray-400/500/600/700)
@@ -1986,10 +2078,67 @@ Este proyecto es propiedad de NANE VIDA y su uso está restringido según los t�
 
 ---
 
-**Documento generado el**: Diciembre 4, 2024
-**Versión del informe**: 1.3.0
+**Documento generado el**: Diciembre 4, 2024  
+**Versión del informe**: 1.4.0  
+**Última actualización**: Diciembre 4, 2024 - Color Theory & Auto Theme  
 **Autor**: Equipo de desarrollo NANE VIDA
 
 ---
 
 *Este informe técnico documenta las decisiones arquitectónicas, metodologías de desarrollo, y buenas prácticas implementadas en el MVP de NANE VIDA. Está diseñado para servir como referencia para futuros desarrolladores, auditores de seguridad, y stakeholders del proyecto.*
+
+---
+
+## Resumen de Mejoras Recientes (v1.4.0)
+
+### Teoría del Color - Fundamentos Aplicados
+
+La aplicación ahora implementa principios profesionales de teoría del color:
+
+**Esquemas Análogos**:
+- Colores adyacentes en la rueda cromática (violeta-púrpura-rosa, violeta-púrpura-índigo)
+- Crean armonía visual natural y transmiten cohesión de marca
+- Aplicados en Garden (identidad) y herramientas mindfulness (calma)
+
+**Esquemas Complementarios**:
+- Violeta + verde esmeralda en acentos estratégicos
+- Proporciona contraste visual sin conflictos cromáticos
+- Usado en Dashboard tips para destacar información importante
+
+**Eliminación de Conflictos**:
+- Mezclas aleatorias (violet+sky+rose) reemplazadas por gradientes coherentes
+- Transiciones suaves entre colores relacionados
+- Consistencia visual en toda la aplicación
+
+**Consistencia de Marca**:
+- El violeta como color primario presente en todos los fondos
+- Refuerza identidad visual y reconocimiento de marca
+- Balance entre personalidad y profesionalismo
+
+### Sistema de Contraste Optimizado
+
+**Decisión de diseño crítica**: Mantener textos principales en negro/blanco (en lugar de violeta)
+
+**Rationale**:
+1. **Accesibilidad**: WCAG AAA compliance asegura legibilidad para todos los usuarios, incluyendo personas con discapacidades visuales
+2. **Legibilidad prolongada**: Sesiones largas de escritura (diario, reflexiones) no cansan la vista con colores saturados
+3. **Profesionalismo**: Apps serias de salud mental priorizan legibilidad sobre estética pura
+4. **Balance visual**: Fondos coloridos + textos neutros = armonía sin saturación cromática
+5. **Inspiración**: Calm, Headspace, y BetterHelp usan el mismo enfoque
+
+**Resultado**: La app tiene personalidad visual (fondos violeta/púrpura) sin comprometer la usabilidad.
+
+### Tema Automático Inteligente
+
+El sistema ahora detecta la hora del día para aplicar el tema más apropiado:
+
+- **Día (6AM-6PM)**: Light mode para aprovechar luz natural y reducir fatiga visual diurna
+- **Noche (6PM-6AM)**: Dark mode para proteger vista en ambientes oscuros y mejorar descanso
+- **Respeto al usuario**: Preferencias manuales siempre tienen prioridad sobre detección automática
+- **Persistencia**: LocalStorage guarda elección del usuario entre sesiones
+
+**Beneficios**:
+- Mejora la experiencia sin intervención del usuario
+- Demuestra atención al detalle y cuidado por el bienestar digital
+- Se alinea con ritmos circadianos naturales
+- Reduce carga cognitiva (no hay que recordar cambiar tema)
