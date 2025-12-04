@@ -41,8 +41,8 @@ const AppHeader = memo(function AppHeader({
       {/* Content */}
       <div className="relative p-8 sm:p-10 text-center">
         {showIcon && (
-          <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl bg-gradient-to-br from-primary-400/20 to-primary-300/20 animate-pulse">
-            <SparkleIcon size={32} color="#8B5CF6" />
+          <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl bg-gradient-to-br from-primary-400/20 to-primary-300/20 animate-pulse text-violet-600 dark:text-violet-300">
+            <SparkleIcon size={32} color="currentColor" />
           </div>
         )}
         
