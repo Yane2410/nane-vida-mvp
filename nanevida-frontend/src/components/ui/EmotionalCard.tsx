@@ -49,7 +49,7 @@ const EmotionalCard = memo(function EmotionalCard({
 
         {/* Text */}
         <div className="flex-1 min-w-0">
-          <h3 className="text-lg font-semibold text-black dark:text-white mb-2 group-hover:text-slate-900 dark:text-white dark:group-hover:text-gray-200 transition-colors">
+          <h3 className="text-lg font-semibold text-black dark:text-white mb-2 group-hover:text-slate-900 dark:group-hover:text-slate-100 transition-colors">
             {title}
           </h3>
           <p className="text-sm text-black dark:text-white leading-relaxed line-clamp-2">

@@ -26,7 +26,7 @@ const Button = memo(function Button({
     primary: 'bg-gradient-to-r from-primary-400 to-primary-300 dark:from-primary-500 dark:to-primary-400 text-white hover:shadow-primary-300/50 dark:hover:shadow-primary-400/50 focus:ring-primary-200 dark:focus:ring-primary-700 active:scale-[0.98] border-2 border-white/20 dark:border-white/10',
     secondary: 'glass text-black dark:text-white border-2 border-primary-400/20 dark:border-primary-500/30 hover:border-primary-400/40 dark:hover:border-primary-500/50 focus:ring-primary-100 dark:focus:ring-primary-800 active:scale-[0.98]',
     ghost: 'bg-gradient-to-br from-warmth to-warmth-light dark:from-warmth-dark dark:to-warmth text-black dark:text-white hover:shadow-warmth/50 dark:hover:shadow-warmth/40 focus:ring-warmth/20 dark:focus:ring-warmth/30 active:scale-[0.98] border-2 border-white/20 dark:border-white/10',
-    danger: 'bg-gradient-to-br from-red-300 to-red-200 dark:from-red-500 dark:to-red-400 text-gray-900 dark:text-white hover:shadow-red-300/50 dark:hover:shadow-red-400/50 focus:ring-red-200 dark:focus:ring-red-700 active:scale-[0.98] border-2 border-white/20 dark:border-white/10',
+    danger: 'bg-gradient-to-br from-red-300 to-red-200 dark:from-red-500 dark:to-red-400 text-black dark:text-white hover:shadow-red-300/50 dark:hover:shadow-red-400/50 focus:ring-red-200 dark:focus:ring-red-700 active:scale-[0.98] border-2 border-white/20 dark:border-white/10',
     success: 'bg-gradient-to-br from-energy to-energy-light dark:from-energy-dark dark:to-energy text-black dark:text-white hover:shadow-energy/50 dark:hover:shadow-energy/40 focus:ring-energy/20 dark:focus:ring-energy/30 active:scale-[0.98] border-2 border-white/20 dark:border-white/10'
   }
   

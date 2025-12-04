@@ -16,7 +16,7 @@ export default function Garden() {
 
   if (loading && !garden) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-violet-50 via-sky-50 to-rose-50">
+      <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-pink-50 dark:from-violet-950 dark:via-purple-950 dark:to-pink-950">
         <AppHeader greeting="Tu Jardín de Bienestar" />
         <div className="flex items-center justify-center h-[calc(100vh-80px)]">
           <LoadingSpinner />

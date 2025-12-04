@@ -15,25 +15,25 @@ const toastStyles = {
     bg: 'bg-gradient-to-r from-energy to-energy-light',
     icon: '✓',
     ring: 'ring-energy/20',
-    text: 'text-gray-900'
+    text: 'text-black'
   },
   error: {
     bg: 'bg-gradient-to-r from-red-400 to-red-300',
     icon: '✗',
     ring: 'ring-red-400/20',
-    text: 'text-gray-900'
+    text: 'text-black'
   },
   info: {
     bg: 'bg-gradient-to-r from-calm to-calm-light',
     icon: 'ℹ',
     ring: 'ring-calm/20',
-    text: 'text-gray-900'
+    text: 'text-black'
   },
   warning: {
     bg: 'bg-gradient-to-r from-warmth to-warmth-light',
     icon: '⚠',
     ring: 'ring-warmth/20',
-    text: 'text-gray-900'
+    text: 'text-black'
   }
 }
 
