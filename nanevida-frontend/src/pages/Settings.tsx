@@ -182,7 +182,7 @@ export default function Settings() {
           <span>⚙️</span>
           Configuración
         </h1>
-        <p className="text-gray-900 dark:text-gray-100">
+        <p className="text-black dark:text-gray-100">
           Administra tu perfil, notificaciones y privacidad
         </p>
       </Card>
@@ -196,11 +196,11 @@ export default function Settings() {
 
       {/* Reminders Section */}
       <Card>
-        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center gap-2">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-gray-100 mb-4 flex items-center gap-2">
           <span>⏰</span>
           Recordatorios
         </h2>
-        <p className="text-gray-900 dark:text-gray-100 mb-6">
+        <p className="text-black dark:text-gray-100 mb-6">
           Configura recordatorios para no olvidar tus ejercicios de bienestar emocional.
         </p>
         <ReminderSettings />
@@ -208,7 +208,7 @@ export default function Settings() {
 
       {/* PWA Installation Section */}
       <Card>
-        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center gap-2">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-gray-100 mb-4 flex items-center gap-2">
           <span>📱</span>
           Aplicación Web Progresiva (PWA)
         </h2>
@@ -220,7 +220,7 @@ export default function Settings() {
           <div className="flex items-start gap-3 p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
             <span className="text-xl">✨</span>
             <div>
-              <h3 className="font-semibold text-gray-800 dark:text-gray-100">Acceso Rápido</h3>
+              <h3 className="font-semibold text-slate-900 dark:text-gray-100">Acceso Rápido</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300">Abre la app desde tu pantalla de inicio</p>
             </div>
           </div>
@@ -228,7 +228,7 @@ export default function Settings() {
           <div className="flex items-start gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
             <span className="text-xl">📴</span>
             <div>
-              <h3 className="font-semibold text-gray-800 dark:text-gray-100">Modo Offline</h3>
+              <h3 className="font-semibold text-slate-900 dark:text-gray-100">Modo Offline</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300">Usa funciones básicas sin conexión</p>
             </div>
           </div>
@@ -236,7 +236,7 @@ export default function Settings() {
           <div className="flex items-start gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
             <span className="text-xl">🔔</span>
             <div>
-              <h3 className="font-semibold text-gray-800 dark:text-gray-100">Notificaciones Push</h3>
+              <h3 className="font-semibold text-slate-900 dark:text-gray-100">Notificaciones Push</h3>
               <p className="text-sm text-gray-600 dark:text-gray-300">Recibe recordatorios directamente</p>
             </div>
           </div>
@@ -427,7 +427,7 @@ export default function Settings() {
         </h2>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">
+            <label className="block text-sm font-medium text-black dark:text-gray-100 mb-2">
               🌐 Visibilidad del perfil
             </label>
             <select
@@ -469,7 +469,7 @@ export default function Settings() {
           <span>⚠️</span>
           Zona Peligrosa
         </h2>
-        <p className="text-gray-900 dark:text-gray-100 mb-4">
+        <p className="text-black dark:text-gray-100 mb-4">
           Una vez que elimines tu cuenta, no hay vuelta atrás. Por favor, estate seguro.
         </p>
         <Button 
@@ -485,7 +485,7 @@ export default function Settings() {
 
       {/* Onboarding */}
       <Card>
-        <h2 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-4 flex items-center gap-2">
+        <h2 className="text-2xl font-bold text-slate-900 dark:text-gray-100 mb-4 flex items-center gap-2">
           <span>🎓</span>
           Tutorial de Bienvenida
         </h2>

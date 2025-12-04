@@ -20,7 +20,7 @@ export default function GardenWidget() {
     <Link to="/garden">
       <Card hover className="cursor-pointer transition-all duration-300 hover:shadow-lg">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 flex items-center gap-2">
+          <h3 className="text-xl font-bold text-slate-900 dark:text-gray-100 flex items-center gap-2">
             <span>🌸</span>
             Tu Jardín de Bienestar
           </h3>
@@ -74,7 +74,7 @@ export default function GardenWidget() {
         {/* Recent Plants Preview */}
         {garden.recent_plants && garden.recent_plants.length > 0 && (
           <div className="flex items-center gap-2 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-lg">
-            <span className="text-sm text-gray-900 dark:text-gray-100 font-medium">
+            <span className="text-sm text-black dark:text-gray-100 font-medium">
               Últimas plantas:
             </span>
             <div className="flex gap-1">
@@ -88,7 +88,7 @@ export default function GardenWidget() {
                 </span>
               ))}
               {garden.recent_plants.length > 5 && (
-                <span className="text-sm text-gray-800 dark:text-gray-200 self-center">
+                <span className="text-sm text-slate-900 dark:text-gray-200 self-center">
                   +{garden.recent_plants.length - 5}
                 </span>
               )}
@@ -98,7 +98,7 @@ export default function GardenWidget() {
 
         {/* Gentle Message */}
         <div className="mt-4 p-3 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 rounded-lg">
-          <p className="text-sm text-gray-900 dark:text-gray-100 italic text-center">
+          <p className="text-sm text-black dark:text-gray-100 italic text-center">
             {garden.current_gentle_streak > 0 
               ? `✨ ${garden.current_gentle_streak} ${garden.current_gentle_streak === 1 ? 'día' : 'días'} nutriendo tu bienestar`
               : '🌱 Tu jardín te espera cuando estés list@'
