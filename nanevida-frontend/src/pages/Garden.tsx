@@ -129,10 +129,10 @@ export default function Garden() {
         {(!garden?.recent_plants || garden.recent_plants.length === 0) && (
           <Card className="text-center py-12">
             <div className="text-6xl mb-4">🌱</div>
-            <h3 className="text-xl font-semibold text-black mb-2">
+            <h3 className="text-xl font-semibold text-violet-900 dark:text-violet-100 mb-2">
               Tu jardín está esperando florecer
             </h3>
-            <p className="text-black mb-6 max-w-md mx-auto">
+            <p className="text-violet-800 dark:text-violet-200 mb-6 max-w-md mx-auto">
               Completa una actividad de bienestar para plantar tu primera semilla. 
               Cada práctica es un acto de amor hacia ti misma.
             </p>
@@ -230,14 +230,14 @@ export default function Garden() {
         {/* Milestones Section */}
         {garden?.unviewed_milestones && garden.unviewed_milestones.length > 0 && (
           <Card>
-            <h3 className="text-lg font-semibold text-black mb-4">🏆 Logros</h3>
+            <h3 className="text-lg font-semibold text-violet-900 dark:text-violet-100 mb-4">🏆 Logros</h3>
             <div className="space-y-2">
               {garden.unviewed_milestones.slice(0, 5).map((milestone: any) => (
                 <div key={milestone.id} className="flex items-center gap-3 p-3 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900 dark:to-pink-900 rounded-lg">
                   <div className="text-2xl">{milestone.icon || '🌟'}</div>
                   <div className="flex-1">
-                    <div className="font-medium text-black dark:text-purple-300">{milestone.title}</div>
-                    <div className="text-sm text-black dark:text-purple-300">{milestone.description}</div>
+                    <div className="font-medium text-violet-900 dark:text-purple-300">{milestone.title}</div>
+                    <div className="text-sm text-violet-800 dark:text-purple-300">{milestone.description}</div>
                   </div>
                   {!milestone.viewed && (
                     <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
