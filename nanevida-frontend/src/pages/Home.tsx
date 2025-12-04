@@ -26,7 +26,7 @@ export default function Home() {
         <img 
           src="/icons/logo-full.png" 
           alt="Nane Vida" 
-          className="h-16 sm:h-20 md:h-24 w-auto"
+          className="h-16 sm:h-20 md:h-24 w-auto rounded-2xl md:rounded-3xl"
         />
         <p className="text-lg sm:text-xl text-slate-900 dark:text-white max-w-2xl px-4">
           Tu espacio seguro para cuidar tu salud mental y emocional

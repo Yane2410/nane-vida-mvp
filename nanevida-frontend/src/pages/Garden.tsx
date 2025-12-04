@@ -81,7 +81,7 @@ export default function Garden() {
         <img 
           src="/icons/logo-icon.png" 
           alt="Nane Vida" 
-          className="h-12 w-auto opacity-80"
+          className="h-12 w-auto opacity-80 rounded-xl"
         />
       </div>
       <AppHeader greeting="Tu Jardín de Bienestar" subtitle="Tu viaje de autocuidado florece aquí" />

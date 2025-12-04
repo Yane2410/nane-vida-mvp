@@ -31,7 +31,7 @@ export default function App(){
               <img 
                 src="/icons/logo-full.png" 
                 alt="Nane Vida" 
-                className="h-8 md:h-10 w-auto"
+                className="h-8 md:h-10 w-auto rounded-xl md:rounded-2xl"
               />
             </Link>
 

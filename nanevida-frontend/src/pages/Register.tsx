@@ -79,7 +79,7 @@ export default function Register() {
             <img 
               src="/icons/logo-icon.png" 
               alt="Nane Vida" 
-              className="h-20 w-auto"
+              className="h-20 w-auto rounded-2xl"
             />
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-black dark:text-white mb-2">
