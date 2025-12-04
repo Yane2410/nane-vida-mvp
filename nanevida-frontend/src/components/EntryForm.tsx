@@ -13,23 +13,23 @@ type Props = {
 };
 
 const EMOJIS = [
-  { emoji: '', label: 'Feliz' },
-  { emoji: '', label: 'Triste' },
-  { emoji: '', label: 'Enojado' },
-  { emoji: '', label: 'Ansios@' },
-  { emoji: '', label: 'Cansad@' },
-  { emoji: '', label: 'Emocionado' },
-  { emoji: '', label: 'Tranquilo' },
-  { emoji: '', label: 'Agradecido' },
+  { emoji: '😊', label: 'Feliz' },
+  { emoji: '😢', label: 'Triste' },
+  { emoji: '😠', label: 'Enojado' },
+  { emoji: '😰', label: 'Ansios@' },
+  { emoji: '😴', label: 'Cansad@' },
+  { emoji: '🤩', label: 'Emocionado' },
+  { emoji: '😌', label: 'Tranquilo' },
+  { emoji: '🙏', label: 'Agradecido' },
 ];
 
 const MOODS = [
-  { value: 'very_happy', emoji: '', label: 'Muy feliz' },
-  { value: 'happy', emoji: '', label: 'Feliz' },
-  { value: 'neutral', emoji: '', label: 'Neutral' },
-  { value: 'sad', emoji: '', label: 'Triste' },
-  { value: 'anxious', emoji: '', label: 'Ansios@' },
-  { value: 'angry', emoji: '', label: 'Enojado/a' },
+  { value: 'very_happy', emoji: '😄', label: 'Muy feliz' },
+  { value: 'happy', emoji: '😊', label: 'Feliz' },
+  { value: 'neutral', emoji: '😐', label: 'Neutral' },
+  { value: 'sad', emoji: '😢', label: 'Triste' },
+  { value: 'anxious', emoji: '😰', label: 'Ansios@' },
+  { value: 'angry', emoji: '😠', label: 'Enojado/a' },
 ];
 
 export default function EntryForm({ onSave }: Props) {
@@ -82,8 +82,8 @@ export default function EntryForm({ onSave }: Props) {
 
         {/* Selector de Estado de Ánimo */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-3">
-             ¿Cómo describirías tu estado de ánimo hoy?
+          <label className="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-3">
+            💭 ¿Cómo describirías tu estado de ánimo hoy?
           </label>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {MOODS.map(({ value, emoji: e, label }) => (
@@ -108,8 +108,8 @@ export default function EntryForm({ onSave }: Props) {
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-3">
-            ¿Cómo describirías tu emoción?
+          <label className="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-3">
+            ✨ ¿Cómo describirías tu emoción?
           </label>
           <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
             {EMOJIS.map(({ emoji: e, label }) => (

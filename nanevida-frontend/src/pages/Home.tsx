@@ -28,7 +28,7 @@ export default function Home() {
           alt="Nane Vida" 
           className="h-16 sm:h-20 md:h-24 w-auto"
         />
-        <p className="text-lg sm:text-xl text-gray-600 dark:text-gray-300 max-w-2xl px-4">
+        <p className="text-lg sm:text-xl text-gray-900 dark:text-gray-100 max-w-2xl px-4">
           Tu espacio seguro para cuidar tu salud mental y emocional
         </p>
       </div>
@@ -40,7 +40,7 @@ export default function Home() {
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-3">
             ¿Cómo te sientes hoy?
           </h2>
-          <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 max-w-xl mx-auto">
+          <p className="text-base sm:text-lg text-gray-900 dark:text-gray-100 max-w-xl mx-auto">
             Está bien tomarte un momento para reconocer tus emociones.
             No hay respuestas correctas o incorrectas.
           </p>

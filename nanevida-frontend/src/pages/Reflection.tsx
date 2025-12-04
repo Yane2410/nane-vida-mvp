@@ -237,7 +237,7 @@ export default function Reflection() {
               <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100 mb-2">
                 Aún no hay reflexiones
               </h3>
-              <p className="text-gray-700 dark:text-gray-300 mb-6">
+              <p className="text-gray-900 dark:text-gray-100 mb-6">
                 Empieza tu práctica de reflexión y tus pensamientos aparecerán aquí
               </p>
               <Button
@@ -253,13 +253,13 @@ export default function Reflection() {
                 <Card key={reflection.id} className="hover:shadow-lg transition-shadow">
                   <div className="flex items-start justify-between gap-4 mb-3">
                     <div className="flex-1">
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mb-2">
+                      <p className="text-sm text-gray-800 dark:text-gray-200 mb-2">
                         {formatDate(reflection.date)}
                       </p>
                       <h3 className="text-lg font-bold text-gray-900 dark:text-gray-100 mb-3">
                         {reflection.question}
                       </h3>
-                      <p className="text-gray-700 dark:text-gray-300 whitespace-pre-wrap leading-relaxed">
+                      <p className="text-gray-900 dark:text-gray-100 whitespace-pre-wrap leading-relaxed">
                         {reflection.answer}
                       </p>
                     </div>
@@ -296,14 +296,14 @@ export default function Reflection() {
               }}
             >
               <div className="text-center">
-                <span className={`inline-block px-4 py-1 rounded-full font-medium bg-white/50 dark:bg-gray-800/50 text-gray-700 dark:text-gray-300 mb-4 ${isSmall ? 'text-xs' : 'text-sm'}`}>
+                <span className={`inline-block px-4 py-1 rounded-full font-medium bg-white/50 dark:bg-gray-800/50 text-gray-900 dark:text-gray-100 mb-4 ${isSmall ? 'text-xs' : 'text-sm'}`}>
                   {selectedPrompt.category}
                 </span>
                 <AnimatedCore mode="fadeIn" duration={800} loop={false}>
                   <h2 className={`font-bold text-gray-900 dark:text-gray-100 mb-3 ${isSmall ? 'text-xl' : isTablet ? 'text-2xl' : 'text-3xl'}`}>
                     {selectedPrompt.question}
                   </h2>
-                  <p className={`text-gray-700 dark:text-gray-300 ${isSmall ? 'text-sm' : 'text-base'}`}>
+                  <p className={`text-gray-900 dark:text-gray-100 ${isSmall ? 'text-sm' : 'text-base'}`}>
                     {selectedPrompt.subtitle}
                   </p>
                 </AnimatedCore>
@@ -311,7 +311,7 @@ export default function Reflection() {
           </Card>
 
           <Card className="mb-6">
-            <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
+            <label className="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-3">
               Tu reflexión
             </label>
             <textarea
@@ -322,7 +322,7 @@ export default function Reflection() {
               style={{ fontSize: '16px', lineHeight: '1.6' }}
             />
             <div className="flex items-center justify-between mt-3">
-              <span className="text-sm text-gray-500 dark:text-gray-400">
+              <span className="text-sm text-gray-800 dark:text-gray-200">
                 {reflectionText.length} caracteres
               </span>
               {reflectionText.length > 0 && (
@@ -397,7 +397,7 @@ export default function Reflection() {
                 <h1 className={`font-bold text-gray-900 dark:text-gray-100 mb-2 ${isSmall ? 'text-2xl' : 'text-3xl'}`}>
                   Reflexión Guiada
                 </h1>
-              <p className="text-gray-700 dark:text-gray-300 text-lg">
+              <p className="text-gray-900 dark:text-gray-100 text-lg">
                 Tómate un momento para conectar contigo. Elige una pregunta o deja que el azar te guíe.
               </p>
             </div>

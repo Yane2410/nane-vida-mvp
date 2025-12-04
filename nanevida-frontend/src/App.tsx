@@ -5,6 +5,7 @@ import MobileMenu from './components/ui/MobileMenu'
 import ThemeToggle from './components/ui/ThemeToggle'
 import OnboardingModal from './components/ui/OnboardingModal'
 import MilestoneModal from './components/MilestoneModal'
+import FloatingSOSButton from './components/ui/FloatingSOSButton'
 
 export default function App(){
   const nav = useNavigate()
@@ -114,10 +115,13 @@ export default function App(){
       {/* Milestone Modal */}
       <MilestoneModal />
 
+      {/* Floating SOS Button - Mobile only */}
+      {isAuth && <FloatingSOSButton />}
+
       {/* Footer */}
       <footer className="backdrop-blur-xl bg-white/60 border-t border-white/40 shadow-inner">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <p className="text-center text-sm text-slate-600 font-medium">
+          <p className="text-center text-sm text-gray-900 dark:text-gray-100 font-medium">
             © {new Date().getFullYear()} NANE VIDA — Cuidando tu bienestar emocional 💜
           </p>
           <p className="text-center text-sm text-[#A78BFA] font-medium mt-2" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>

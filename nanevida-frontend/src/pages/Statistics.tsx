@@ -89,7 +89,7 @@ export default function Statistics() {
           <span>📊</span>
           Estadísticas y Análisis
         </h1>
-        <p className="text-gray-600">
+        <p className="text-gray-900 dark:text-gray-100">
           Visualiza tu progreso y patrones de escritura
         </p>
         {error && (
@@ -106,7 +106,7 @@ export default function Statistics() {
           <div className="text-2xl font-bold text-purple-600">
             {stats?.total_entries || 0}
           </div>
-          <div className="text-sm text-gray-600">Total de Entradas</div>
+          <div className="text-sm text-gray-900 dark:text-gray-100">Total de Entradas</div>
         </Card>
 
         <Card hover className="text-center">
@@ -114,7 +114,7 @@ export default function Statistics() {
           <div className="text-2xl font-bold text-orange-600">
             {stats?.streak_days || 0}
           </div>
-          <div className="text-sm text-gray-600">Racha Actual</div>
+          <div className="text-sm text-gray-900 dark:text-gray-100">Racha Actual</div>
         </Card>
 
         <Card hover className="text-center">
@@ -122,7 +122,7 @@ export default function Statistics() {
           <div className="text-2xl font-bold text-emerald-600">
             {stats?.longest_streak || 0}
           </div>
-          <div className="text-sm text-gray-600">Racha Más Larga</div>
+          <div className="text-sm text-gray-900 dark:text-gray-100">Racha Más Larga</div>
         </Card>
 
         <Card hover className="text-center">
@@ -130,7 +130,7 @@ export default function Statistics() {
           <div className="text-2xl font-bold text-blue-600">
             {stats?.entries_this_month || 0}
           </div>
-          <div className="text-sm text-gray-600">Este Mes</div>
+          <div className="text-sm text-gray-900 dark:text-gray-100">Este Mes</div>
         </Card>
       </div>
 
@@ -213,19 +213,19 @@ export default function Statistics() {
           </h3>
           <div className="space-y-4">
             <div className="flex items-center justify-between p-3 bg-white rounded-lg">
-              <span className="text-gray-700">📝 Promedio por semana</span>
+              <span className="text-gray-900 dark:text-gray-100">📝 Promedio por semana</span>
               <span className="font-bold text-purple-600">
                 {stats?.entries_this_week || 0} entradas
               </span>
             </div>
             <div className="flex items-center justify-between p-3 bg-white rounded-lg">
-              <span className="text-gray-700">🎯 Días activos</span>
+              <span className="text-gray-900 dark:text-gray-100">🎯 Días activos</span>
               <span className="font-bold text-emerald-600">
                 {Math.floor((stats?.total_entries || 0) / 7)} días
               </span>
             </div>
             <div className="flex items-center justify-between p-3 bg-white rounded-lg">
-              <span className="text-gray-700">⏱️ Hora favorita</span>
+              <span className="text-gray-900 dark:text-gray-100">⏱️ Hora favorita</span>
               <span className="font-bold text-blue-600">
                 {stats?.writing_times?.reduce((max, item) => 
                   item.count > max.count ? item : max, 
@@ -234,7 +234,7 @@ export default function Statistics() {
               </span>
             </div>
             <div className="flex items-center justify-between p-3 bg-white rounded-lg">
-              <span className="text-gray-700">😊 Estado más común</span>
+              <span className="text-gray-900 dark:text-gray-100">😊 Estado más común</span>
               <span className="font-bold text-pink-600">
                 {stats?.mood_distribution?.[0]?.mood.split(' ')[0] || '😊'}
               </span>

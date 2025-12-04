@@ -50,7 +50,7 @@ export default function ActivityCompletionModal({
             </h2>
 
             {/* Activity Info */}
-            <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 mb-4">
+            <p className="text-base sm:text-lg text-gray-900 dark:text-gray-100 mb-4">
               Has completado: <span className="font-semibold text-purple-600 dark:text-purple-400">{activityName}</span>
             </p>
 

@@ -242,7 +242,7 @@ export default function Breath() {
                       <div className={`${isSmall ? 'text-5xl' : 'text-6xl'} font-bold text-gray-900 dark:text-gray-100 mb-2`}>
                         {secondsLeft}
                       </div>
-                      <div className={`${isSmall ? 'text-lg' : 'text-xl'} font-medium text-gray-700 dark:text-gray-300`}>
+                      <div className={`${isSmall ? 'text-lg' : 'text-xl'} font-medium text-gray-900 dark:text-gray-100`}>
                         {currentCycle.instruction}
                       </div>
                     </div>
@@ -310,7 +310,7 @@ export default function Breath() {
 
             {/* Haptics Toggle */}
             {haptics.isAvailable() && (
-              <div className="flex items-center justify-center gap-2 text-sm text-gray-700 dark:text-gray-300">
+              <div className="flex items-center justify-center gap-2 text-sm text-gray-900 dark:text-gray-100">
                 <input
                   type="checkbox"
                   id="haptics-toggle"
@@ -335,7 +335,7 @@ export default function Breath() {
               >
                 <div className="flex items-start gap-3">
                   <span className="text-xl" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>🌟</span>
-                  <p className="text-gray-700 dark:text-gray-300 text-sm text-left">
+                  <p className="text-gray-900 dark:text-gray-100 text-sm text-left">
                     Vas muy bien. Observa cómo tu cuerpo y mente se sienten más calmados con cada respiración.
                   </p>
                 </div>
@@ -392,7 +392,7 @@ export default function Breath() {
                   <h3 className={`${isSmall ? 'text-lg' : 'text-xl'} font-bold text-gray-900 dark:text-gray-100 mb-2`}>
                     {pattern.name}
                   </h3>
-                  <p className={`text-gray-700 dark:text-gray-300 mb-4 ${isSmall ? 'text-sm' : ''}`}>
+                  <p className={`text-gray-900 dark:text-gray-100 mb-4 ${isSmall ? 'text-sm' : ''}`}>
                     {pattern.description}
                   </p>
                 </div>
@@ -404,7 +404,7 @@ export default function Breath() {
                     className="flex items-center justify-between text-sm p-2 rounded-lg"
                     style={{ backgroundColor: `${pattern.color}10` }}
                   >
-                    <span className="text-gray-700 dark:text-gray-300">{cycle.instruction}</span>
+                    <span className="text-gray-900 dark:text-gray-100">{cycle.instruction}</span>
                     <span className="font-bold text-gray-900 dark:text-gray-100">{cycle.duration}s</span>
                   </div>
                 ))}

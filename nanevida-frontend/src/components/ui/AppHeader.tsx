@@ -46,11 +46,11 @@ const AppHeader = memo(function AppHeader({
           </div>
         )}
         
-        <h1 className="text-h1 text-gray-900 mb-3">
+        <h1 className="text-h1 text-gray-900 dark:text-gray-100 font-bold mb-3">
           {getGreeting()}
         </h1>
         
-        <p className="text-body-lg text-gray-700 max-w-2xl mx-auto">
+        <p className="text-body-lg text-gray-800 dark:text-gray-200 font-medium max-w-2xl mx-auto">
           {getSubtitle()}
         </p>
       </div>

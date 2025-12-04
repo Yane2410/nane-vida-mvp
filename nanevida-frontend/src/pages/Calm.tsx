@@ -277,7 +277,7 @@ export default function Calm() {
         
         {/* Haptics Toggle */}
         {haptics.isAvailable() && (
-          <div className="flex items-center justify-center gap-2 text-sm text-gray-700 dark:text-gray-300 mt-4">
+          <div className="flex items-center justify-center gap-2 text-sm text-gray-900 dark:text-gray-100 mt-4">
             <input
               type="checkbox"
               id="calm-haptics-toggle"

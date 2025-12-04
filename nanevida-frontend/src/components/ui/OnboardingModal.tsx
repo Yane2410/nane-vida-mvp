@@ -63,7 +63,7 @@ export default function OnboardingModal() {
                 <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
                   {step.title}
                 </h2>
-                <p className="text-base sm:text-lg text-gray-700 dark:text-gray-300 leading-relaxed max-w-xl mx-auto">
+                <p className="text-base sm:text-lg text-gray-900 dark:text-gray-100 leading-relaxed max-w-xl mx-auto">
                   {step.description}
                 </p>
               </div>

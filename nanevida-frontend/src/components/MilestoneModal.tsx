@@ -78,7 +78,7 @@ export default function MilestoneModal() {
             </h2>
 
             {/* Description */}
-            <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">
+            <p className="text-lg text-gray-900 dark:text-gray-100 mb-6">
               {currentMilestone.description}
             </p>
 
