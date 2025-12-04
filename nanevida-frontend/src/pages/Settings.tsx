@@ -178,7 +178,7 @@ export default function Settings() {
     <div className="space-y-6">
       {/* Header */}
       <Card gradient className="text-center">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2 flex items-center justify-center gap-2">
+        <h1 className="text-3xl font-bold text-black dark:text-white mb-2 flex items-center justify-center gap-2">
           <span>⚙️</span>
           Configuración
         </h1>
@@ -196,7 +196,7 @@ export default function Settings() {
 
       {/* Reminders Section */}
       <Card>
-        <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+        <h2 className="text-2xl font-bold text-black dark:text-white dark:text-white mb-4 flex items-center gap-2">
           <span>⏰</span>
           Recordatorios
         </h2>
@@ -208,11 +208,11 @@ export default function Settings() {
 
       {/* PWA Installation Section */}
       <Card>
-        <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+        <h2 className="text-2xl font-bold text-black dark:text-white dark:text-white mb-4 flex items-center gap-2">
           <span>📱</span>
           Aplicación Web Progresiva (PWA)
         </h2>
-        <p className="text-gray-600 dark:text-slate-200 mb-4">
+        <p className="text-slate-800 dark:text-slate-100 dark:text-slate-200 mb-4">
           Instala Nane Vida como aplicación en tu dispositivo para acceso rápido y funcionalidad offline.
         </p>
         
@@ -220,24 +220,24 @@ export default function Settings() {
           <div className="flex items-start gap-3 p-3 bg-purple-50 dark:bg-purple-900/20 rounded-lg">
             <span className="text-xl">✨</span>
             <div>
-              <h3 className="font-semibold text-gray-800 dark:text-white">Acceso Rápido</h3>
-              <p className="text-sm text-gray-600 dark:text-slate-200">Abre la app desde tu pantalla de inicio</p>
+              <h3 className="font-semibold text-black dark:text-white dark:text-white">Acceso Rápido</h3>
+              <p className="text-sm text-slate-800 dark:text-slate-100 dark:text-slate-200">Abre la app desde tu pantalla de inicio</p>
             </div>
           </div>
           
           <div className="flex items-start gap-3 p-3 bg-blue-50 dark:bg-blue-900/20 rounded-lg">
             <span className="text-xl">📴</span>
             <div>
-              <h3 className="font-semibold text-gray-800 dark:text-white">Modo Offline</h3>
-              <p className="text-sm text-gray-600 dark:text-slate-200">Usa funciones básicas sin conexión</p>
+              <h3 className="font-semibold text-black dark:text-white dark:text-white">Modo Offline</h3>
+              <p className="text-sm text-slate-800 dark:text-slate-100 dark:text-slate-200">Usa funciones básicas sin conexión</p>
             </div>
           </div>
           
           <div className="flex items-start gap-3 p-3 bg-green-50 dark:bg-green-900/20 rounded-lg">
             <span className="text-xl">🔔</span>
             <div>
-              <h3 className="font-semibold text-gray-800 dark:text-white">Notificaciones Push</h3>
-              <p className="text-sm text-gray-600 dark:text-slate-200">Recibe recordatorios directamente</p>
+              <h3 className="font-semibold text-black dark:text-white dark:text-white">Notificaciones Push</h3>
+              <p className="text-sm text-slate-800 dark:text-slate-100 dark:text-slate-200">Recibe recordatorios directamente</p>
             </div>
           </div>
           
@@ -265,14 +265,14 @@ export default function Settings() {
 
       {/* Profile Settings */}
       <Card>
-        <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+        <h2 className="text-2xl font-bold text-black dark:text-white mb-4 flex items-center gap-2">
           <span>👤</span>
           Información del Perfil
         </h2>
         <form onSubmit={handleSaveProfile} className="space-y-4">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-900 dark:text-white mb-1">
                 Nombre de usuario
               </label>
               <input
@@ -284,7 +284,7 @@ export default function Settings() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-900 dark:text-white mb-1">
                 Email
               </label>
               <input
@@ -296,7 +296,7 @@ export default function Settings() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-900 dark:text-white mb-1">
                 Nombre
               </label>
               <input
@@ -307,7 +307,7 @@ export default function Settings() {
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-1">
+              <label className="block text-sm font-medium text-slate-900 dark:text-white mb-1">
                 Apellido
               </label>
               <input
@@ -319,7 +319,7 @@ export default function Settings() {
             </div>
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-slate-900 dark:text-white mb-1">
               Biografía
             </label>
             <textarea
@@ -338,13 +338,13 @@ export default function Settings() {
 
       {/* Change Password */}
       <Card>
-        <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+        <h2 className="text-2xl font-bold text-black dark:text-white mb-4 flex items-center gap-2">
           <span>🔒</span>
           Cambiar Contraseña
         </h2>
         <form onSubmit={handleChangePassword} className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-slate-900 dark:text-white mb-1">
               Contraseña actual
             </label>
             <input
@@ -356,7 +356,7 @@ export default function Settings() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-slate-900 dark:text-white mb-1">
               Nueva contraseña
             </label>
             <input
@@ -369,7 +369,7 @@ export default function Settings() {
             />
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1">
+            <label className="block text-sm font-medium text-slate-900 dark:text-white mb-1">
               Confirmar nueva contraseña
             </label>
             <input
@@ -389,7 +389,7 @@ export default function Settings() {
 
       {/* Notifications */}
       <Card>
-        <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+        <h2 className="text-2xl font-bold text-black dark:text-white mb-4 flex items-center gap-2">
           <span>🔔</span>
           Notificaciones
         </h2>
@@ -401,7 +401,7 @@ export default function Settings() {
             { key: 'achievement_alerts', label: 'Alertas de logros', icon: '🏆' },
           ].map(({ key, label, icon }) => (
             <label key={key} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors">
-              <span className="flex items-center gap-2 text-gray-700">
+              <span className="flex items-center gap-2 text-slate-900 dark:text-white">
                 <span>{icon}</span>
                 {label}
               </span>
@@ -421,7 +421,7 @@ export default function Settings() {
 
       {/* Privacy */}
       <Card>
-        <h2 className="text-2xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+        <h2 className="text-2xl font-bold text-black dark:text-white mb-4 flex items-center gap-2">
           <span>🔐</span>
           Privacidad y Seguridad
         </h2>
@@ -445,7 +445,7 @@ export default function Settings() {
             { key: 'data_sharing', label: 'Compartir datos anónimos', icon: '🔄' },
           ].map(({ key, label, icon }) => (
             <label key={key} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg cursor-pointer hover:bg-gray-100 transition-colors">
-              <span className="flex items-center gap-2 text-gray-700">
+              <span className="flex items-center gap-2 text-slate-900 dark:text-white">
                 <span>{icon}</span>
                 {label}
               </span>
@@ -485,11 +485,11 @@ export default function Settings() {
 
       {/* Onboarding */}
       <Card>
-        <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-4 flex items-center gap-2">
+        <h2 className="text-2xl font-bold text-black dark:text-white dark:text-white mb-4 flex items-center gap-2">
           <span>🎓</span>
           Tutorial de Bienvenida
         </h2>
-        <p className="text-gray-600 dark:text-slate-200 mb-4">
+        <p className="text-slate-800 dark:text-slate-100 dark:text-slate-200 mb-4">
           ¿Necesitas un recordatorio de cómo funciona la app? Vuelve a ver el tutorial de introducción.
         </p>
         <Button 

@@ -129,7 +129,7 @@ export default function Garden() {
         {(!garden?.recent_plants || garden.recent_plants.length === 0) && (
           <Card className="text-center py-12">
             <div className="text-6xl mb-4">🌱</div>
-            <h3 className="text-xl font-semibold text-gray-800 mb-2">
+            <h3 className="text-xl font-semibold text-black dark:text-white mb-2">
               Tu jardín está esperando florecer
             </h3>
             <p className="text-black dark:text-white mb-6 max-w-md mx-auto">
@@ -156,15 +156,15 @@ export default function Garden() {
             {/* Blooming Plants */}
             {plantsByStage.blooming?.length > 0 && (
               <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-black dark:text-white mb-3 flex items-center gap-2">
                   ✨ Floreciendo ({plantsByStage.blooming.length})
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                   {plantsByStage.blooming.map((plant: any) => (
                     <Card key={plant.id} className="text-center hover:shadow-lg transition-shadow bg-gradient-to-br from-yellow-50 to-amber-50 border-yellow-200">
                       <div className="text-4xl mb-2">{plant.stage_emoji}</div>
-                      <div className="text-xs text-gray-600 font-medium">{plant.flower.flower_name}</div>
-                      <div className="text-xs text-gray-500 mt-1">{plant.days_old} días</div>
+                      <div className="text-xs text-slate-800 dark:text-slate-100 font-medium">{plant.flower.flower_name}</div>
+                      <div className="text-xs text-slate-700 dark:text-slate-200 mt-1">{plant.days_old} días</div>
                     </Card>
                   ))}
                 </div>
@@ -174,15 +174,15 @@ export default function Garden() {
             {/* Growing Plants */}
             {plantsByStage.growing?.length > 0 && (
               <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-black dark:text-white mb-3 flex items-center gap-2">
                   🌿 Creciendo ({plantsByStage.growing.length})
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                   {plantsByStage.growing.map((plant: any) => (
                     <Card key={plant.id} className="text-center hover:shadow-lg transition-shadow bg-gradient-to-br from-green-50 to-emerald-50 border-green-200">
                       <div className="text-4xl mb-2">{getStageEmoji(plant.growth_stage)}</div>
-                      <div className="text-xs text-gray-600 font-medium">{plant.flower.flower_name}</div>
-                      <div className="text-xs text-gray-500 mt-1">{plant.days_old} días</div>
+                      <div className="text-xs text-slate-800 dark:text-slate-100 font-medium">{plant.flower.flower_name}</div>
+                      <div className="text-xs text-slate-700 dark:text-slate-200 mt-1">{plant.days_old} días</div>
                     </Card>
                   ))}
                 </div>
@@ -192,15 +192,15 @@ export default function Garden() {
             {/* Sprout Plants */}
             {plantsByStage.sprout?.length > 0 && (
               <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-black dark:text-white mb-3 flex items-center gap-2">
                   🌱 Brotando ({plantsByStage.sprout.length})
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                   {plantsByStage.sprout.map((plant: any) => (
                     <Card key={plant.id} className="text-center hover:shadow-lg transition-shadow bg-gradient-to-br from-lime-50 to-green-50 border-lime-200">
                       <div className="text-4xl mb-2">{getStageEmoji(plant.growth_stage)}</div>
-                      <div className="text-xs text-gray-600 font-medium">{plant.flower.flower_name}</div>
-                      <div className="text-xs text-gray-500 mt-1">{plant.days_old} días</div>
+                      <div className="text-xs text-slate-800 dark:text-slate-100 font-medium">{plant.flower.flower_name}</div>
+                      <div className="text-xs text-slate-700 dark:text-slate-200 mt-1">{plant.days_old} días</div>
                     </Card>
                   ))}
                 </div>
@@ -210,15 +210,15 @@ export default function Garden() {
             {/* Seed Plants */}
             {plantsByStage.seed?.length > 0 && (
               <div>
-                <h3 className="text-lg font-semibold text-gray-800 mb-3 flex items-center gap-2">
+                <h3 className="text-lg font-semibold text-black dark:text-white mb-3 flex items-center gap-2">
                   🌰 Semillas ({plantsByStage.seed.length})
                 </h3>
                 <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
                   {plantsByStage.seed.map((plant: any) => (
                     <Card key={plant.id} className="text-center hover:shadow-lg transition-shadow bg-gradient-to-br from-amber-50 to-orange-50 border-amber-200">
                       <div className="text-4xl mb-2">{getStageEmoji(plant.growth_stage)}</div>
-                      <div className="text-xs text-gray-600 font-medium">{plant.flower.flower_name}</div>
-                      <div className="text-xs text-gray-500 mt-1">{plant.days_old} días</div>
+                      <div className="text-xs text-slate-800 dark:text-slate-100 font-medium">{plant.flower.flower_name}</div>
+                      <div className="text-xs text-slate-700 dark:text-slate-200 mt-1">{plant.days_old} días</div>
                     </Card>
                   ))}
                 </div>
@@ -230,13 +230,13 @@ export default function Garden() {
         {/* Milestones Section */}
         {garden?.unviewed_milestones && garden.unviewed_milestones.length > 0 && (
           <Card>
-            <h3 className="text-lg font-semibold text-gray-800 mb-4">🏆 Logros</h3>
+            <h3 className="text-lg font-semibold text-black dark:text-white mb-4">🏆 Logros</h3>
             <div className="space-y-2">
               {garden.unviewed_milestones.slice(0, 5).map((milestone: any) => (
                 <div key={milestone.id} className="flex items-center gap-3 p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
                   <div className="text-2xl">{milestone.icon || '🌟'}</div>
                   <div className="flex-1">
-                    <div className="font-medium text-gray-800">{milestone.title}</div>
+                    <div className="font-medium text-black dark:text-white">{milestone.title}</div>
                     <div className="text-sm text-black dark:text-white">{milestone.description}</div>
                   </div>
                   {!milestone.viewed && (

@@ -144,10 +144,10 @@ export default function Profile() {
         <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl bg-[#A78BFA]/20">
           <HeartIcon size={32} color="#A78BFA" />
         </div>
-        <h2 className="text-3xl font-bold text-[#333333] mb-2">
+        <h2 className="text-3xl font-bold text-black dark:text-white mb-2">
           Mi Perfil
         </h2>
-        <p className="text-[#555555]">
+        <p className="text-slate-800 dark:text-slate-100">
           Personaliza tu espacio y comparte un poco sobre ti
         </p>
       </Card>
@@ -165,7 +165,7 @@ export default function Profile() {
       {/* Error Message */}
       {error && (
         <Card className="mb-6 bg-[#FBCFE8]/20 border-[#FBCFE8]/40">
-          <p className="text-[#444444]">{error}</p>
+          <p className="text-slate-900 dark:text-white">{error}</p>
         </Card>
       )}
 
@@ -188,8 +188,8 @@ export default function Profile() {
             )}
           </div>
           <div className="flex-1">
-            <h3 className="text-2xl font-bold text-[#333333]">{profile.username}</h3>
-            <p className="text-[#555555]">{profile.email}</p>
+            <h3 className="text-2xl font-bold text-black dark:text-white">{profile.username}</h3>
+            <p className="text-slate-800 dark:text-slate-100">{profile.email}</p>
             <p className="text-sm text-[#888888] mt-2 flex items-center gap-1">
               <span style={{ filter: 'contrast(1.2) saturate(1.3)' }}>📅</span>
               Miembro desde {joinDate}
@@ -200,7 +200,7 @@ export default function Profile() {
 
       {/* Edit Profile Form */}
       <Card>
-        <h3 className="text-xl font-bold text-[#333333] mb-6 flex items-center gap-2">
+        <h3 className="text-xl font-bold text-black dark:text-white mb-6 flex items-center gap-2">
           <span style={{ filter: 'contrast(1.2) saturate(1.3)' }}>✏️</span>
           Editar Perfil
         </h3>
@@ -208,7 +208,7 @@ export default function Profile() {
         <form onSubmit={handleSubmit} className="space-y-6">
           {/* Avatar Upload */}
           <div>
-            <label className="block text-sm font-medium text-[#444444] mb-3 flex items-center gap-2">
+            <label className="block text-sm font-medium text-slate-900 dark:text-white mb-3 flex items-center gap-2">
               <span style={{ filter: 'contrast(1.2) saturate(1.3)' }}>📸</span>
               Foto de perfil
             </label>
@@ -296,14 +296,14 @@ export default function Profile() {
 
       {/* Account Info */}
       <Card className="mt-6 bg-[#F7F5FF]">
-        <h4 className="text-sm font-semibold text-[#444444] mb-3 flex items-center gap-2">
+        <h4 className="text-sm font-semibold text-slate-900 dark:text-white mb-3 flex items-center gap-2">
           <span style={{ filter: 'contrast(1.2) saturate(1.3)' }}>ℹ️</span>
           Información de la cuenta
         </h4>
-        <div className="space-y-2 text-sm text-[#555555]">
-          <p><strong className="text-[#333333]">Usuario:</strong> {profile.username}</p>
-          <p><strong className="text-[#333333]">Email:</strong> {profile.email}</p>
-          <p><strong className="text-[#333333]">Última actualización:</strong> {new Date(profile.updated_at).toLocaleString('es-ES')}</p>
+        <div className="space-y-2 text-sm text-slate-800 dark:text-slate-100">
+          <p><strong className="text-black dark:text-white">Usuario:</strong> {profile.username}</p>
+          <p><strong className="text-black dark:text-white">Email:</strong> {profile.email}</p>
+          <p><strong className="text-black dark:text-white">Última actualización:</strong> {new Date(profile.updated_at).toLocaleString('es-ES')}</p>
         </div>
       </Card>
     </div>

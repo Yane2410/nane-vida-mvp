@@ -184,22 +184,22 @@ export default function Grounding() {
             <div className="text-6xl mb-4" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>
               ✨
             </div>
-            <h2 className={`font-bold text-[#333333] mb-3 ${isSmall ? 'text-2xl' : 'text-3xl'}`}>
+            <h2 className={`font-bold text-black dark:text-white mb-3 ${isSmall ? 'text-2xl' : 'text-3xl'}`}>
               ¡Excelente trabajo!
             </h2>
-            <p className={`text-[#555555] mb-6 ${isSmall ? 'text-base' : 'text-lg'}`}>
+            <p className={`text-slate-800 dark:text-slate-100 mb-6 ${isSmall ? 'text-base' : 'text-lg'}`}>
               Has completado el ejercicio de grounding. ¿Te sientes más presente y conectad@ con el momento actual?
             </p>
             
             <div className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/50 mb-6">
               <span className="text-[#22C55E] text-2xl">✓</span>
-              <span className="font-medium text-[#333333]">15 observaciones completadas</span>
+              <span className="font-medium text-black dark:text-white">15 observaciones completadas</span>
             </div>
           </Card>
 
           {/* Review all items */}
           <Card className="mb-6">
-            <h3 className="text-xl font-bold text-[#333333] mb-4">
+            <h3 className="text-xl font-bold text-black dark:text-white mb-4">
               Tu experiencia de grounding
             </h3>
             <div className="space-y-4">
@@ -212,13 +212,13 @@ export default function Grounding() {
                     >
                       {step.count}
                     </div>
-                    <h4 className="font-bold text-[#333333]">
+                    <h4 className="font-bold text-black dark:text-white">
                       {step.question}
                     </h4>
                   </div>
                   <div className="pl-10 space-y-1">
                     {step.items.map((item, idx) => (
-                      <div key={idx} className="flex items-center gap-2 text-[#555555]">
+                      <div key={idx} className="flex items-center gap-2 text-slate-800 dark:text-slate-100">
                         <span className="text-[#22C55E]">•</span>
                         <span>{item}</span>
                       </div>
@@ -257,10 +257,10 @@ export default function Grounding() {
             <div className="flex items-start gap-3">
               <span className="text-xl" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>💜</span>
               <div>
-                <h4 className="font-bold text-[#333333] mb-1">
+                <h4 className="font-bold text-black dark:text-white mb-1">
                   Recuerda
                 </h4>
-                <p className="text-[#555555] text-sm">
+                <p className="text-slate-800 dark:text-slate-100 text-sm">
                   Puedes usar esta técnica en cualquier momento que te sientas abrum@d@, ansios@ o desconectad@. 
                   Es una herramienta poderosa para volver al aquí y ahora.
                 </p>
@@ -290,10 +290,10 @@ export default function Grounding() {
               <CalmIcon size={32} color="#22C55E" />
             </div>
             <div className="flex-1">
-              <h1 className="text-3xl font-bold text-[#333333] mb-2">
+              <h1 className="text-3xl font-bold text-black dark:text-white mb-2">
                 Técnica de Grounding 5-4-3-2-1
               </h1>
-              <p className="text-[#555555] text-lg">
+              <p className="text-slate-800 dark:text-slate-100 text-lg">
                 Un ejercicio sensorial para conectarte con el presente cuando te sientas abrum@d@ o ansios@
               </p>
             </div>
@@ -303,7 +303,7 @@ export default function Grounding() {
         {/* Progress Bar */}
         <Card className="mb-6">
           <div className="flex items-center justify-between mb-3">
-            <span className="text-sm font-medium text-[#555555]">
+            <span className="text-sm font-medium text-slate-800 dark:text-slate-100">
               Progreso general
             </span>
             <span className="text-sm font-bold text-[#A78BFA]">
@@ -372,10 +372,10 @@ export default function Grounding() {
             >
               {currentStepData.count}
             </div>
-            <h2 className="text-2xl font-bold text-[#333333] mb-2">
+            <h2 className="text-2xl font-bold text-black dark:text-white mb-2">
               Identifica {currentStepData.question}
             </h2>
-            <p className="text-[#555555]">
+            <p className="text-slate-800 dark:text-slate-100">
               Tómate tu tiempo para observar a tu alrededor y conectar con tus sentidos
             </p>
           </div>
@@ -395,7 +395,7 @@ export default function Grounding() {
                     >
                       {idx + 1}
                     </span>
-                    <span className="text-[#333333]">{item}</span>
+                    <span className="text-black dark:text-white">{item}</span>
                   </div>
                   <button
                     onClick={() => removeItem(currentStep, idx)}
@@ -419,7 +419,7 @@ export default function Grounding() {
                 onChange={(e) => setCurrentInput(e.target.value)}
                 onKeyPress={handleKeyPress}
                 placeholder={currentStepData.placeholder}
-                className="w-full p-4 border-2 rounded-2xl focus:ring-4 outline-none transition-all text-[#333333]"
+                className="w-full p-4 border-2 rounded-2xl focus:ring-4 outline-none transition-all text-black dark:text-white"
                 style={{
                   borderColor: `${currentStepData.color}40`
                 }}
@@ -444,7 +444,7 @@ export default function Grounding() {
             <div className="text-center">
               <div className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/70 mb-4">
                 <span className="text-[#22C55E] text-xl">✓</span>
-                <span className="font-medium text-[#333333]">¡Paso completado!</span>
+                <span className="font-medium text-black dark:text-white">¡Paso completado!</span>
               </div>
             </div>
           )}
@@ -460,10 +460,10 @@ export default function Grounding() {
           <div className="flex items-start gap-3">
             <span className="text-2xl" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>💡</span>
             <div>
-              <h3 className="font-bold text-[#333333] mb-1">
+              <h3 className="font-bold text-black dark:text-white mb-1">
                 ¿Cómo funciona?
               </h3>
-              <p className="text-[#555555] text-sm">
+              <p className="text-slate-800 dark:text-slate-100 text-sm">
                 La técnica 5-4-3-2-1 te ayuda a salir de pensamientos ansiosos o recuerdos difíciles,
                 trayéndote de vuelta al presente a través de tus cinco sentidos. Es especialmente útil
                 durante ataques de pánico o momentos de disociación.

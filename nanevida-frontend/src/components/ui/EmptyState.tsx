@@ -13,10 +13,10 @@ const EmptyState = memo(function EmptyState({ icon, title, description, action }
       <div className="text-6xl mb-4 opacity-50">
         {icon}
       </div>
-      <h3 className="text-xl font-semibold text-gray-800 mb-2">
+      <h3 className="text-xl font-semibold text-black dark:text-white mb-2">
         {title}
       </h3>
-      <p className="text-gray-500 mb-6 max-w-md">
+      <p className="text-slate-700 dark:text-slate-200 mb-6 max-w-md">
         {description}
       </p>
       {action && <div>{action}</div>}

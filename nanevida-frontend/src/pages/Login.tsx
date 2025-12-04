@@ -45,10 +45,10 @@ export default function Login(){
             className="h-20 w-auto"
           />
         </div>
-        <h2 className="text-2xl sm:text-3xl font-bold text-[#333333] mb-2">
+        <h2 className="text-2xl sm:text-3xl font-bold text-black dark:text-white mb-2">
           Nos alegra verte de nuevo
         </h2>
-        <p className="text-[#555555] text-base">
+        <p className="text-slate-800 dark:text-slate-100 text-base">
           Tu espacio de bienestar te está esperando
         </p>
       </Card>
@@ -78,7 +78,7 @@ export default function Login(){
 
           {error && (
             <div className="p-4 bg-[#FBCFE8]/20 border border-[#FBCFE8]/40 rounded-2xl">
-              <p className="text-[#444444] text-sm">
+              <p className="text-slate-900 dark:text-white text-sm">
                 {error}
               </p>
             </div>
@@ -106,7 +106,7 @@ export default function Login(){
 
         <div className="mt-6 pt-6 border-t border-[#A78BFA]/20">
           <div className="text-center space-y-3">
-            <p className="text-[#555555] text-sm">
+            <p className="text-slate-800 dark:text-slate-100 text-sm">
               ¿Primera vez aquí?
             </p>
             <Link to="/register">

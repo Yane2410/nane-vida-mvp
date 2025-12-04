@@ -85,7 +85,7 @@ export default function Statistics() {
     <div className="space-y-6">
       {/* Header */}
       <Card gradient className="text-center">
-        <h1 className="text-3xl font-bold text-gray-800 mb-2 flex items-center justify-center gap-2">
+        <h1 className="text-3xl font-bold text-black dark:text-white mb-2 flex items-center justify-center gap-2">
           <span>📊</span>
           Estadísticas y Análisis
         </h1>
@@ -138,7 +138,7 @@ export default function Statistics() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Entries by Month */}
         <Card>
-          <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+          <h3 className="text-xl font-bold text-black dark:text-white mb-4 flex items-center gap-2">
             <span>📈</span>
             Entradas por Mes
           </h3>
@@ -156,7 +156,7 @@ export default function Statistics() {
 
         {/* Mood Distribution */}
         <Card>
-          <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+          <h3 className="text-xl font-bold text-black dark:text-white mb-4 flex items-center gap-2">
             <span>😊</span>
             Distribución de Estados de Ánimo
           </h3>
@@ -183,7 +183,7 @@ export default function Statistics() {
 
         {/* Writing Times */}
         <Card>
-          <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+          <h3 className="text-xl font-bold text-black dark:text-white mb-4 flex items-center gap-2">
             <span>🕐</span>
             Horarios de Escritura
           </h3>
@@ -207,7 +207,7 @@ export default function Statistics() {
 
         {/* Activity Summary */}
         <Card className="bg-gradient-to-br from-purple-50 to-emerald-50">
-          <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+          <h3 className="text-xl font-bold text-black dark:text-white mb-4 flex items-center gap-2">
             <span>✨</span>
             Resumen de Actividad
           </h3>

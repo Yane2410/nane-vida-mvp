@@ -12,7 +12,7 @@ type Props = {
 const MOOD_MAP: Record<string, { emoji: string; label: string; color: string }> = {
   very_happy: { emoji: '😊', label: 'Muy feliz', color: 'bg-green-100 text-green-800' },
   happy: { emoji: '🙂', label: 'Feliz', color: 'bg-lime-100 text-lime-800' },
-  neutral: { emoji: '😐', label: 'Neutral', color: 'bg-gray-100 text-gray-800' },
+  neutral: { emoji: '😐', label: 'Neutral', color: 'bg-gray-100 text-black dark:text-white' },
   sad: { emoji: '😢', label: 'Triste', color: 'bg-blue-100 text-blue-800' },
   anxious: { emoji: '😰', label: 'Ansios@', color: 'bg-yellow-100 text-yellow-800' },
   angry: { emoji: '😡', label: 'Enojado/a', color: 'bg-red-100 text-red-800' },
@@ -55,7 +55,7 @@ export default function EntryList({ items, onDelete, onEdit }: Props){
                 <div className="flex items-center gap-3 mb-2">
                   <span className="text-4xl">{e.emoji || '📝'}</span>
                   <div className="flex-1">
-                    <h4 className="text-lg font-semibold text-gray-800">
+                    <h4 className="text-lg font-semibold text-black dark:text-white">
                       {e.title || 'Sin título'}
                     </h4>
                     <div className="flex items-center gap-2 mt-1">

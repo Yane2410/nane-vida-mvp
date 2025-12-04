@@ -131,10 +131,10 @@ export default function MoodChart() {
       <Card gradient>
         <div className="flex items-center justify-between">
           <div>
-            <h3 className="text-2xl font-bold text-gray-800 mb-2">
+            <h3 className="text-2xl font-bold text-black dark:text-white mb-2">
               📊 Estadísticas de Estado de Ánimo
             </h3>
-            <p className="text-gray-600">
+            <p className="text-slate-800 dark:text-slate-100">
               {stats.total_entries} {stats.total_entries === 1 ? 'entrada' : 'entradas'} con estado de ánimo registrado
             </p>
           </div>
@@ -148,7 +148,7 @@ export default function MoodChart() {
 
       {/* Gráfico de Barras - Distribución de Moods */}
       <Card>
-        <h4 className="text-lg font-semibold text-gray-800 mb-4">
+        <h4 className="text-lg font-semibold text-black dark:text-white mb-4">
           📊 Distribución de Estados de Ánimo
         </h4>
         <ResponsiveContainer width="100%" height={300}>
@@ -177,7 +177,7 @@ export default function MoodChart() {
       <div className="grid md:grid-cols-2 gap-6">
         {/* Gráfico Circular */}
         <Card>
-          <h4 className="text-lg font-semibold text-gray-800 mb-4">
+          <h4 className="text-lg font-semibold text-black dark:text-white mb-4">
             🥧 Proporción de Estados
           </h4>
           <ResponsiveContainer width="100%" height={250}>
@@ -203,7 +203,7 @@ export default function MoodChart() {
 
         {/* Línea Temporal */}
         <Card>
-          <h4 className="text-lg font-semibold text-gray-800 mb-4">
+          <h4 className="text-lg font-semibold text-black dark:text-white mb-4">
             📈 Evolución Temporal (Últimas 10)
           </h4>
           <ResponsiveContainer width="100%" height={250}>
@@ -251,7 +251,7 @@ export default function MoodChart() {
             <div className="flex items-center justify-center gap-3">
               <span className="text-5xl">{barData[0].emoji}</span>
               <div className="text-left">
-                <h4 className="text-2xl font-bold text-gray-800">{barData[0].mood}</h4>
+                <h4 className="text-2xl font-bold text-black dark:text-white">{barData[0].mood}</h4>
                 <p className="text-black dark:text-white">
                   {barData[0].count} {barData[0].count === 1 ? 'vez' : 'veces'} ({((barData[0].count / stats.total_entries) * 100).toFixed(0)}%)
                 </p>

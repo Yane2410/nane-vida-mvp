@@ -57,7 +57,7 @@ export default function EntryForm({ onSave }: Props) {
 
   return (
     <Card gradient className="mb-8">
-      <h3 className="text-xl font-bold text-gray-800 mb-4 flex items-center gap-2">
+      <h3 className="text-xl font-bold text-black dark:text-white mb-4 flex items-center gap-2">
         <span></span>
         Nueva entrada
       </h3>
@@ -95,13 +95,13 @@ export default function EntryForm({ onSave }: Props) {
               >
                 <div className="flex items-center gap-3">
                   <span className="text-3xl">{e}</span>
-                  <span className="text-sm font-medium text-gray-700">{label}</span>
+                  <span className="text-sm font-medium text-slate-900 dark:text-white">{label}</span>
                 </div>
               </button>
             ))}
           </div>
           {!mood && (
-            <p className="text-xs text-gray-500 mt-2">
+            <p className="text-xs text-slate-700 dark:text-slate-200 mt-2">
                Opcional: Esto nos ayudará a mostrarte estadísticas de tu estado de ánimo
             </p>
           )}

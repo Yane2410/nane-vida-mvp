@@ -113,11 +113,11 @@ export default function Home() {
             <HeartIcon size={28} color="#EC4899" />
           </div>
           
-          <h3 className="text-xl sm:text-2xl font-bold text-[#333333] mb-3">
+          <h3 className="text-xl sm:text-2xl font-bold text-black dark:text-white mb-3">
             No estás solo en esto
           </h3>
           
-          <p className="text-base sm:text-lg text-[#444444] leading-relaxed mb-6">
+          <p className="text-base sm:text-lg text-slate-900 dark:text-white leading-relaxed mb-6">
             Cuidar tu salud mental es un acto de valentía y amor propio.
             Cada paso que das, por pequeño que sea, es importante.
           </p>
@@ -157,24 +157,24 @@ export default function Home() {
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
         <Card className="text-center">
           <div className="text-4xl mb-3" style={{ filter: 'contrast(1.2) saturate(1.3)' }}></div>
-          <h4 className="font-bold text-[#333333] mb-2">Privado y Seguro</h4>
-          <p className="text-sm text-[#555555]">
+          <h4 className="font-bold text-black dark:text-white mb-2">Privado y Seguro</h4>
+          <p className="text-sm text-slate-800 dark:text-slate-100">
             Tus pensamientos son solo tuyos. Mantenemos tu información segura y privada.
           </p>
         </Card>
 
         <Card className="text-center">
           <div className="text-4xl mb-3" style={{ filter: 'contrast(1.2) saturate(1.3)' }}></div>
-          <h4 className="font-bold text-[#333333] mb-2">Sin Juicios</h4>
-          <p className="text-sm text-[#555555]">
+          <h4 className="font-bold text-black dark:text-white mb-2">Sin Juicios</h4>
+          <p className="text-sm text-slate-800 dark:text-slate-100">
             Este es un espacio seguro para expresarte libremente, sin miedo ni vergüenza.
           </p>
         </Card>
 
         <Card className="text-center">
           <div className="text-4xl mb-3" style={{ filter: 'contrast(1.2) saturate(1.3)' }}></div>
-          <h4 className="font-bold text-[#333333] mb-2">A Tu Ritmo</h4>
-          <p className="text-sm text-[#555555]">
+          <h4 className="font-bold text-black dark:text-white mb-2">A Tu Ritmo</h4>
+          <p className="text-sm text-slate-800 dark:text-slate-100">
             No hay prisas. Avanza a tu propio paso, cuando te sientas list@.
           </p>
         </Card>

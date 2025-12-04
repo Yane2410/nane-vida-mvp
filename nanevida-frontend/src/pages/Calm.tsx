@@ -174,10 +174,10 @@ export default function Calm() {
             <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl" style={{ backgroundColor: `${selectedTechnique.color}40` }}>
               {selectedTechnique.icon}
             </div>
-            <h2 className={`${isSmall ? 'text-xl' : isTablet ? 'text-2xl' : 'text-3xl'} font-bold text-[#333333] mb-2`}>
+            <h2 className={`${isSmall ? 'text-xl' : isTablet ? 'text-2xl' : 'text-3xl'} font-bold text-black dark:text-white mb-2`}>
               {selectedTechnique.title}
             </h2>
-            <p className={`text-[#555555] mb-2 ${isSmall ? 'text-sm' : ''}`}>
+            <p className={`text-slate-800 dark:text-slate-100 mb-2 ${isSmall ? 'text-sm' : ''}`}>
               {selectedTechnique.description}
             </p>
             <span className="inline-block px-4 py-1 rounded-full text-sm font-medium" style={{ backgroundColor: `${selectedTechnique.color}30`, color: '#333333' }}>
@@ -189,7 +189,7 @@ export default function Calm() {
         {/* Progress */}
         <Card className="mb-6">
           <div className="flex items-center justify-between mb-4">
-            <span className="text-sm font-medium text-[#555555]">
+            <span className="text-sm font-medium text-slate-800 dark:text-slate-100">
               Paso {currentStep + 1} de {selectedTechnique.steps.length}
             </span>
             <span className="text-sm font-medium text-[#A78BFA]">
@@ -264,10 +264,10 @@ export default function Calm() {
           <AnimatedCore mode="fadeIn" duration={800}>
           <Card className="mt-6 bg-gradient-to-r from-[#BBF7D0]/30 to-[#7DD3FC]/30 border-[#BBF7D0]/40">
             <div className="text-center">
-              <p className="text-[#333333] font-medium mb-2">
+              <p className="text-black dark:text-white font-medium mb-2">
                 ¡Excelente trabajo! 🌟
               </p>
-              <p className="text-[#555555] text-sm">
+              <p className="text-slate-800 dark:text-slate-100 text-sm">
                 Has completado este ejercicio. Tómate un momento para observar cómo te sientes ahora.
               </p>
             </div>
@@ -309,10 +309,10 @@ export default function Calm() {
             <CloudIcon size={32} color="#7DD3FC" />
           </div>
         </AnimatedCore>
-        <h1 className={`${isSmall ? 'text-2xl' : isTablet ? 'text-3xl' : 'text-4xl'} font-bold text-[#333333] mb-3`}>
+        <h1 className={`${isSmall ? 'text-2xl' : isTablet ? 'text-3xl' : 'text-4xl'} font-bold text-black dark:text-white mb-3`}>
           Técnicas de Calma Rápida
         </h1>
-        <p className={`text-[#444444] ${isSmall ? 'text-sm' : 'text-base sm:text-lg'} max-w-2xl mx-auto leading-relaxed`}>
+        <p className={`text-slate-900 dark:text-white ${isSmall ? 'text-sm' : 'text-base sm:text-lg'} max-w-2xl mx-auto leading-relaxed`}>
           Cuando sientas ansiedad o estrés, estas técnicas pueden ayudarte a encontrar paz en pocos minutos.
           Elige la que más resuene contigo en este momento.
         </p>
@@ -339,12 +339,12 @@ export default function Calm() {
               </div>
             </div>
             
-            <p className={`text-[#555555] mb-4 flex-1 ${isSmall ? 'text-sm' : ''}`}>
+            <p className={`text-slate-800 dark:text-slate-100 mb-4 flex-1 ${isSmall ? 'text-sm' : ''}`}>
               {technique.description}
             </p>
 
             <div className="mb-4">
-              <p className="text-sm font-medium text-[#444444] mb-2">
+              <p className="text-sm font-medium text-slate-900 dark:text-white mb-2">
                 Incluye {technique.steps.length} pasos guiados
               </p>
             </div>
@@ -363,11 +363,11 @@ export default function Calm() {
 
       {/* Tips */}
       <Card>
-        <h3 className={`${isSmall ? 'text-lg' : 'text-xl'} font-bold text-[#333333] mb-4 flex items-center gap-2`}>
+        <h3 className={`${isSmall ? 'text-lg' : 'text-xl'} font-bold text-black dark:text-white mb-4 flex items-center gap-2`}>
           <span style={{ filter: 'contrast(1.2) saturate(1.3)' }}>💡</span>
           Consejos para aprovechar al máximo
         </h3>
-        <ul className={`space-y-3 text-[#555555] ${isSmall ? 'text-sm' : ''}`}>
+        <ul className={`space-y-3 text-slate-800 dark:text-slate-100 ${isSmall ? 'text-sm' : ''}`}>
           <li className="flex items-start gap-2">
             <span className="text-[#22C55E] font-bold mt-1">✓</span>
             <span>Encuentra un lugar tranquilo donde no te interrumpan</span>

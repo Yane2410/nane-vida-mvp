@@ -82,16 +82,16 @@ export default function Register() {
               className="h-20 w-auto"
             />
           </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-[#333333] mb-2">
+          <h2 className="text-2xl sm:text-3xl font-bold text-black dark:text-white mb-2">
             Empieza tu viaje de bienestar
           </h2>
-          <p className="text-[#555555] text-sm">
+          <p className="text-slate-800 dark:text-slate-100 text-sm">
             Crea tu cuenta y encuentra tu espacio seguro
           </p>
         </div>
 
         {error && (
-          <div className="mb-4 p-4 bg-[#FBCFE8]/20 border border-[#FBCFE8]/40 rounded-2xl text-[#444444] text-sm">
+          <div className="mb-4 p-4 bg-[#FBCFE8]/20 border border-[#FBCFE8]/40 rounded-2xl text-slate-900 dark:text-white text-sm">
             {error}
           </div>
         )}
@@ -196,7 +196,7 @@ export default function Register() {
 
         <div className="mt-6 pt-6 border-t border-[#A78BFA]/20">
           <div className="text-center space-y-3">
-            <p className="text-[#555555] text-sm">
+            <p className="text-slate-800 dark:text-slate-100 text-sm">
               ¿Ya tienes una cuenta?
             </p>
             <Link to="/login">

@@ -123,10 +123,10 @@ export default function MultiFlow() {
           <Card className="text-center">
             {/* Session Header */}
             <div className="mb-6">
-              <h2 className={`${isSmall ? 'text-xl' : 'text-2xl'} font-bold text-[#333333] mb-2`}>
+              <h2 className={`${isSmall ? 'text-xl' : 'text-2xl'} font-bold text-black dark:text-white mb-2`}>
                 {selectedSession.name}
               </h2>
-              <p className="text-[#555555] text-sm">
+              <p className="text-slate-800 dark:text-slate-100 text-sm">
                 Paso {currentStepIndex + 1} de {selectedSession.steps.length}
               </p>
             </div>
@@ -142,7 +142,7 @@ export default function MultiFlow() {
                   }}
                 />
               </div>
-              <p className="text-sm text-[#555555]">{Math.round(progress)}% completado</p>
+              <p className="text-sm text-slate-800 dark:text-slate-100">{Math.round(progress)}% completado</p>
             </div>
 
             {/* Current Step */}
@@ -159,16 +159,16 @@ export default function MultiFlow() {
             </AnimatedCore>
 
             {/* Tool Name */}
-            <h3 className={`${isSmall ? 'text-2xl' : 'text-3xl'} font-bold text-[#333333] mb-2`}>
+            <h3 className={`${isSmall ? 'text-2xl' : 'text-3xl'} font-bold text-black dark:text-white mb-2`}>
               {currentStep.tool.charAt(0).toUpperCase() + currentStep.tool.slice(1)}
             </h3>
 
             {/* Timer */}
             <div className="mb-8">
-              <div className={`${isSmall ? 'text-5xl' : 'text-6xl'} font-bold text-[#333333] mb-2`}>
+              <div className={`${isSmall ? 'text-5xl' : 'text-6xl'} font-bold text-black dark:text-white mb-2`}>
                 {formatTime(timeLeft)}
               </div>
-              <p className="text-[#555555]">
+              <p className="text-slate-800 dark:text-slate-100">
                 {currentStep.duration} minutos de práctica
               </p>
             </div>
@@ -189,7 +189,7 @@ export default function MultiFlow() {
                 <Card
                   className="mt-6 bg-gradient-to-r from-[#A78BFA]/10 to-[#7DD3FC]/10"
                 >
-                  <p className="text-sm text-[#555555]">
+                  <p className="text-sm text-slate-800 dark:text-slate-100">
                     <strong>Siguiente:</strong>{' '}
                     {getToolIcon(selectedSession.steps[currentStepIndex + 1].tool)}{' '}
                     {selectedSession.steps[currentStepIndex + 1].tool.charAt(0).toUpperCase() +
@@ -216,10 +216,10 @@ export default function MultiFlow() {
               <FlowerIcon size={32} color="#A78BFA" />
             </div>
           </AnimatedCore>
-          <h1 className={`${isSmall ? 'text-2xl' : isTablet ? 'text-3xl' : 'text-4xl'} font-bold text-[#333333] mb-3`}>
+          <h1 className={`${isSmall ? 'text-2xl' : isTablet ? 'text-3xl' : 'text-4xl'} font-bold text-black dark:text-white mb-3`}>
             Sesiones Multi-Flujo
           </h1>
-          <p className={`text-[#444444] ${isSmall ? 'text-sm' : 'text-base sm:text-lg'} max-w-2xl mx-auto leading-relaxed`}>
+          <p className={`text-slate-900 dark:text-white ${isSmall ? 'text-sm' : 'text-base sm:text-lg'} max-w-2xl mx-auto leading-relaxed`}>
             Combina múltiples herramientas de bienestar en una sesión guiada. Perfectas para crear rutinas personalizadas de autocuidado.
           </p>
         </Card>
@@ -230,10 +230,10 @@ export default function MultiFlow() {
             <AnimatedCore key={session.name} mode="fadeIn" duration={600} delay={100}>
               <Card hover className="h-full flex flex-col">
                 <div className="mb-4">
-                  <h3 className={`${isSmall ? 'text-lg' : 'text-xl'} font-bold text-[#333333] mb-2`}>
+                  <h3 className={`${isSmall ? 'text-lg' : 'text-xl'} font-bold text-black dark:text-white mb-2`}>
                     {session.name}
                   </h3>
-                  <p className={`text-[#555555] mb-4 ${isSmall ? 'text-sm' : ''}`}>
+                  <p className={`text-slate-800 dark:text-slate-100 mb-4 ${isSmall ? 'text-sm' : ''}`}>
                     {session.description}
                   </p>
                 </div>
@@ -246,11 +246,11 @@ export default function MultiFlow() {
                       className="flex items-center justify-between p-2 rounded-lg"
                       style={{ backgroundColor: `${getToolColor(step.tool)}15` }}
                     >
-                      <span className="flex items-center gap-2 text-sm text-[#555555]">
+                      <span className="flex items-center gap-2 text-sm text-slate-800 dark:text-slate-100">
                         <span className="text-lg">{getToolIcon(step.tool)}</span>
                         {step.tool.charAt(0).toUpperCase() + step.tool.slice(1)}
                       </span>
-                      <span className="text-sm font-medium text-[#333333]">
+                      <span className="text-sm font-medium text-black dark:text-white">
                         {step.duration} min
                       </span>
                     </div>
@@ -279,11 +279,11 @@ export default function MultiFlow() {
 
         {/* Benefits */}
         <Card>
-          <h3 className={`${isSmall ? 'text-lg' : 'text-xl'} font-bold text-[#333333] mb-4 flex items-center gap-2`}>
+          <h3 className={`${isSmall ? 'text-lg' : 'text-xl'} font-bold text-black dark:text-white mb-4 flex items-center gap-2`}>
             <span>💡</span>
             ¿Por qué sesiones multi-flujo?
           </h3>
-          <ul className={`space-y-3 text-[#555555] ${isSmall ? 'text-sm' : ''}`}>
+          <ul className={`space-y-3 text-slate-800 dark:text-slate-100 ${isSmall ? 'text-sm' : ''}`}>
             <li className="flex items-start gap-2">
               <span className="text-[#22C55E] font-bold mt-1">✓</span>
               <span>Combina técnicas complementarias para mayor efecto</span>

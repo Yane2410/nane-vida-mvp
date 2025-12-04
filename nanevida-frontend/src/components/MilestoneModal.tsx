@@ -73,7 +73,7 @@ export default function MilestoneModal() {
             </div>
 
             {/* Title */}
-            <h2 className="text-3xl font-bold text-gray-800 dark:text-white mb-3">
+            <h2 className="text-3xl font-bold text-black dark:text-white dark:text-white mb-3">
               {currentMilestone.title}
             </h2>
 

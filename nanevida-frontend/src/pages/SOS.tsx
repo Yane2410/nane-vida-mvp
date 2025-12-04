@@ -69,10 +69,10 @@ export default function SOSPage() {
         <div className="inline-flex items-center justify-center w-16 h-16 mb-4 rounded-2xl bg-[#EC4899]/20">
           <HeartIcon size={32} color="#EC4899" />
         </div>
-        <h1 className="text-3xl sm:text-4xl font-bold text-[#333333] mb-3">
+        <h1 className="text-3xl sm:text-4xl font-bold text-black dark:text-white mb-3">
           Recursos de Apoyo
         </h1>
-        <p className="text-[#444444] text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+        <p className="text-slate-900 dark:text-white text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
           No estás solo. Estos recursos están disponibles para acompañarte cuando los necesites, las 24 horas del día.
         </p>
       </Card>
@@ -82,7 +82,7 @@ export default function SOSPage() {
         <Card className="bg-[#FBCFE8]/20 border-[#FBCFE8]/40">
           <div className="flex flex-col sm:flex-row items-start gap-4">
             <div className="flex-1">
-              <p className="text-[#444444] font-medium">{error}</p>
+              <p className="text-slate-900 dark:text-white font-medium">{error}</p>
             </div>
             <Button 
               variant="secondary" 
@@ -99,7 +99,7 @@ export default function SOSPage() {
       {list.length === 0 && !error && (
         <Card className="text-center py-12">
           <div className="text-5xl mb-4" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>📞</div>
-          <p className="text-[#555555] text-lg">
+          <p className="text-slate-800 dark:text-slate-100 text-lg">
             No hay recursos configurados en este momento.
           </p>
         </Card>
@@ -135,7 +135,7 @@ export default function SOSPage() {
               <div className="flex flex-col sm:flex-row gap-4 justify-between items-start sm:items-center pr-24 sm:pr-28">
                 {/* Resource Info */}
                 <div className="flex-1">
-                  <h3 className="text-xl font-bold text-[#333333] mb-1 flex items-center gap-2">
+                  <h3 className="text-xl font-bold text-black dark:text-white mb-1 flex items-center gap-2">
                     {resource.type === 'CALL' && <span className="text-2xl" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>📱</span>}
                     {resource.type === 'LINK' && <span className="text-2xl" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>🌐</span>}
                     {resource.type === 'TEXT' && <span className="text-2xl" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>💬</span>}
@@ -195,10 +195,10 @@ export default function SOSPage() {
           <div className="flex items-start gap-4">
             <span className="text-3xl flex-shrink-0" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>⚠️</span>
             <div>
-              <h3 className="text-lg font-bold text-[#333333] mb-2">
+              <h3 className="text-lg font-bold text-black dark:text-white mb-2">
                 Aviso importante
               </h3>
-              <p className="text-[#444444] leading-relaxed">
+              <p className="text-slate-900 dark:text-white leading-relaxed">
                 Si estás experimentando una emergencia médica o psiquiátrica,
                 por favor contacta inmediatamente a los servicios de emergencia locales (911 o tu número de emergencia local).
                 Estos recursos son de apoyo emocional y no sustituyen la atención médica profesional de emergencia.

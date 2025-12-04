@@ -20,7 +20,7 @@ export default function GardenWidget() {
     <Link to="/garden">
       <Card hover className="cursor-pointer transition-all duration-300 hover:shadow-lg">
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-xl font-bold text-gray-800 dark:text-white flex items-center gap-2">
+          <h3 className="text-xl font-bold text-black dark:text-white dark:text-white flex items-center gap-2">
             <span>🌸</span>
             Tu Jardín de Bienestar
           </h3>

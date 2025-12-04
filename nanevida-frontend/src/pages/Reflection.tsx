@@ -211,10 +211,10 @@ export default function Reflection() {
                     <SparkleIcon size={24} color="#EC4899" />
                   </div>
                   <div>
-                    <h1 className={`font-bold text-[#333333] ${isSmall ? 'text-xl' : 'text-2xl'}`}>
+                    <h1 className={`font-bold text-black dark:text-white ${isSmall ? 'text-xl' : 'text-2xl'}`}>
                       Mis Reflexiones
                     </h1>
-                    <p className={`text-[#555555] ${isSmall ? 'text-sm' : 'text-base'}`}>
+                    <p className={`text-slate-800 dark:text-slate-100 ${isSmall ? 'text-sm' : 'text-base'}`}>
                       {savedReflections.length} reflexión{savedReflections.length !== 1 ? 'es' : ''} guardada{savedReflections.length !== 1 ? 's' : ''}
                     </p>
                   </div>
@@ -365,7 +365,7 @@ export default function Reflection() {
             >
               <div className="flex items-center gap-3">
                 <span className="text-2xl" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>✨</span>
-                <p className="text-[#555555]">
+                <p className="text-slate-800 dark:text-slate-100">
                   Tu reflexión ha sido guardada. Gracias por tomarte este tiempo para ti.
                 </p>
               </div>
@@ -420,10 +420,10 @@ export default function Reflection() {
                 <div className="text-4xl mb-3" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>
                   🎲
                 </div>
-                <h3 className="text-lg font-bold text-[#333333] mb-1">
+                <h3 className="text-lg font-bold text-black dark:text-white mb-1">
                   Pregunta al azar
                 </h3>
-                <p className="text-sm text-[#555555]">
+                <p className="text-sm text-slate-800 dark:text-slate-100">
                   Deja que la intuición te guíe
                 </p>
               </div>
@@ -444,10 +444,10 @@ export default function Reflection() {
                 <div className="text-4xl mb-3" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>
                   📖
                 </div>
-                <h3 className="text-lg font-bold text-[#333333] mb-1">
+                <h3 className="text-lg font-bold text-black dark:text-white mb-1">
                   Mis reflexiones
                 </h3>
-                <p className="text-sm text-[#555555]">
+                <p className="text-sm text-slate-800 dark:text-slate-100">
                   {savedReflections.length} guardada{savedReflections.length !== 1 ? 's' : ''}
                 </p>
               </div>
@@ -456,7 +456,7 @@ export default function Reflection() {
         </div>
 
         {/* Prompts Grid */}
-        <h2 className="text-xl font-bold text-[#333333] mb-4">
+        <h2 className="text-xl font-bold text-black dark:text-white mb-4">
           Elige una pregunta
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -484,10 +484,10 @@ export default function Reflection() {
                     >
                       {prompt.category}
                     </span>
-                    <h3 className="text-lg font-bold text-[#333333] mb-1">
+                    <h3 className="text-lg font-bold text-black dark:text-white mb-1">
                       {prompt.question}
                     </h3>
-                    <p className="text-sm text-[#555555]">
+                    <p className="text-sm text-slate-800 dark:text-slate-100">
                       {prompt.subtitle}
                     </p>
                   </div>
@@ -505,11 +505,11 @@ export default function Reflection() {
             border: '1px solid rgba(187, 247, 208, 0.4)'
           }}
         >
-          <h3 className="text-lg font-bold text-[#333333] mb-3 flex items-center gap-2">
+          <h3 className="text-lg font-bold text-black dark:text-white mb-3 flex items-center gap-2">
             <span style={{ filter: 'contrast(1.2) saturate(1.3)' }}>💚</span>
             Beneficios de la reflexión
           </h3>
-          <p className="text-[#555555] text-sm">
+          <p className="text-slate-800 dark:text-slate-100 text-sm">
             La escritura reflexiva te ayuda a procesar emociones, ganar claridad sobre situaciones difíciles, 
             y conectar más profundamente contigo mismo. No hay respuestas correctas o incorrectas, 
             solo tu experiencia única y válida.

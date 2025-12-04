@@ -109,10 +109,10 @@ export default function Dashboard() {
     return (
       <Card className="text-center">
         <div className="text-5xl mb-4" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>😔</div>
-        <h3 className="text-xl font-bold text-[#333333] mb-3">
+        <h3 className="text-xl font-bold text-black dark:text-white mb-3">
           Algo no salió como esperábamos
         </h3>
-        <p className="text-[#555555] mb-6">{error}</p>
+        <p className="text-slate-800 dark:text-slate-100 mb-6">{error}</p>
         <Button variant="primary" onClick={loadDashboard}>
           Intentar nuevamente
         </Button>
@@ -145,14 +145,14 @@ export default function Dashboard() {
             </div>
           )}
           <div className="text-center sm:text-left flex-1">
-            <h2 className="text-2xl font-bold text-[#333333] mb-1">
+            <h2 className="text-2xl font-bold text-black dark:text-white mb-1">
               {profile?.username}
             </h2>
-            <p className="text-[#555555] text-sm mb-2">
+            <p className="text-slate-800 dark:text-slate-100 text-sm mb-2">
               Miembro desde {memberSince}
             </p>
             {profile?.bio && (
-              <p className="text-sm text-[#666666] italic bg-white/60 px-4 py-2 rounded-xl max-w-xl">
+              <p className="text-sm text-slate-700 dark:text-slate-200 italic bg-white/60 px-4 py-2 rounded-xl max-w-xl">
                 "{profile.bio}"
               </p>
             )}
@@ -176,7 +176,7 @@ export default function Dashboard() {
           <div className="text-3xl font-bold text-[#A78BFA] mb-1">
             {stats?.total_entries || 0}
           </div>
-          <div className="text-sm text-[#555555] font-medium">Entradas totales</div>
+          <div className="text-sm text-slate-800 dark:text-slate-100 font-medium">Entradas totales</div>
         </Card>
 
         {/* This Week */}
@@ -185,7 +185,7 @@ export default function Dashboard() {
           <div className="text-3xl font-bold text-[#7DD3FC] mb-1">
             {stats?.entries_this_week || 0}
           </div>
-          <div className="text-sm text-[#555555] font-medium">Esta semana</div>
+          <div className="text-sm text-slate-800 dark:text-slate-100 font-medium">Esta semana</div>
         </Card>
 
         {/* This Month */}
@@ -194,7 +194,7 @@ export default function Dashboard() {
           <div className="text-3xl font-bold text-[#FBCFE8] mb-1">
             {stats?.entries_this_month || 0}
           </div>
-          <div className="text-sm text-[#555555] font-medium">Este mes</div>
+          <div className="text-sm text-slate-800 dark:text-slate-100 font-medium">Este mes</div>
         </Card>
 
         {/* Streak */}
@@ -203,13 +203,13 @@ export default function Dashboard() {
           <div className="text-3xl font-bold text-[#FED7AA] mb-1">
             {stats?.streak_days || 0}
           </div>
-          <div className="text-sm text-[#555555] font-medium">Racha (días)</div>
+          <div className="text-sm text-slate-800 dark:text-slate-100 font-medium">Racha (días)</div>
         </Card>
       </div>
 
       {/* Quick Actions */}
       <div>
-        <h2 className="text-2xl font-bold text-[#333333] mb-6 text-center">
+        <h2 className="text-2xl font-bold text-black dark:text-white mb-6 text-center">
           ¿Qué te gustaría hacer hoy?
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -266,12 +266,12 @@ export default function Dashboard() {
       {/* Recent Activity */}
       {stats?.last_entry_date && (
         <Card>
-          <h3 className="text-xl font-bold text-[#333333] mb-4 flex items-center gap-2">
+          <h3 className="text-xl font-bold text-black dark:text-white mb-4 flex items-center gap-2">
             <span className="text-2xl" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>🕒</span>
             <span>Actividad reciente</span>
           </h3>
           <div className="bg-gradient-to-r from-[#A78BFA]/10 to-[#C4B5FD]/10 border border-[#A78BFA]/20 rounded-2xl p-5">
-            <p className="text-[#444444] font-medium">
+            <p className="text-slate-900 dark:text-white font-medium">
               <strong className="text-[#A78BFA]">Última entrada:</strong>{' '}
               {new Date(stats.last_entry_date).toLocaleString('es-ES', {
                 year: 'numeric',
@@ -282,7 +282,7 @@ export default function Dashboard() {
               })}
             </p>
             {stats.average_mood && (
-              <p className="text-[#444444] font-medium mt-2">
+              <p className="text-slate-900 dark:text-white font-medium mt-2">
                 <strong className="text-[#A78BFA]">Estado de ánimo promedio:</strong> {stats.average_mood}
               </p>
             )}
@@ -292,11 +292,11 @@ export default function Dashboard() {
 
       {/* Tips Card */}
       <Card>
-        <h3 className="text-xl font-bold text-[#333333] mb-4 flex items-center gap-2">
+        <h3 className="text-xl font-bold text-black dark:text-white mb-4 flex items-center gap-2">
           <span className="text-2xl" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>💡</span>
           <span>Recuerda</span>
         </h3>
-        <p className="text-[#444444] leading-relaxed bg-gradient-to-r from-[#BBF7D0]/20 to-[#7DD3FC]/20 border border-[#BBF7D0]/30 rounded-2xl p-5">
+        <p className="text-slate-900 dark:text-white leading-relaxed bg-gradient-to-r from-[#BBF7D0]/20 to-[#7DD3FC]/20 border border-[#BBF7D0]/30 rounded-2xl p-5">
           Escribir en tu diario es una forma poderosa de conectar contigo mismo. 
           No importa si escribes mucho o poco, lo importante es que estés aquí, 
           dándote este espacio. Cada palabra cuenta, cada sentimiento es válido. 💚

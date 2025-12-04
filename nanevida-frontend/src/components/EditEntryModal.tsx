@@ -68,13 +68,13 @@ export default function EditEntryModal({ entry, onSave, onCancel }: Props) {
       <div className="max-w-2xl w-full my-8">
         <Card gradient className="animate-in fade-in zoom-in duration-300">
           <div className="flex items-center justify-between mb-6">
-            <h3 className="text-xl font-bold text-gray-800 flex items-center gap-2">
+            <h3 className="text-xl font-bold text-black dark:text-white flex items-center gap-2">
               <span>✏️</span>
               Editar entrada
             </h3>
             <button
               onClick={onCancel}
-              className="text-gray-800 hover:text-gray-900 dark:text-slate-100 dark:hover:text-white text-2xl leading-none"
+              className="text-black dark:text-white hover:text-gray-900 dark:text-slate-100 dark:hover:text-white text-2xl leading-none"
               title="Cerrar"
             >
               ✕
@@ -101,7 +101,7 @@ export default function EditEntryModal({ entry, onSave, onCancel }: Props) {
 
             {/* Selector de Estado de Ánimo */}
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-3">
+              <label className="block text-sm font-medium text-slate-900 dark:text-white mb-3">
                 📊 ¿Cómo describirías tu estado de ánimo?
               </label>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -126,7 +126,7 @@ export default function EditEntryModal({ entry, onSave, onCancel }: Props) {
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-3">
+              <label className="block text-sm font-medium text-slate-900 dark:text-white mb-3">
                 ¿Cómo describirías tu emoción?
               </label>
               <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">

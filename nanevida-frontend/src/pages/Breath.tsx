@@ -212,10 +212,10 @@ export default function Breath() {
           <Card className="text-center">
             {/* Header */}
             <div className="mb-8">
-              <h2 className="text-2xl font-bold text-[#333333] mb-2">
+              <h2 className="text-2xl font-bold text-black dark:text-white mb-2">
                 {selectedPattern.name}
               </h2>
-              <p className="text-[#555555]">
+              <p className="text-slate-800 dark:text-slate-100">
                 {completedCycles} ciclo{completedCycles !== 1 ? 's' : ''} completado{completedCycles !== 1 ? 's' : ''}
               </p>
             </div>
@@ -363,10 +363,10 @@ export default function Breath() {
               <BreathIcon size={32} color="#A78BFA" />
             </div>
             <div className="flex-1">
-              <h1 className="text-3xl font-bold text-[#333333] mb-2">
+              <h1 className="text-3xl font-bold text-black dark:text-white mb-2">
                 Respiración Guiada
               </h1>
-              <p className="text-[#555555] text-lg">
+              <p className="text-slate-800 dark:text-slate-100 text-lg">
                 Ejercicios de respiración consciente para reducir el estrés y encontrar calma interior
               </p>
             </div>
@@ -436,19 +436,19 @@ export default function Breath() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="flex items-start gap-2">
               <span className="text-[#22C55E] font-bold mt-1">✓</span>
-              <span className="text-gray-700 dark:text-slate-200">Reduce la ansiedad y el estrés</span>
+              <span className="text-slate-900 dark:text-white dark:text-slate-200">Reduce la ansiedad y el estrés</span>
             </div>
             <div className="flex items-start gap-2">
               <span className="text-[#22C55E] font-bold mt-1">✓</span>
-              <span className="text-gray-700 dark:text-slate-200">Mejora la concentración</span>
+              <span className="text-slate-900 dark:text-white dark:text-slate-200">Mejora la concentración</span>
             </div>
             <div className="flex items-start gap-2">
               <span className="text-[#22C55E] font-bold mt-1">✓</span>
-              <span className="text-gray-700 dark:text-slate-200">Calma el sistema nervioso</span>
+              <span className="text-slate-900 dark:text-white dark:text-slate-200">Calma el sistema nervioso</span>
             </div>
             <div className="flex items-start gap-2">
               <span className="text-[#22C55E] font-bold mt-1">✓</span>
-              <span className="text-gray-700 dark:text-slate-200">Ayuda a conciliar el sueño</span>
+              <span className="text-slate-900 dark:text-white dark:text-slate-200">Ayuda a conciliar el sueño</span>
             </div>
           </div>
         </Card>
