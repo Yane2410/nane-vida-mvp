@@ -124,9 +124,6 @@ export default function App(){
           <p className="text-center text-sm text-black dark:text-white font-medium">
             © {new Date().getFullYear()} NANE VIDA — Cuidando tu bienestar emocional 💜
           </p>
-          <p className="text-center text-sm text-[#A78BFA] font-medium mt-2" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>
-            Con amor para mi Yane ❤️
-          </p>
         </div>
       </footer>
     </div>

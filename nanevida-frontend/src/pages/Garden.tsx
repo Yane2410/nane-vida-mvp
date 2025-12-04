@@ -96,31 +96,31 @@ export default function Garden() {
 
         {/* Garden Stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200">
+          <Card className="bg-gradient-to-br from-purple-50 to-purple-100 border-purple-200 dark:from-purple-900 dark:to-purple-800 dark:border-purple-700">
             <div className="text-center">
-              <div className="text-3xl font-bold text-purple-700">{garden?.total_plants || 0}</div>
-              <div className="text-sm text-purple-600 mt-1">Plantas Totales</div>
+              <div className="text-3xl font-bold text-purple-700 dark:text-purple-300">{garden?.total_plants || 0}</div>
+              <div className="text-sm text-purple-600 dark:text-purple-400 mt-1">Plantas Totales</div>
             </div>
           </Card>
           
-          <Card className="bg-gradient-to-br from-pink-50 to-pink-100 border-pink-200">
+          <Card className="bg-gradient-to-br from-pink-50 to-pink-100 border-pink-200 dark:from-pink-900 dark:to-pink-800 dark:border-pink-700">
             <div className="text-center">
-              <div className="text-3xl font-bold text-pink-700">{garden?.blooming_plants || 0}</div>
-              <div className="text-sm text-pink-600 mt-1">Floreciendo</div>
+              <div className="text-3xl font-bold text-pink-700 dark:text-pink-300">{garden?.blooming_plants || 0}</div>
+              <div className="text-sm text-pink-600 dark:text-pink-400 mt-1">Floreciendo</div>
             </div>
           </Card>
 
-          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200">
+          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 dark:from-blue-900 dark:to-blue-800 dark:border-blue-700">
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-700">{garden?.current_gentle_streak || 0}</div>
-              <div className="text-sm text-blue-600 mt-1">Días de Cuidado</div>
+              <div className="text-3xl font-bold text-blue-700 dark:text-blue-300">{garden?.current_gentle_streak || 0}</div>
+              <div className="text-sm text-blue-600 dark:text-blue-400 mt-1">Días de Cuidado</div>
             </div>
           </Card>
 
-          <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200">
+          <Card className="bg-gradient-to-br from-green-50 to-green-100 border-green-200 dark:from-green-900 dark:to-green-800 dark:border-green-700">
             <div className="text-center">
-              <div className="text-3xl font-bold text-green-700">{garden?.total_mindful_minutes || 0}</div>
-              <div className="text-sm text-green-600 mt-1">Minutos</div>
+              <div className="text-3xl font-bold text-green-700 dark:text-green-300">{garden?.total_mindful_minutes || 0}</div>
+              <div className="text-sm text-green-600 dark:text-green-400 mt-1">Minutos</div>
             </div>
           </Card>
         </div>
@@ -129,10 +129,10 @@ export default function Garden() {
         {(!garden?.recent_plants || garden.recent_plants.length === 0) && (
           <Card className="text-center py-12">
             <div className="text-6xl mb-4">🌱</div>
-            <h3 className="text-xl font-semibold text-black dark:text-white mb-2">
+            <h3 className="text-xl font-semibold text-black mb-2">
               Tu jardín está esperando florecer
             </h3>
-            <p className="text-black dark:text-white mb-6 max-w-md mx-auto">
+            <p className="text-black mb-6 max-w-md mx-auto">
               Completa una actividad de bienestar para plantar tu primera semilla. 
               Cada práctica es un acto de amor hacia ti misma.
             </p>
@@ -230,14 +230,14 @@ export default function Garden() {
         {/* Milestones Section */}
         {garden?.unviewed_milestones && garden.unviewed_milestones.length > 0 && (
           <Card>
-            <h3 className="text-lg font-semibold text-black dark:text-white mb-4">🏆 Logros</h3>
+            <h3 className="text-lg font-semibold text-black mb-4">🏆 Logros</h3>
             <div className="space-y-2">
               {garden.unviewed_milestones.slice(0, 5).map((milestone: any) => (
-                <div key={milestone.id} className="flex items-center gap-3 p-3 bg-gradient-to-r from-purple-50 to-pink-50 rounded-lg">
+                <div key={milestone.id} className="flex items-center gap-3 p-3 bg-gradient-to-r from-purple-50 to-pink-50 dark:from-purple-900 dark:to-pink-900 rounded-lg">
                   <div className="text-2xl">{milestone.icon || '🌟'}</div>
                   <div className="flex-1">
-                    <div className="font-medium text-black dark:text-white">{milestone.title}</div>
-                    <div className="text-sm text-black dark:text-white">{milestone.description}</div>
+                    <div className="font-medium text-black dark:text-purple-300">{milestone.title}</div>
+                    <div className="text-sm text-black dark:text-purple-300">{milestone.description}</div>
                   </div>
                   {!milestone.viewed && (
                     <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
@@ -249,9 +249,9 @@ export default function Garden() {
         )}
 
         {/* Garden Philosophy */}
-        <Card className="bg-gradient-to-br from-indigo-50 to-purple-50 border-indigo-200">
-          <h3 className="text-lg font-semibold text-indigo-900 mb-3">🌸 Sobre tu Jardín</h3>
-          <div className="space-y-2 text-sm text-indigo-800 leading-relaxed">
+        <Card className="bg-gradient-to-br from-indigo-50 to-purple-50 border-indigo-200 dark:from-indigo-900 dark:to-purple-900 dark:border-indigo-700">
+          <h3 className="text-lg font-semibold text-indigo-900 dark:text-indigo-300 mb-3">🌸 Sobre tu Jardín</h3>
+          <div className="space-y-2 text-sm text-indigo-800 dark:text-indigo-300 leading-relaxed">
             <p>• Cada actividad de bienestar planta una semilla en tu jardín</p>
             <p>• Tus plantas crecen naturalmente con el tiempo</p>
             <p>• No hay presión ni competencia, solo crecimiento</p>
