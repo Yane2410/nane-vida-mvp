@@ -115,8 +115,8 @@ export default function App(){
       {/* Milestone Modal */}
       <MilestoneModal />
 
-      {/* Floating SOS Button - Mobile only */}
-      {isAuth && <FloatingSOSButton />}
+      {/* Floating SOS Button - Always visible on mobile */}
+      <FloatingSOSButton />
 
       {/* Footer */}
       <footer className="backdrop-blur-xl bg-white/60 border-t border-white/40 shadow-inner">
