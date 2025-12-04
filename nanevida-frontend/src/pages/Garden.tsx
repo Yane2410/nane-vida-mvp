@@ -76,7 +76,7 @@ export default function Garden() {
   const plantsByStage = groupPlantsByStage()
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-sky-50 to-rose-50 pb-24">
+    <div className="min-h-screen bg-gradient-to-br from-violet-50 via-purple-50 to-pink-50 dark:from-violet-950 dark:via-purple-950 dark:to-pink-950 pb-24">
       <div className="flex justify-center pt-6 pb-4">
         <img 
           src="/icons/logo-icon.png" 
@@ -88,8 +88,8 @@ export default function Garden() {
       
       <div className="max-w-4xl mx-auto px-4 py-6 space-y-6">
         {/* Gentle Welcome Message */}
-        <Card className="bg-gradient-to-r from-green-50 to-emerald-50 border-green-200">
-          <p className="text-center text-green-800 font-medium leading-relaxed">
+        <Card className="bg-gradient-to-r from-violet-50 to-purple-50 border-violet-200 dark:from-violet-900/30 dark:to-purple-900/30 dark:border-violet-700">
+          <p className="text-center text-violet-800 dark:text-violet-200 font-medium leading-relaxed">
             {getGentleMessage()}
           </p>
         </Card>
@@ -110,10 +110,10 @@ export default function Garden() {
             </div>
           </Card>
 
-          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 dark:from-blue-900 dark:to-blue-800 dark:border-blue-700">
+          <Card className="bg-gradient-to-br from-indigo-50 to-indigo-100 border-indigo-200 dark:from-indigo-900 dark:to-indigo-800 dark:border-indigo-700">
             <div className="text-center">
-              <div className="text-3xl font-bold text-blue-700 dark:text-blue-300">{garden?.current_gentle_streak || 0}</div>
-              <div className="text-sm text-blue-600 dark:text-blue-400 mt-1">Días de Cuidado</div>
+              <div className="text-3xl font-bold text-indigo-700 dark:text-indigo-300">{garden?.current_gentle_streak || 0}</div>
+              <div className="text-sm text-indigo-600 dark:text-indigo-400 mt-1">Días de Cuidado</div>
             </div>
           </Card>
 

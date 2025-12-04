@@ -270,7 +270,7 @@ export default function Dashboard() {
             <span className="text-2xl" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>🕒</span>
             <span>Actividad reciente</span>
           </h3>
-          <div className="bg-gradient-to-r from-[#A78BFA]/10 to-[#C4B5FD]/10 border border-[#A78BFA]/20 rounded-2xl p-5">
+          <div className="bg-gradient-to-r from-purple-100/50 to-violet-100/50 dark:from-purple-900/20 dark:to-violet-900/20 border border-purple-200 dark:border-purple-700 rounded-2xl p-5">
             <p className="text-slate-900 dark:text-white font-medium">
               <strong className="text-[#A78BFA]">Última entrada:</strong>{' '}
               {new Date(stats.last_entry_date).toLocaleString('es-ES', {
@@ -296,7 +296,7 @@ export default function Dashboard() {
           <span className="text-2xl" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>💡</span>
           <span>Recuerda</span>
         </h3>
-        <p className="text-slate-900 dark:text-white leading-relaxed bg-gradient-to-r from-[#BBF7D0]/20 to-[#7DD3FC]/20 border border-[#BBF7D0]/30 rounded-2xl p-5">
+        <p className="text-slate-900 dark:text-white leading-relaxed bg-gradient-to-r from-emerald-100/50 to-cyan-100/50 dark:from-emerald-900/20 dark:to-cyan-900/20 border border-emerald-200 dark:border-emerald-700 rounded-2xl p-5">
           Escribir en tu diario es una forma poderosa de conectar contigo mismo. 
           No importa si escribes mucho o poco, lo importante es que estés aquí, 
           dándote este espacio. Cada palabra cuenta, cada sentimiento es válido. 💚

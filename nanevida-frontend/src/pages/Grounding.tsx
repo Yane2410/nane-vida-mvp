@@ -171,7 +171,7 @@ export default function Grounding() {
 
   if (isComplete) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] animate-fadeIn">
+      <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] dark:from-violet-950 dark:via-purple-950 dark:to-indigo-950 animate-fadeIn">
         <CenteredContainer padding="md" fullHeight>
           <div className="w-full max-w-3xl mx-auto">
             <Card
@@ -274,7 +274,7 @@ export default function Grounding() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] animate-fadeIn">
+    <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] dark:from-violet-950 dark:via-purple-950 dark:to-indigo-950 animate-fadeIn">
       <CenteredContainer padding="md">
         <div className="w-full max-w-4xl mx-auto">
           {/* Header */}
@@ -312,7 +312,7 @@ export default function Grounding() {
           </div>
           <div className="w-full bg-[#F7F5FF] rounded-full h-3">
             <div
-              className="h-3 rounded-full transition-all duration-500 bg-gradient-to-r from-[#A78BFA] to-[#BBF7D0]"
+              className="h-3 rounded-full transition-all duration-500 bg-gradient-to-r from-purple-400 to-emerald-400 dark:from-purple-500 dark:to-emerald-500"
               style={{ width: `${progressPercentage}%` }}
             />
           </div>

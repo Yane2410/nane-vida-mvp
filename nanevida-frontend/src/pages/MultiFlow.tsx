@@ -118,7 +118,7 @@ export default function MultiFlow() {
   // Active session view
   if (isActive && selectedSession && currentStep) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] p-4 sm:p-8 flex items-center justify-center animate-fadeIn">
+      <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] dark:from-violet-950 dark:via-purple-950 dark:to-indigo-950 p-4 sm:p-8 flex items-center justify-center animate-fadeIn">
         <CenteredContainer padding="md" fullHeight>
           <Card className="text-center">
             {/* Session Header */}
@@ -187,7 +187,7 @@ export default function MultiFlow() {
             {currentStepIndex < selectedSession.steps.length - 1 && (
               <AnimatedCore mode="fadeIn" duration={800}>
                 <Card
-                  className="mt-6 bg-gradient-to-r from-[#A78BFA]/10 to-[#7DD3FC]/10"
+                  className="mt-6 bg-gradient-to-r from-purple-100/50 to-indigo-100/50 dark:from-purple-900/20 dark:to-indigo-900/20"
                 >
                   <p className="text-sm text-slate-800 dark:text-slate-100">
                     <strong>Siguiente:</strong>{' '}
@@ -207,7 +207,7 @@ export default function MultiFlow() {
 
   // Session selection view
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] p-4 sm:p-8 animate-fadeIn">
+    <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] dark:from-violet-950 dark:via-purple-950 dark:to-indigo-950 p-4 sm:p-8 animate-fadeIn">
       <CenteredContainer padding="md">
         {/* Header */}
         <Card gradient className="text-center mb-8">

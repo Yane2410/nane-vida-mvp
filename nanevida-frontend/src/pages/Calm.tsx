@@ -262,7 +262,7 @@ export default function Calm() {
         {/* Encouragement */}
         {currentStep === selectedTechnique.steps.length - 1 && (
           <AnimatedCore mode="fadeIn" duration={800}>
-          <Card className="mt-6 bg-gradient-to-r from-[#BBF7D0]/30 to-[#7DD3FC]/30 border-[#BBF7D0]/40">
+          <Card className="mt-6 bg-gradient-to-r from-emerald-100/50 to-cyan-100/50 dark:from-emerald-900/20 dark:to-cyan-900/20 border-emerald-200 dark:border-emerald-700">
             <div className="text-center">
               <p className="text-black dark:text-white font-medium mb-2">
                 ¡Excelente trabajo! 🌟

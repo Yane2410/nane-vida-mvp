@@ -206,7 +206,7 @@ export default function Statistics() {
         </Card>
 
         {/* Activity Summary */}
-        <Card className="bg-gradient-to-br from-purple-50 to-emerald-50">
+        <Card className="bg-gradient-to-br from-purple-50 to-emerald-50 dark:from-purple-900/20 dark:to-emerald-900/20">
           <h3 className="text-xl font-bold text-black dark:text-white mb-4 flex items-center gap-2">
             <span>✨</span>
             Resumen de Actividad

@@ -207,7 +207,7 @@ export default function Breath() {
     const currentCycle = selectedPattern.cycles[currentCycleIndex];
     
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] p-4 sm:p-8 flex items-center justify-center animate-fadeIn">
+      <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] dark:from-violet-950 dark:via-indigo-950 dark:to-blue-950 p-4 sm:p-8 flex items-center justify-center animate-fadeIn">
         <CenteredContainer padding="md" fullHeight>
           <Card className="text-center">
             {/* Header */}
@@ -348,7 +348,7 @@ export default function Breath() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] p-4 sm:p-8 animate-fadeIn">
+    <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] dark:from-violet-950 dark:via-indigo-950 dark:to-blue-950 p-4 sm:p-8 animate-fadeIn">
       <CenteredContainer padding="md">
         {/* Header */}
         <Card

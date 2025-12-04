@@ -191,7 +191,7 @@ export default function SOSPage() {
 
       {/* Emergency Notice */}
       {list.length > 0 && (
-        <Card className="bg-gradient-to-r from-[#FED7AA]/30 to-[#FBCFE8]/30 border-[#FED7AA]/40">
+        <Card className="bg-gradient-to-r from-orange-100/50 to-pink-100/50 dark:from-orange-900/20 dark:to-pink-900/20 border-orange-200 dark:border-orange-700">
           <div className="flex items-start gap-4">
             <span className="text-3xl flex-shrink-0" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>⚠️</span>
             <div>

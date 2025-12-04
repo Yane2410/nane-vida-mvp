@@ -195,7 +195,7 @@ export default function Reflection() {
 
   if (showSaved) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] animate-fadeIn">
+      <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] dark:from-violet-950 dark:via-purple-950 dark:to-indigo-950 animate-fadeIn">
         <CenteredContainer padding="md">
           <div className="w-full max-w-4xl mx-auto">
             <Card
@@ -285,7 +285,7 @@ export default function Reflection() {
 
   if (selectedPrompt) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] animate-fadeIn">
+      <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] dark:from-violet-950 dark:via-purple-950 dark:to-indigo-950 animate-fadeIn">
         <CenteredContainer padding="md" fullHeight>
           <div className="w-full max-w-3xl mx-auto">
             <Card
@@ -378,7 +378,7 @@ export default function Reflection() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] animate-fadeIn">
+    <div className="min-h-screen bg-gradient-to-br from-[#F7F5FF] via-white to-[#E0F2FE] dark:from-violet-950 dark:via-purple-950 dark:to-indigo-950 animate-fadeIn">
       <CenteredContainer padding="md">
         <div className="w-full max-w-5xl mx-auto">
           {/* Header */}
