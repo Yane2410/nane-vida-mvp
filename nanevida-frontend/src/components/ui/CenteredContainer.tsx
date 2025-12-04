@@ -1,4 +1,4 @@
-// Responsiveness update – centered layout container
+﻿// Responsiveness update – centered layout container
 import { ReactNode, CSSProperties, memo } from 'react';
 import { useWindowDimensions } from '../../hooks/useWindowDimensions';
 

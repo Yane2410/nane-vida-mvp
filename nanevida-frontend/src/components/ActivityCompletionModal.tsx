@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom'
+﻿import { useNavigate } from 'react-router-dom'
 import Card from './ui/Card'
 import Button from './ui/Button'
 
@@ -50,7 +50,7 @@ export default function ActivityCompletionModal({
             </h2>
 
             {/* Activity Info */}
-            <p className="text-base sm:text-lg text-gray-900 dark:text-gray-100 mb-4">
+            <p className="text-base sm:text-lg text-black dark:text-white mb-4">
               Has completado: <span className="font-semibold text-purple-600 dark:text-purple-400">{activityName}</span>
             </p>
 

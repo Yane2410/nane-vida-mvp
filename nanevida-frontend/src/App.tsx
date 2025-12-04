@@ -1,4 +1,4 @@
-import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom'
+﻿import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom'
 import { getToken } from './api'
 import Button from './components/ui/Button'
 import MobileMenu from './components/ui/MobileMenu'
@@ -121,7 +121,7 @@ export default function App(){
       {/* Footer */}
       <footer className="backdrop-blur-xl bg-white/60 border-t border-white/40 shadow-inner">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <p className="text-center text-sm text-gray-900 dark:text-gray-100 font-medium">
+          <p className="text-center text-sm text-black dark:text-white font-medium">
             © {new Date().getFullYear()} NANE VIDA — Cuidando tu bienestar emocional 💜
           </p>
           <p className="text-center text-sm text-[#A78BFA] font-medium mt-2" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>

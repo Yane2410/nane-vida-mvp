@@ -1,4 +1,4 @@
-import React, { lazy, Suspense } from 'react'
+﻿import React, { lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { ToastProvider } from './contexts/ToastContext'

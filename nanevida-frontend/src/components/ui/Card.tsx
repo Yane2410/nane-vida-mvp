@@ -1,4 +1,4 @@
-import { ReactNode, CSSProperties, memo } from 'react'
+﻿import { ReactNode, CSSProperties, memo } from 'react'
 
 interface CardProps {
   children: ReactNode

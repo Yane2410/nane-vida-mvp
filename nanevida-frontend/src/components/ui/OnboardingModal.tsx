@@ -1,4 +1,4 @@
-import { useOnboarding } from '../../contexts/OnboardingContext'
+﻿import { useOnboarding } from '../../contexts/OnboardingContext'
 import Button from './Button'
 import AnimatedCore from '../AnimatedCore'
 
@@ -60,10 +60,10 @@ export default function OnboardingModal() {
             {/* Text */}
             <AnimatedCore mode="fadeIn" duration={500} loop={false}>
               <div className="text-center mb-8">
-                <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">
+                <h2 className="text-2xl sm:text-3xl font-bold text-black dark:text-white mb-4">
                   {step.title}
                 </h2>
-                <p className="text-base sm:text-lg text-gray-900 dark:text-gray-100 leading-relaxed max-w-xl mx-auto">
+                <p className="text-base sm:text-lg text-black dark:text-white leading-relaxed max-w-xl mx-auto">
                   {step.description}
                 </p>
               </div>

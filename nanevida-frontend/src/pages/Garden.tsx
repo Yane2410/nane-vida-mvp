@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+﻿import { useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import AppHeader from '../components/ui/AppHeader'
 import Card from '../components/ui/Card'
@@ -132,7 +132,7 @@ export default function Garden() {
             <h3 className="text-xl font-semibold text-gray-800 mb-2">
               Tu jardín está esperando florecer
             </h3>
-            <p className="text-gray-900 dark:text-gray-100 mb-6 max-w-md mx-auto">
+            <p className="text-black dark:text-white mb-6 max-w-md mx-auto">
               Completa una actividad de bienestar para plantar tu primera semilla. 
               Cada práctica es un acto de amor hacia ti misma.
             </p>
@@ -237,7 +237,7 @@ export default function Garden() {
                   <div className="text-2xl">{milestone.icon || '🌟'}</div>
                   <div className="flex-1">
                     <div className="font-medium text-gray-800">{milestone.title}</div>
-                    <div className="text-sm text-gray-900 dark:text-gray-100">{milestone.description}</div>
+                    <div className="text-sm text-black dark:text-white">{milestone.description}</div>
                   </div>
                   {!milestone.viewed && (
                     <div className="w-2 h-2 bg-purple-500 rounded-full"></div>

@@ -1,4 +1,4 @@
-// 🎨 Íconos SVG emocionales para NANE VIDA
+﻿// 🎨 Íconos SVG emocionales para NANE VIDA
 
 export const HeartIcon = ({ size = 24, color = 'currentColor' }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="none">

@@ -1,4 +1,4 @@
-/**
+﻿/**
  * MultiFlow - Combined wellness sessions
  * Orchestrates multiple tools in sequence with smooth transitions
  */

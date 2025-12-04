@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+﻿import { useEffect, useState } from 'react'
 import { useGarden, Milestone } from '../contexts/GardenContext'
 import Card from './ui/Card'
 import Button from './ui/Button'
@@ -78,7 +78,7 @@ export default function MilestoneModal() {
             </h2>
 
             {/* Description */}
-            <p className="text-lg text-gray-900 dark:text-gray-100 mb-6">
+            <p className="text-lg text-black dark:text-white mb-6">
               {currentMilestone.description}
             </p>
 

@@ -1,4 +1,4 @@
-import { useState, memo } from 'react'
+﻿import { useState, memo } from 'react'
 import {
   CalmMoodIcon,
   AnxiousMoodIcon,
@@ -77,7 +77,7 @@ const MoodSelector = memo(function MoodSelector({ value, onChange, className = '
                 className={`
                   text-sm sm:text-base font-semibold
                   transition-colors duration-300
-                  ${isSelected ? '' : 'text-gray-900 dark:text-gray-100'}
+                  ${isSelected ? '' : 'text-black dark:text-white'}
                 `}
                 style={{ color: isSelected ? color : undefined }}
               >
@@ -95,7 +95,7 @@ const MoodSelector = memo(function MoodSelector({ value, onChange, className = '
             backgroundColor: `${moods.find((m) => m.id === selected)?.color}15`,
           }}
         >
-          <p className="text-gray-900 dark:text-gray-100 text-small">
+          <p className="text-black dark:text-white text-small">
             Gracias por compartir cómo te sientes. Recuerda que está bien sentirse así.
           </p>
         </div>

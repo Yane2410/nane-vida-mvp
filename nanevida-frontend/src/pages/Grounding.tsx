@@ -1,4 +1,4 @@
-// Responsiveness update – centered layout + Audio/Haptics feedback
+﻿// Responsiveness update – centered layout + Audio/Haptics feedback
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Card from '../components/ui/Card';

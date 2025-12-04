@@ -82,7 +82,7 @@ export default function EntryForm({ onSave }: Props) {
 
         {/* Selector de Estado de Ánimo */}
         <div>
-          <label className="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-3">
+          <label className="block text-sm font-medium text-slate-900 dark:text-gray-50 mb-3">
             💭 ¿Cómo describirías tu estado de ánimo hoy?
           </label>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -108,7 +108,7 @@ export default function EntryForm({ onSave }: Props) {
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-3">
+          <label className="block text-sm font-medium text-slate-900 dark:text-gray-50 mb-3">
             ✨ ¿Cómo describirías tu emoción?
           </label>
           <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">

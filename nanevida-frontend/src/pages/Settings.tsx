@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+﻿import { useEffect, useState } from 'react'
 import { api } from '../api'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
@@ -182,7 +182,7 @@ export default function Settings() {
           <span>⚙️</span>
           Configuración
         </h1>
-        <p className="text-gray-900 dark:text-gray-100">
+        <p className="text-black dark:text-white">
           Administra tu perfil, notificaciones y privacidad
         </p>
       </Card>
@@ -200,7 +200,7 @@ export default function Settings() {
           <span>⏰</span>
           Recordatorios
         </h2>
-        <p className="text-gray-900 dark:text-gray-100 mb-6">
+        <p className="text-black dark:text-white mb-6">
           Configura recordatorios para no olvidar tus ejercicios de bienestar emocional.
         </p>
         <ReminderSettings />
@@ -427,7 +427,7 @@ export default function Settings() {
         </h2>
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-900 dark:text-gray-100 mb-2">
+            <label className="block text-sm font-medium text-black dark:text-white mb-2">
               🌐 Visibilidad del perfil
             </label>
             <select
@@ -469,7 +469,7 @@ export default function Settings() {
           <span>⚠️</span>
           Zona Peligrosa
         </h2>
-        <p className="text-gray-900 dark:text-gray-100 mb-4">
+        <p className="text-black dark:text-white mb-4">
           Una vez que elimines tu cuenta, no hay vuelta atrás. Por favor, estate seguro.
         </p>
         <Button 

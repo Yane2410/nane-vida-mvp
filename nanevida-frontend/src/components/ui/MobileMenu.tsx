@@ -1,4 +1,4 @@
-import { useState } from 'react'
+﻿import { useState } from 'react'
 import { createPortal } from 'react-dom'
 import { Link } from 'react-router-dom'
 import Button from './Button'
@@ -23,7 +23,7 @@ export default function MobileMenu({ isAuth, onLogout }: MobileMenuProps) {
         aria-label="Menú"
       >
         <svg
-          className="w-6 h-6 text-gray-900 dark:text-gray-100"
+          className="w-6 h-6 text-black dark:text-white"
           fill="none"
           strokeLinecap="round"
           strokeLinejoin="round"
@@ -65,7 +65,7 @@ export default function MobileMenu({ isAuth, onLogout }: MobileMenuProps) {
               className="p-2 rounded-lg hover:bg-slate-100 transition-colors"
             >
               <svg
-                className="w-5 h-5 text-gray-900 dark:text-gray-100"
+                className="w-5 h-5 text-black dark:text-white"
                 fill="none"
                 strokeLinecap="round"
                 strokeLinejoin="round"

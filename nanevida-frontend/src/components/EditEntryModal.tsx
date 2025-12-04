@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+﻿import { useState, useEffect } from 'react';
 import { Input, Textarea } from './ui/Input';
 import Button from './ui/Button';
 import Card from './ui/Card';
@@ -118,7 +118,7 @@ export default function EditEntryModal({ entry, onSave, onCancel }: Props) {
                   >
                     <div className="flex items-center gap-3">
                       <span className="text-3xl">{e}</span>
-                      <span className="text-sm font-medium text-gray-900 dark:text-gray-100">{label}</span>
+                      <span className="text-sm font-medium text-black dark:text-white">{label}</span>
                     </div>
                   </button>
                 ))}

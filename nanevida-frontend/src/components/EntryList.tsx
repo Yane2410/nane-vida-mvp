@@ -1,4 +1,4 @@
-import Card from './ui/Card'
+﻿import Card from './ui/Card'
 import Button from './ui/Button'
 import EmptyState from './ui/EmptyState'
 
@@ -31,7 +31,7 @@ export default function EntryList({ items, onDelete, onEdit }: Props){
 
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
+      <h3 className="text-lg font-semibold text-slate-900 dark:text-white mb-4">
         📖 Tus entradas ({items.length})
       </h3>
       
@@ -59,7 +59,7 @@ export default function EntryList({ items, onDelete, onEdit }: Props){
                       {e.title || 'Sin título'}
                     </h4>
                     <div className="flex items-center gap-2 mt-1">
-                      <p className="text-xs text-gray-800 dark:text-gray-200">
+                      <p className="text-xs text-slate-900 dark:text-gray-50">
                         {formattedDate} • {formattedTime}
                       </p>
                       {e.mood && MOOD_MAP[e.mood] && (
@@ -72,7 +72,7 @@ export default function EntryList({ items, onDelete, onEdit }: Props){
                   </div>
                 </div>
                 
-                <p className="text-gray-900 dark:text-gray-100 leading-relaxed whitespace-pre-wrap">
+                <p className="text-black dark:text-white leading-relaxed whitespace-pre-wrap">
                   {e.content}
                 </p>
               </div>
