@@ -211,7 +211,7 @@ export default function Calm() {
         <AnimatedCore mode="fadeIn" duration={600} key={currentStep}>
         <Card className="mb-6 text-center min-h-[200px] flex items-center justify-center">
           <div className="max-w-xl mx-auto">
-            <p className={`${isSmall ? 'text-lg' : isTablet ? 'text-xl' : 'text-2xl'} text-black dark:text-gray-100 leading-relaxed font-medium`}>
+            <p className={`${isSmall ? 'text-lg' : isTablet ? 'text-xl' : 'text-2xl'} text-gray-900 dark:text-gray-100 leading-relaxed font-medium`}>
               {selectedTechnique.steps[currentStep]}
             </p>
           </div>
@@ -277,7 +277,7 @@ export default function Calm() {
         
         {/* Haptics Toggle */}
         {haptics.isAvailable() && (
-          <div className="flex items-center justify-center gap-2 text-sm text-black dark:text-gray-100 mt-4">
+          <div className="flex items-center justify-center gap-2 text-sm text-gray-900 dark:text-gray-100 mt-4">
             <input
               type="checkbox"
               id="calm-haptics-toggle"
@@ -330,7 +330,7 @@ export default function Calm() {
                 {technique.icon}
               </div>
               <div className="flex-1">
-                <h3 className={`${isSmall ? 'text-lg' : 'text-xl'} font-bold text-black dark:text-gray-100 mb-1`}>
+                <h3 className={`${isSmall ? 'text-lg' : 'text-xl'} font-bold text-gray-900 dark:text-gray-100 mb-1`}>
                   {technique.title}
                 </h3>
                 <span className="inline-block px-3 py-1 rounded-full text-xs font-medium" style={{ backgroundColor: `${technique.color}30`, color: '#555555' }}>

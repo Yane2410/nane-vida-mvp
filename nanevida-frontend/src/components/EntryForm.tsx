@@ -1,4 +1,4 @@
-import { useState } from 'react';
+ï»¿import { useState } from 'react';
 import { Input, Textarea } from './ui/Input';
 import Button from './ui/Button';
 import Card from './ui/Card';
@@ -13,23 +13,23 @@ type Props = {
 };
 
 const EMOJIS = [
-  { emoji: '??', label: 'Feliz' },
-  { emoji: '??', label: 'Triste' },
-  { emoji: '??', label: 'Enojado' },
-  { emoji: '??', label: 'Ansios@' },
-  { emoji: '??', label: 'Cansad@' },
-  { emoji: '??', label: 'Emocionado' },
-  { emoji: '??', label: 'Tranquilo' },
-  { emoji: '??', label: 'Agradecido' },
+  { emoji: 'ğŸ˜Š', label: 'Feliz' },
+  { emoji: 'ğŸ˜¢', label: 'Triste' },
+  { emoji: 'ğŸ˜ ', label: 'Enojado' },
+  { emoji: 'ğŸ˜°', label: 'Ansios@' },
+  { emoji: 'ğŸ˜´', label: 'Cansad@' },
+  { emoji: 'ğŸ¤©', label: 'Emocionado' },
+  { emoji: 'ğŸ˜Œ', label: 'Tranquilo' },
+  { emoji: 'ğŸ™', label: 'Agradecido' },
 ];
 
 const MOODS = [
-  { value: 'very_happy', emoji: '??', label: 'Muy feliz' },
-  { value: 'happy', emoji: '??', label: 'Feliz' },
-  { value: 'neutral', emoji: '??', label: 'Neutral' },
-  { value: 'sad', emoji: '??', label: 'Triste' },
-  { value: 'anxious', emoji: '??', label: 'Ansios@' },
-  { value: 'angry', emoji: '??', label: 'Enojado/a' },
+  { value: 'very_happy', emoji: 'ğŸ˜„', label: 'Muy feliz' },
+  { value: 'happy', emoji: 'ğŸ˜Š', label: 'Feliz' },
+  { value: 'neutral', emoji: 'ğŸ˜', label: 'Neutral' },
+  { value: 'sad', emoji: 'ğŸ˜¢', label: 'Triste' },
+  { value: 'anxious', emoji: 'ğŸ˜°', label: 'Ansios@' },
+  { value: 'angry', emoji: 'ğŸ˜ ', label: 'Enojado/a' },
 ];
 
 export default function EntryForm({ onSave }: Props) {
@@ -64,15 +64,15 @@ export default function EntryForm({ onSave }: Props) {
       
       <form onSubmit={handleSubmit} className="space-y-4">
         <Input 
-          label="Título (opcional)"
+          label="TÃ­tulo (opcional)"
           value={title} 
           onChange={(e) => setTitle(e.target.value)} 
-          placeholder="¿Cómo estuvo tu día?"
+          placeholder="Â¿CÃ³mo estuvo tu dÃ­a?"
           icon={<span></span>}
         />
         
         <Textarea 
-          label="¿Cómo te sientes?"
+          label="Â¿CÃ³mo te sientes?"
           rows={5} 
           value={content} 
           onChange={(e) => setContent(e.target.value)} 
@@ -80,10 +80,10 @@ export default function EntryForm({ onSave }: Props) {
           error={error}
         />
 
-        {/* Selector de Estado de Ánimo */}
+        {/* Selector de Estado de Ãnimo */}
         <div>
-          <label className="block text-sm font-medium text-slate-900 dark:text-gray-200 mb-3">
-            ?? ¿Cómo describirías tu estado de ánimo hoy?
+          <label className="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-3">
+            ğŸ’­ Â¿CÃ³mo describirÃ­as tu estado de Ã¡nimo hoy?
           </label>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {MOODS.map(({ value, emoji: e, label }) => (
@@ -102,14 +102,14 @@ export default function EntryForm({ onSave }: Props) {
           </div>
           {!mood && (
             <p className="text-xs text-gray-500 mt-2">
-               Opcional: Esto nos ayudará a mostrarte estadísticas de tu estado de ánimo
+               Opcional: Esto nos ayudarÃ¡ a mostrarte estadÃ­sticas de tu estado de Ã¡nimo
             </p>
           )}
         </div>
         
         <div>
-          <label className="block text-sm font-medium text-slate-900 dark:text-gray-200 mb-3">
-            ? ¿Cómo describirías tu emoción?
+          <label className="block text-sm font-medium text-gray-800 dark:text-gray-200 mb-3">
+            âœ¨ Â¿CÃ³mo describirÃ­as tu emociÃ³n?
           </label>
           <div className="grid grid-cols-4 sm:grid-cols-8 gap-2">
             {EMOJIS.map(({ emoji: e, label }) => (

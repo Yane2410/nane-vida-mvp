@@ -74,7 +74,7 @@ export default function EditEntryModal({ entry, onSave, onCancel }: Props) {
             </h3>
             <button
               onClick={onCancel}
-              className="text-gray-800 hover:text-black dark:text-gray-200 dark:hover:text-gray-100 text-2xl leading-none"
+              className="text-gray-800 hover:text-gray-900 dark:text-gray-200 dark:hover:text-gray-100 text-2xl leading-none"
               title="Cerrar"
             >
               ✕
@@ -118,7 +118,7 @@ export default function EditEntryModal({ entry, onSave, onCancel }: Props) {
                   >
                     <div className="flex items-center gap-3">
                       <span className="text-3xl">{e}</span>
-                      <span className="text-sm font-medium text-black dark:text-gray-100">{label}</span>
+                      <span className="text-sm font-medium text-gray-900 dark:text-gray-100">{label}</span>
                     </div>
                   </button>
                 ))}

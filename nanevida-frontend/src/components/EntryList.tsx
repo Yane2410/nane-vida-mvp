@@ -31,7 +31,7 @@ export default function EntryList({ items, onDelete, onEdit }: Props){
 
   return (
     <div className="space-y-4">
-      <h3 className="text-lg font-semibold text-slate-900 dark:text-gray-100 mb-4">
+      <h3 className="text-lg font-semibold text-gray-900 dark:text-gray-100 mb-4">
         📖 Tus entradas ({items.length})
       </h3>
       
@@ -55,11 +55,11 @@ export default function EntryList({ items, onDelete, onEdit }: Props){
                 <div className="flex items-center gap-3 mb-2">
                   <span className="text-4xl">{e.emoji || '📝'}</span>
                   <div className="flex-1">
-                    <h4 className="text-lg font-semibold text-slate-900">
+                    <h4 className="text-lg font-semibold text-gray-800">
                       {e.title || 'Sin título'}
                     </h4>
                     <div className="flex items-center gap-2 mt-1">
-                      <p className="text-xs text-slate-900 dark:text-gray-200">
+                      <p className="text-xs text-gray-800 dark:text-gray-200">
                         {formattedDate} • {formattedTime}
                       </p>
                       {e.mood && MOOD_MAP[e.mood] && (
@@ -72,7 +72,7 @@ export default function EntryList({ items, onDelete, onEdit }: Props){
                   </div>
                 </div>
                 
-                <p className="text-black dark:text-gray-100 leading-relaxed whitespace-pre-wrap">
+                <p className="text-gray-900 dark:text-gray-100 leading-relaxed whitespace-pre-wrap">
                   {e.content}
                 </p>
               </div>

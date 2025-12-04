@@ -73,10 +73,10 @@ export default function MoodChart() {
     return (
       <Card className="text-center py-12">
         <span className="text-6xl mb-4 block">📊</span>
-        <h3 className="text-xl font-semibold text-black dark:text-gray-100 mb-2">
+        <h3 className="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-2">
           No hay estadísticas todavía
         </h3>
-        <p className="text-slate-900 dark:text-gray-200">
+        <p className="text-gray-800 dark:text-gray-200">
           Comienza a registrar tu estado de ánimo en tus entradas del diario
         </p>
       </Card>
@@ -139,9 +139,9 @@ export default function MoodChart() {
             </p>
           </div>
           <div className="text-right">
-            <p className="text-sm text-slate-900 dark:text-gray-200">Últimos</p>
+            <p className="text-sm text-gray-800 dark:text-gray-200">Últimos</p>
             <p className="text-3xl font-bold text-emerald-600">{stats.days}</p>
-            <p className="text-sm text-slate-900 dark:text-gray-200">días</p>
+            <p className="text-sm text-gray-800 dark:text-gray-200">días</p>
           </div>
         </div>
       </Card>
@@ -236,7 +236,7 @@ export default function MoodChart() {
               />
             </LineChart>
           </ResponsiveContainer>
-          <div className="mt-4 text-xs text-slate-900 dark:text-gray-200 space-y-1">
+          <div className="mt-4 text-xs text-gray-800 dark:text-gray-200 space-y-1">
             <p>5 = Muy feliz | 4 = Feliz | 3 = Neutral</p>
             <p>2 = Triste/Ansioso | 1 = Enojado</p>
           </div>
@@ -247,12 +247,12 @@ export default function MoodChart() {
       {barData.length > 0 && (
         <Card gradient>
           <div className="text-center">
-            <p className="text-black dark:text-gray-100 mb-2">Tu estado de ánimo más frecuente es:</p>
+            <p className="text-gray-900 dark:text-gray-100 mb-2">Tu estado de ánimo más frecuente es:</p>
             <div className="flex items-center justify-center gap-3">
               <span className="text-5xl">{barData[0].emoji}</span>
               <div className="text-left">
-                <h4 className="text-2xl font-bold text-slate-900">{barData[0].mood}</h4>
-                <p className="text-black dark:text-gray-100">
+                <h4 className="text-2xl font-bold text-gray-800">{barData[0].mood}</h4>
+                <p className="text-gray-900 dark:text-gray-100">
                   {barData[0].count} {barData[0].count === 1 ? 'vez' : 'veces'} ({((barData[0].count / stats.total_entries) * 100).toFixed(0)}%)
                 </p>
               </div>
