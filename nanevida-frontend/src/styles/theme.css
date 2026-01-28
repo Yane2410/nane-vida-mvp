@@ -1,0 +1,190 @@
+/* Design system tokens (from Figma export) */
+:root {
+  --font-size: 16px;
+
+  /* Brand colors */
+  --primary: #8b5cf6;
+  --primary-foreground: #ffffff;
+  --calm: #7dd3fc;
+  --calm-foreground: #0c4a6e;
+  --energy: #34d399;
+  --energy-foreground: #064e3b;
+  --warmth: #fbbf24;
+  --warmth-foreground: #78350f;
+  --gentle: #f9a8d4;
+  --gentle-foreground: #831843;
+
+  /* Primary scale (existing app palette) */
+  --primary-50: #f5f3ff;
+  --primary-100: #ede9fe;
+  --primary-200: #ddd6fe;
+  --primary-300: #c4b5fd;
+  --primary-400: #a78bfa;
+  --primary-500: #8b5cf6;
+  --primary-600: #7c3aed;
+  --primary-700: #6d28d9;
+  --primary-800: #5b21b6;
+  --primary-900: #4c1d95;
+
+  /* Emotional color scale (existing app palette) */
+  --calm-light: #e0f2fe;
+  --calm-dark: #0369a1;
+  --energy-light: #d1fae5;
+  --energy-dark: #047857;
+  --warmth-light: #fef3c7;
+  --warmth-dark: #d97706;
+  --gentle-light: #fce7f3;
+  --gentle-dark: #db2777;
+
+  /* Semantic */
+  --success: #34d399;
+  --success-foreground: #064e3b;
+  --warning: #fbbf24;
+  --warning-foreground: #78350f;
+  --error: #f87171;
+  --error-foreground: #7f1d1d;
+  --info: #7dd3fc;
+  --info-foreground: #0c4a6e;
+
+  /* Neutral grays */
+  --gray-50: #fafafa;
+  --gray-100: #f5f5f5;
+  --gray-200: #e5e5e5;
+  --gray-300: #d4d4d4;
+  --gray-400: #a3a3a3;
+  --gray-500: #737373;
+  --gray-600: #525252;
+  --gray-700: #404040;
+  --gray-800: #262626;
+  --gray-900: #171717;
+
+  /* Surface levels */
+  --surface-1: #ffffff;
+  --surface-2: #fafafa;
+  --surface-3: #f5f5f5;
+
+  /* Base UI */
+  --background: var(--surface-1);
+  --foreground: var(--gray-900);
+  --card: var(--surface-1);
+  --card-foreground: var(--gray-900);
+  --popover: var(--surface-1);
+  --popover-foreground: var(--gray-900);
+  --secondary: var(--gray-100);
+  --secondary-foreground: var(--gray-900);
+  --muted: var(--gray-100);
+  --muted-foreground: var(--gray-500);
+  --accent: var(--gentle);
+  --accent-foreground: var(--gentle-foreground);
+  --destructive: var(--error);
+  --destructive-foreground: var(--error-foreground);
+  --border: var(--gray-200);
+  --input: var(--gray-200);
+  --input-background: var(--surface-2);
+  --switch-background: var(--gray-300);
+  --ring: var(--primary);
+
+  /* Typography weights */
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Radius */
+  --radius-sm: 0.75rem;
+  --radius-md: 1rem;
+  --radius-lg: 1.5rem;
+  --radius-xl: 2rem;
+  --radius: var(--radius-md);
+
+  /* Shadows */
+  --shadow-soft: 0 2px 8px rgba(139, 92, 246, 0.08);
+  --shadow-medium: 0 4px 16px rgba(139, 92, 246, 0.12);
+  --shadow-strong: 0 8px 32px rgba(139, 92, 246, 0.16);
+  --shadow-glow: 0 0 24px rgba(139, 92, 246, 0.2);
+
+  /* Motion */
+  --transition-fast: 180ms;
+  --transition-base: 220ms;
+  --transition-slow: 280ms;
+  --easing: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* Charts */
+  --chart-1: var(--primary);
+  --chart-2: var(--calm);
+  --chart-3: var(--energy);
+  --chart-4: var(--warmth);
+  --chart-5: var(--gentle);
+
+  /* Sidebar */
+  --sidebar: var(--surface-1);
+  --sidebar-foreground: var(--gray-900);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--surface-2);
+  --sidebar-accent-foreground: var(--gray-900);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+
+  /* Spacing */
+  --space-unit: 0.25rem;
+}
+
+.dark {
+  /* Neutral grays (reversed) */
+  --gray-50: #171717;
+  --gray-100: #262626;
+  --gray-200: #404040;
+  --gray-300: #525252;
+  --gray-400: #737373;
+  --gray-500: #a3a3a3;
+  --gray-600: #d4d4d4;
+  --gray-700: #e5e5e5;
+  --gray-800: #f5f5f5;
+  --gray-900: #fafafa;
+
+  /* Surface levels (dark) */
+  --surface-1: #0a0a0a;
+  --surface-2: #171717;
+  --surface-3: #262626;
+
+  /* Base UI (dark) */
+  --background: var(--surface-1);
+  --foreground: var(--gray-900);
+  --card: var(--surface-2);
+  --card-foreground: var(--gray-900);
+  --popover: var(--surface-2);
+  --popover-foreground: var(--gray-900);
+  --secondary: var(--gray-200);
+  --secondary-foreground: var(--gray-800);
+  --muted: var(--gray-200);
+  --muted-foreground: var(--gray-500);
+  --border: var(--gray-200);
+  --input: var(--gray-200);
+  --input-background: var(--surface-3);
+  --switch-background: var(--gray-300);
+
+  /* Brand colors (dark) */
+  --primary: #a78bfa;
+  --calm: #7dd3fc;
+  --energy: #6ee7b7;
+  --warmth: #fcd34d;
+  --gentle: #fbcfe8;
+  --error: #fca5a5;
+
+  /* Sidebar (dark) */
+  --sidebar: var(--surface-2);
+  --sidebar-foreground: var(--gray-900);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--gray-900);
+  --sidebar-accent: var(--gray-200);
+  --sidebar-accent-foreground: var(--gray-800);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+
+  /* Shadows (dark) */
+  --shadow-soft: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-strong: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 24px rgba(167, 139, 250, 0.3);
+}

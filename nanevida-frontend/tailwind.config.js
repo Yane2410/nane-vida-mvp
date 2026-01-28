@@ -8,8 +8,65 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Sistema de colores terapéutico profesional
+        ink: {
+          900: '#1F2937',
+          700: '#374151',
+          500: '#6B7280',
+        },
+        surface: {
+          1: '#FFFFFF',
+          2: '#FAFAFA',
+          3: '#F5F5F5',
+        },
+        background: 'var(--background)',
+        foreground: 'var(--foreground)',
+        card: {
+          DEFAULT: 'var(--card)',
+          foreground: 'var(--card-foreground)',
+        },
+        popover: {
+          DEFAULT: 'var(--popover)',
+          foreground: 'var(--popover-foreground)',
+        },
+        secondary: {
+          DEFAULT: 'var(--secondary)',
+          foreground: 'var(--secondary-foreground)',
+        },
+        muted: {
+          DEFAULT: 'var(--muted)',
+          foreground: 'var(--muted-foreground)',
+        },
+        accent: {
+          DEFAULT: 'var(--accent)',
+          foreground: 'var(--accent-foreground)',
+        },
+        destructive: {
+          DEFAULT: 'var(--destructive)',
+          foreground: 'var(--destructive-foreground)',
+        },
+        success: {
+          DEFAULT: 'var(--success)',
+          foreground: 'var(--success-foreground)',
+        },
+        warning: {
+          DEFAULT: 'var(--warning)',
+          foreground: 'var(--warning-foreground)',
+        },
+        error: {
+          DEFAULT: 'var(--error)',
+          foreground: 'var(--error-foreground)',
+        },
+        info: {
+          DEFAULT: 'var(--info)',
+          foreground: 'var(--info-foreground)',
+        },
+        border: 'var(--border)',
+        input: 'var(--input)',
+        ring: 'var(--ring)',
+        // Therapeutic color system
         primary: {
+          DEFAULT: 'var(--primary)',
+          foreground: 'var(--primary-foreground)',
           50: '#F5F3FF',
           100: '#EDE9FE',
           200: '#DDD6FE',
@@ -21,39 +78,43 @@ export default {
           800: '#5B21B6',
           900: '#4C1D95',
         },
-        // Colores emocionales para herramientas
+        // Emotional colors for tools
         calm: {
           light: '#E0F2FE',
           DEFAULT: '#7DD3FC',
           dark: '#0369A1',
+          foreground: 'var(--calm-foreground)',
         },
         energy: {
           light: '#D1FAE5',
           DEFAULT: '#34D399',
           dark: '#047857',
+          foreground: 'var(--energy-foreground)',
         },
         warmth: {
           light: '#FEF3C7',
           DEFAULT: '#FBBF24',
           dark: '#D97706',
+          foreground: 'var(--warmth-foreground)',
         },
         gentle: {
           light: '#FCE7F3',
           DEFAULT: '#F9A8D4',
           dark: '#DB2777',
+          foreground: 'var(--gentle-foreground)',
         },
-        // Neutrales profesionales
+        // Neutral grays
         gray: {
-          50: '#F9FAFB',
-          100: '#F3F4F6',
-          200: '#E5E7EB',
-          300: '#D1D5DB',
-          400: '#9CA3AF',
-          500: '#6B7280',
-          600: '#4B5563',
-          700: '#374151',
-          800: '#1F2937',
-          900: '#111827',
+          50: '#FAFAFA',
+          100: '#F5F5F5',
+          200: '#E5E5E5',
+          300: '#D4D4D4',
+          400: '#A3A3A3',
+          500: '#737373',
+          600: '#525252',
+          700: '#404040',
+          800: '#262626',
+          900: '#171717',
         },
       },
       fontFamily: {
@@ -75,11 +136,24 @@ export default {
       },
       borderRadius: {
         '4xl': '2rem',
+        'ds-sm': 'var(--radius-sm)',
+        'ds-md': 'var(--radius-md)',
+        'ds-lg': 'var(--radius-lg)',
+        'ds-xl': 'var(--radius-xl)',
       },
       boxShadow: {
-        'soft': '0 2px 15px -3px rgba(0, 0, 0, 0.07), 0 10px 20px -2px rgba(0, 0, 0, 0.04)',
-        'medium': '0 8px 30px -6px rgba(0, 0, 0, 0.1), 0 15px 35px -5px rgba(0, 0, 0, 0.08)',
-        'strong': '0 20px 40px -12px rgba(139, 92, 246, 0.25), 0 0 0 1px rgba(139, 92, 246, 0.1)',
+        'soft': 'var(--shadow-soft)',
+        'medium': 'var(--shadow-medium)',
+        'strong': 'var(--shadow-strong)',
+        'glow': 'var(--shadow-glow)',
+        'card': '0 10px 30px -12px rgba(31, 41, 55, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.6) inset',
+      },
+      backgroundImage: {
+        'gradient-primary': 'linear-gradient(135deg, var(--primary) 0%, var(--primary-300) 100%)',
+        'gradient-calm': 'linear-gradient(135deg, var(--calm) 0%, var(--calm-light) 100%)',
+        'gradient-energy': 'linear-gradient(135deg, var(--energy) 0%, var(--energy-light) 100%)',
+        'gradient-warmth': 'linear-gradient(135deg, var(--warmth) 0%, var(--warmth-light) 100%)',
+        'gradient-gentle': 'linear-gradient(135deg, var(--gentle) 0%, var(--gentle-light) 100%)',
       },
       animation: {
         'fade-in': 'fadeIn 0.3s ease-out',
