@@ -1,4 +1,4 @@
-﻿import { ReactNode, CSSProperties, memo } from 'react'
+import { ReactNode, CSSProperties, memo } from 'react'
 
 interface CardProps {
   children: ReactNode
@@ -18,27 +18,19 @@ const Card = memo(function Card({
   style
 }: CardProps) {
   const hoverStyles = hover
-    ? 'hover:shadow-strong hover:-translate-y-1 hover:border-primary-400/40 dark:hover:border-primary-500/50 cursor-pointer'
+    ? 'hover:shadow-strong hover:-translate-y-1 cursor-pointer motion-reduce:transform-none'
     : ''
+
   const gradientStyles = gradient
-    ? 'bg-gradient-to-br from-white/95 via-primary-50/50 to-primary-100/30 dark:from-gray-800/95 dark:via-gray-800/80 dark:to-gray-900/70'
+    ? 'bg-gradient-to-br from-card via-surface-2 to-primary-100/30 dark:from-surface-2 dark:via-surface-3 dark:to-gray-900/60'
     : 'glass'
-  const animationStyles = animated ? 'animate-scale-in' : ''
+
+  const animationStyles = animated ? 'animate-scaleIn' : ''
 
   return (
     <div
-      className={`
-        rounded-3xl border-2 border-primary-400/20 dark:border-primary-500/30 p-6 sm:p-8
-        backdrop-blur-xl
-        shadow-soft
-        transition-all duration-300 ease-out
-        ${gradientStyles} ${hoverStyles} ${animationStyles}
-        ${className}
-      `}
-      style={{
-        boxShadow: '0 8px 32px rgba(139, 92, 246, 0.15), 0 0 0 1px rgba(255, 255, 255, 0.5) inset',
-        ...style,
-      }}
+      className={`rounded-ds-lg border border-border p-6 sm:p-8 shadow-soft transition-all duration-[var(--transition-base)] ease-[var(--easing)] ${gradientStyles} ${hoverStyles} ${animationStyles} ${className}`}
+      style={style}
     >
       {children}
     </div>

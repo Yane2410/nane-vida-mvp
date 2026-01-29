@@ -1,4 +1,4 @@
-﻿import { memo } from 'react'
+import { memo } from 'react'
 
 interface LoadingSpinnerProps {
   size?: 'sm' | 'md' | 'lg'
@@ -15,20 +15,18 @@ const LoadingSpinner = memo(function LoadingSpinner({ size = 'md', text }: Loadi
   return (
     <div className="flex flex-col items-center justify-center py-8 animate-fadeIn">
       <div className="relative">
-        {/* Outer spinning ring */}
         <div
-          className={`${sizes[size]} border-purple-200 border-t-purple-600 rounded-full animate-spin`}
+          className={`${sizes[size]} border-primary-200 border-t-primary rounded-full animate-spin motion-reduce:animate-none`}
           style={{ animationDuration: '0.8s' }}
           role="status"
           aria-label="Cargando"
         />
-        {/* Inner pulsing dot */}
         <div
-          className="absolute inset-0 m-auto w-2 h-2 bg-purple-600 rounded-full animate-pulse"
+          className="absolute inset-0 m-auto w-2 h-2 bg-primary rounded-full animate-pulse"
         />
       </div>
       {text && (
-        <p className="mt-4 text-sm text-purple-600 font-medium animate-pulse">
+        <p className="mt-4 text-sm text-primary font-medium animate-pulse motion-reduce:animate-none">
           {text}
         </p>
       )}
