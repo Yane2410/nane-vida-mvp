@@ -19,26 +19,26 @@ load_dotenv(BASE_DIR / '.env')
 # CRITICAL: En producción SIEMPRE define estas variables
 SECRET_KEY = os.environ.get("SECRET_KEY")
 if not SECRET_KEY:
-    if os.environ.get("DJANGO_ENV") == "production":
+    # Detectar si estamos en Render (producción)
+    if os.environ.get("RENDER") or os.environ.get("DATABASE_URL", "").startswith("postgres"):
         raise ValueError("SECRET_KEY must be set in production!")
     SECRET_KEY = "dev-insecure-key-CHANGE-IN-PRODUCTION"
     print("⚠️  WARNING: Using insecure SECRET_KEY for development!")
 
 # DEBUG: Never use True in production
 DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
-if DEBUG and os.environ.get("DJANGO_ENV") == "production":
+if DEBUG and (os.environ.get("RENDER") or os.environ.get("DATABASE_URL", "").startswith("postgres")):
     raise ValueError("DEBUG cannot be True in production!")
 
 # Environment detection
-DJANGO_ENV = os.environ.get("DJANGO_ENV", "development")
-IS_PRODUCTION = DJANGO_ENV == "production"
-IS_DEVELOPMENT = DJANGO_ENV == "development"
+IS_PRODUCTION = bool(os.environ.get("RENDER")) or os.environ.get("DATABASE_URL", "").startswith("postgres")
+IS_DEVELOPMENT = not IS_PRODUCTION
 
 # Allowed Hosts - Security Critical
 ALLOWED_HOSTS_STR = os.environ.get("ALLOWED_HOSTS", "localhost,127.0.0.1")
 ALLOWED_HOSTS = [h.strip() for h in ALLOWED_HOSTS_STR.split(",") if h.strip()]
-if IS_PRODUCTION and not ALLOWED_HOSTS:
-    raise ValueError("ALLOWED_HOSTS must be configured in production!")
+if IS_PRODUCTION and len(ALLOWED_HOSTS) <= 2:  # Solo localhost/127.0.0.1
+    raise ValueError("ALLOWED_HOSTS must include production domain!")
 
 # Dominios/URLs del frontend y backend para CORS/CSRF
 FRONTEND_ORIGIN = os.environ.get("FRONTEND_ORIGIN", "")
@@ -70,6 +70,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
+    "core.middleware.RequestIDMiddleware",
     "corsheaders.middleware.CorsMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -115,7 +116,7 @@ if DATABASE_URL:
     }
 elif IS_PRODUCTION:
     # En producción, DATABASE_URL es obligatorio
-    raise ValueError("DATABASE_URL must be set in production! Check Railway environment variables.")
+    raise ValueError("DATABASE_URL must be set in production!")
 else:
     # Configuración manual desde variables individuales (desarrollo)
     DB_ENGINE = os.environ.get("DB_ENGINE", "django.db.backends.sqlite3")
@@ -203,7 +204,7 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ),
     "DEFAULT_PERMISSION_CLASSES": (
-        "rest_framework.permissions.IsAuthenticatedOrReadOnly",
+        "rest_framework.permissions.IsAuthenticated",
     ),
     "DEFAULT_THROTTLE_CLASSES": (
         "rest_framework.throttling.AnonRateThrottle",
@@ -224,6 +225,7 @@ REST_FRAMEWORK = {
         "rest_framework.parsers.MultiPartParser",
         "rest_framework.parsers.FormParser",
     ],
+    "EXCEPTION_HANDLER": "core.exceptions.custom_exception_handler",
 }
 
 # Habilitar browsable API solo en desarrollo
@@ -261,18 +263,25 @@ CORS_ALLOWED_ORIGINS = []
 if IS_DEVELOPMENT:
     CORS_ALLOWED_ORIGINS.extend([
         "http://localhost:5173",
+        "http://localhost:5174",
+        "http://localhost:5175",
+        "http://localhost:5176",
         "http://localhost:3000",
         "http://127.0.0.1:5173",
+        "http://127.0.0.1:5174",
+        "http://127.0.0.1:5175",
+        "http://127.0.0.1:5176",
         "http://127.0.0.1:3000",
     ])
+
+# Produccion Vercel
+CORS_ALLOWED_ORIGINS.append("https://nane-vida-mvp.vercel.app")
 
 if FRONTEND_ORIGIN:
     CORS_ALLOWED_ORIGINS.append(FRONTEND_ORIGIN)
 
-# Permitir todos los subdominios de Vercel para deployments preview
-CORS_ALLOWED_ORIGIN_REGEXES = [
-    r"^https://.*\.vercel\.app$",
-]
+# Evitar wildcard en produccion: solo origins explicitos
+CORS_ALLOWED_ORIGIN_REGEXES = []
 
 CORS_ALLOW_CREDENTIALS = True
 CORS_ALLOW_HEADERS = [
@@ -313,8 +322,14 @@ CSRF_TRUSTED_ORIGINS = []
 if IS_DEVELOPMENT:
     CSRF_TRUSTED_ORIGINS.extend([
         "http://localhost:5173",
+        "http://localhost:5174",
+        "http://localhost:5175",
+        "http://localhost:5176",
         "http://localhost:3000",
         "http://127.0.0.1:5173",
+        "http://127.0.0.1:5174",
+        "http://127.0.0.1:5175",
+        "http://127.0.0.1:5176",
         "http://127.0.0.1:3000",
     ])
 
@@ -323,24 +338,21 @@ if FRONTEND_ORIGIN:
 if BACKEND_ORIGIN:
     CSRF_TRUSTED_ORIGINS.append(BACKEND_ORIGIN)
 
-# Permitir subdominios de Vercel en CSRF
-CSRF_TRUSTED_ORIGINS.extend([
-    "https://*.vercel.app",
-])
+# Evitar wildcard en CSRF: usar origins explicitos
 
 
-# === Content Security Policy (CSP) - django-csp 4.0+ format ===
+# === Content Security Policy (CSP) - django-csp settings ===
 CONTENT_SECURITY_POLICY = {
-    'DIRECTIVES': {
-        'default-src': ("'self'",),
-        'script-src': ("'self'",),
-        'style-src': ("'self'", "'unsafe-inline'"),
-        'img-src': ("'self'", "data:", "https:"),
-        'font-src': ("'self'",),
-        'connect-src': ("'self'",),
-        'frame-ancestors': ("'none'",),
-        'base-uri': ("'self'",),
-        'form-action': ("'self'",),
+    "DIRECTIVES": {
+        "base-uri": ("'self'",),
+        "connect-src": ("'self'",),
+        "default-src": ("'self'",),
+        "font-src": ("'self'",),
+        "form-action": ("'self'",),
+        "frame-ancestors": ("'none'",),
+        "img-src": ("'self'", "data:", "https:"),
+        "script-src": ("'self'",),
+        "style-src": ("'self'", "'unsafe-inline'"),
     }
 }
 
@@ -390,11 +402,19 @@ LOGGING = {
             "format": "{levelname} {asctime} {module} {message}",
             "style": "{",
         },
+        "json": {
+            "format": "{message}",
+            "style": "{",
+        },
     },
     "handlers": {
         "console": {
             "class": "logging.StreamHandler",
             "formatter": "verbose",
+        },
+        "structured": {
+            "class": "logging.StreamHandler",
+            "formatter": "json",
         },
     },
     "root": {
@@ -410,6 +430,11 @@ LOGGING = {
         "django.db.backends": {
             "handlers": ["console"],
             "level": "INFO" if IS_PRODUCTION else "DEBUG",
+            "propagate": False,
+        },
+        "core.logging": {
+            "handlers": ["structured"],
+            "level": "INFO",
             "propagate": False,
         },
     },

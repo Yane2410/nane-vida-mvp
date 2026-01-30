@@ -1,11 +1,12 @@
 ﻿import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom'
-import { getToken } from './api'
+import { getToken, logout } from './api'
 import Button from './components/ui/Button'
 import MobileMenu from './components/ui/MobileMenu'
 import ThemeToggle from './components/ui/ThemeToggle'
 import OnboardingModal from './components/ui/OnboardingModal'
 import MilestoneModal from './components/MilestoneModal'
 import FloatingSOSButton from './components/ui/FloatingSOSButton'
+import { smoothNavigate } from './utils/navigation'
 
 export default function App(){
   const nav = useNavigate()
@@ -13,10 +14,15 @@ export default function App(){
   const loc = useLocation()
   const showLoginBtn = !isAuth && loc.pathname !== '/login'
 
-  const handleLogout = (e: React.MouseEvent) => {
+  const handleLogout = async (e: React.MouseEvent) => {
     e.preventDefault()
-    localStorage.clear()
-    nav('/')
+    
+    // 🔐 SECURITY: Limpiar tokens y cache sensible de forma selectiva
+    await logout() // Server revoke + local cleanup
+    sessionStorage.clear() // Limpia profile_cache y otros datos temporales
+    localStorage.removeItem('nane_username') // Cleanup username para shared computers
+    
+    smoothNavigate(() => nav('/'))
   }
 
   return (
@@ -41,17 +47,17 @@ export default function App(){
                 <>
                   <Link to="/dashboard">
                     <Button variant="ghost" size="sm">
-                      📊 Dashboard
+                      Dashboard
                     </Button>
                   </Link>
                   <Link to="/garden">
                     <Button variant="ghost" size="sm">
-                      🌱 Jardín
+                      Jardin
                     </Button>
                   </Link>
                   <Link to="/diary">
                     <Button variant="ghost" size="sm">
-                      📔 Diario
+                      Diario
                     </Button>
                   </Link>
                 </>
@@ -60,26 +66,26 @@ export default function App(){
                 <>
                   <Link to="/">
                     <Button variant="ghost" size="sm">
-                      🏠 Inicio
+                      Inicio
                     </Button>
                   </Link>
                   <Link to="/diary">
                     <Button variant="ghost" size="sm">
-                      📔 Diario
+                      Diario
                     </Button>
                   </Link>
                 </>
               )}
               <Link to="/sos">
                 <Button variant="secondary" size="sm">
-                  🆘 SOS
+                  SOS
                 </Button>
               </Link>
               {!isAuth ? (
                 <>
                   <Link to="/login">
                     <Button variant="primary" size="sm">
-                      Iniciar sesión
+                      Iniciar sesion
                     </Button>
                   </Link>
                   <Link to="/register">
@@ -89,9 +95,22 @@ export default function App(){
                   </Link>
                 </>
               ) : (
-                <Button variant="ghost" size="sm" onClick={handleLogout}>
-                  👋 Salir
-                </Button>
+                <>
+                  {/* Settings visible en desktop */}
+                  <Link to="/settings">
+                    <Button
+                      variant="ghost"
+                      size="sm"
+                      title="Configuracion"
+                      aria-label="Configuracion"
+                    >
+                      Configuracion
+                    </Button>
+                  </Link>
+                  <Button variant="ghost" size="sm" onClick={handleLogout}>
+                    Salir
+                  </Button>
+                </>
               )}
             </nav>
 
@@ -109,7 +128,8 @@ export default function App(){
         <Outlet/>
       </main>
 
-      {/* Onboarding Modal */}
+      {/* ⚠️ ONBOARDING: Solo se muestra cuando se activa manualmente desde Settings */}
+      {/* NO se auto-inicia en el flujo principal (ver OnboardingContext) */}
       <OnboardingModal />
 
       {/* Milestone Modal */}
@@ -122,7 +142,7 @@ export default function App(){
       <footer className="backdrop-blur-xl bg-white/60 border-t border-white/40 shadow-inner">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
           <p className="text-center text-sm text-black dark:text-white font-medium">
-            © {new Date().getFullYear()} NANE VIDA — Cuidando tu bienestar emocional 💜
+            (c) {new Date().getFullYear()} NANE VIDA - Cuidando tu bienestar emocional
           </p>
         </div>
       </footer>

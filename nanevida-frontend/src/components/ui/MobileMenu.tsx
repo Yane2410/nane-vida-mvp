@@ -20,7 +20,7 @@ export default function MobileMenu({ isAuth, onLogout }: MobileMenuProps) {
       <button
         onClick={toggleMenu}
         className="md:hidden p-2 rounded-lg hover:bg-white/50 transition-colors relative z-10"
-        aria-label="Menú"
+        aria-label="Menu"
       >
         <svg
           className="w-6 h-6 text-black dark:text-white"
@@ -59,7 +59,7 @@ export default function MobileMenu({ isAuth, onLogout }: MobileMenuProps) {
         <div className="flex flex-col h-full">
           {/* Header */}
           <div className="flex items-center justify-between p-4 border-b border-slate-200">
-            <h2 className="text-lg font-bold text-slate-800">Menú</h2>
+            <h2 className="text-lg font-bold text-slate-800">Menu</h2>
             <button
               onClick={closeMenu}
               className="p-2 rounded-lg hover:bg-slate-100 transition-colors"
@@ -83,7 +83,6 @@ export default function MobileMenu({ isAuth, onLogout }: MobileMenuProps) {
             <div className="flex flex-col gap-2">
               <Link to="/" onClick={closeMenu}>
                 <Button variant="secondary" size="md" className="w-full justify-start">
-                  <span>🏠</span>
                   Inicio
                 </Button>
               </Link>
@@ -91,7 +90,6 @@ export default function MobileMenu({ isAuth, onLogout }: MobileMenuProps) {
               {isAuth && (
                 <Link to="/dashboard" onClick={closeMenu}>
                   <Button variant="primary" size="md" className="w-full justify-start">
-                    <span>📊</span>
                     Dashboard
                   </Button>
                 </Link>
@@ -100,15 +98,13 @@ export default function MobileMenu({ isAuth, onLogout }: MobileMenuProps) {
               {isAuth && (
                 <Link to="/garden" onClick={closeMenu}>
                   <Button variant="secondary" size="md" className="w-full justify-start">
-                    <span>🌱</span>
-                    Jardín
+                    Jardin
                   </Button>
                 </Link>
               )}
 
               <Link to="/diary" onClick={closeMenu}>
                 <Button variant="secondary" size="md" className="w-full justify-start">
-                  <span>📔</span>
                   Diario
                 </Button>
               </Link>
@@ -117,22 +113,19 @@ export default function MobileMenu({ isAuth, onLogout }: MobileMenuProps) {
                 <>
                   <Link to="/statistics" onClick={closeMenu}>
                     <Button variant="secondary" size="md" className="w-full justify-start">
-                      <span>📈</span>
-                      Estadísticas
+                      Estadisticas
                     </Button>
                   </Link>
 
                   <Link to="/profile" onClick={closeMenu}>
                     <Button variant="secondary" size="md" className="w-full justify-start">
-                      <span>👤</span>
                       Perfil
                     </Button>
                   </Link>
 
                   <Link to="/settings" onClick={closeMenu}>
                     <Button variant="secondary" size="md" className="w-full justify-start">
-                      <span>⚙️</span>
-                      Configuración
+                      Configuracion
                     </Button>
                   </Link>
                 </>
@@ -140,7 +133,6 @@ export default function MobileMenu({ isAuth, onLogout }: MobileMenuProps) {
 
               <Link to="/sos" onClick={closeMenu}>
                 <Button variant="secondary" size="md" className="w-full justify-start">
-                  <span>🆘</span>
                   SOS
                 </Button>
               </Link>
@@ -150,14 +142,12 @@ export default function MobileMenu({ isAuth, onLogout }: MobileMenuProps) {
                   <div className="border-t border-slate-200 my-2" />
                   <Link to="/login" onClick={closeMenu}>
                     <Button variant="primary" size="md" className="w-full justify-start">
-                      <span>🔐</span>
-                      Iniciar sesión
+                      Iniciar sesion
                     </Button>
                   </Link>
 
                   <Link to="/register" onClick={closeMenu}>
                     <Button variant="success" size="md" className="w-full justify-start">
-                      <span>✨</span>
                       Registrarse
                     </Button>
                   </Link>
@@ -176,7 +166,6 @@ export default function MobileMenu({ isAuth, onLogout }: MobileMenuProps) {
                     }}
                     className="w-full justify-start"
                   >
-                    <span>👋</span>
                     Salir
                   </Button>
                 </>

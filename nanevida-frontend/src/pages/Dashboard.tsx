@@ -1,9 +1,16 @@
-﻿import { useEffect, useState, useMemo, useCallback } from 'react'
-import { Link } from 'react-router-dom'
-import { api } from '../api'
+import { useEffect, useState, useMemo, useCallback } from 'react'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
+import { api, getToken } from '../api'
+import { logger } from '../utils/logger'
+import { hasPremiumInterest } from '../utils/conversionTracker'
+import { POST_PRICING_MESSAGE } from '../constants/pricing'
+import { getDailyPresenceMessage } from '../utils/dailyPresence'
+import { getPassivePresenceMessage } from '../utils/passivePresence'
+import { shouldShowTrialAwareness, markTrialAwarenessShown, isTrialExpired } from '../config/trial'
+import { shouldShowTrialEndingSoon, markTrialEndingSoonSeen, getTrialEndingSoonMessage } from '../utils/trialMessaging'
+import TrialBadge from '../components/TrialBadge'
 import Card from '../components/ui/Card'
 import Button from '../components/ui/Button'
-import LoadingSpinner from '../components/ui/LoadingSpinner'
 import AppHeader from '../components/ui/AppHeader'
 import EmotionalCard from '../components/ui/EmotionalCard'
 import GardenWidget from '../components/GardenWidget'
@@ -31,59 +38,138 @@ type UserProfile = {
   created_at: string
 }
 
+function DashboardSkeleton() {
+  return (
+    <div className="space-y-8 animate-pulse">
+      <div className="h-32 rounded-3xl bg-gray-200/70 dark:bg-gray-800/60" />
+      <div className="h-24 rounded-3xl bg-gray-200/70 dark:bg-gray-800/60" />
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
+        {Array.from({ length: 4 }).map((_, index) => (
+          <div key={index} className="h-32 rounded-3xl bg-gray-200/70 dark:bg-gray-800/60" />
+        ))}
+      </div>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {Array.from({ length: 3 }).map((_, index) => (
+          <div key={index} className="h-40 rounded-3xl bg-gray-200/70 dark:bg-gray-800/60" />
+        ))}
+      </div>
+    </div>
+  )
+}
+
 export default function Dashboard() {
   const [stats, setStats] = useState<DashboardStats | null>(null)
   const [profile, setProfile] = useState<UserProfile | null>(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
+  const [showPostPricingMessage, setShowPostPricingMessage] = useState(false)
+  const [dailyMessage, setDailyMessage] = useState<string | null>(null)
+  const [passivePresenceMessage, setPassivePresenceMessage] = useState<string | null>(null)
+  const [showTrialAwareness, setShowTrialAwareness] = useState(false)
+  const [showTrialEndingSoon, setShowTrialEndingSoon] = useState(false)
+  const [trialEndingMessage, setTrialEndingMessage] = useState('')
+  const [showPostTrialCard, setShowPostTrialCard] = useState(false)
+  const location = useLocation()
+  const nav = useNavigate()
 
   useEffect(() => {
     loadDashboard()
+
+    const hasInterest = hasPremiumInterest()
+    const hasShownMessage = localStorage.getItem('shown_post_pricing_message') === 'true'
+
+    if (hasInterest && !hasShownMessage) {
+      setShowPostPricingMessage(true)
+      localStorage.setItem('shown_post_pricing_message', 'true')
+    }
+
+    const message = getDailyPresenceMessage()
+    if (message) {
+      setDailyMessage(message)
+    }
+
+    const presenceMsg = getPassivePresenceMessage()
+    if (presenceMsg) {
+      setPassivePresenceMessage(presenceMsg)
+    }
+
+    if (shouldShowTrialEndingSoon()) {
+      setShowTrialEndingSoon(true)
+      setTrialEndingMessage(getTrialEndingSoonMessage())
+      markTrialEndingSoonSeen()
+    }
+
+    const trialExpired = isTrialExpired()
+    const notOnPricing = !location.pathname.includes('pricing')
+    const notSeenThisSession = !sessionStorage.getItem('post_trial_card_seen')
+
+    if (trialExpired && notOnPricing && notSeenThisSession) {
+      setShowPostTrialCard(true)
+      sessionStorage.setItem('post_trial_card_seen', 'true')
+    }
   }, [])
 
   const loadDashboard = useCallback(async () => {
+    const currentToken = getToken()
+    const cachedForToken = sessionStorage.getItem('cached_for_token')
+
+    if (cachedForToken !== currentToken) {
+      sessionStorage.removeItem('profile_cache')
+      sessionStorage.setItem('cached_for_token', currentToken || '')
+    }
+
+    let profileLoaded = false
+    let statsLoaded = false
+
     try {
-      // Intentar cargar stats y profile
       const profileRes = await api.get('/profile/')
       setProfile(profileRes.data)
-      
-      // Intentar cargar stats (puede no existir el endpoint)
-      try {
-        const statsRes = await api.get('/entries/stats/')
-        setStats(statsRes.data)
-      } catch (statsError: any) {
-        // Si no existe el endpoint, usar valores por defecto
-        console.log('Stats endpoint no disponible, usando valores por defecto')
-        setStats({
-          total_entries: 0,
-          entries_this_week: 0,
-          entries_this_month: 0,
-          streak_days: 0
+      sessionStorage.setItem('profile_cache', JSON.stringify(profileRes.data))
+      profileLoaded = true
+    } catch (profileError) {
+      logger.warn('Profile endpoint failed, using fallback:', profileError)
+
+      const cached = sessionStorage.getItem('profile_cache')
+      if (cached) {
+        setProfile(JSON.parse(cached))
+        profileLoaded = true
+      } else {
+        const savedUsername = sessionStorage.getItem('nane_username') || 'Usuario'
+        setProfile({
+          username: savedUsername,
+          email: '',
+          bio: 'Bienvenido a Nane Vida',
+          avatar: null,
+          created_at: new Date().toISOString()
         })
       }
-    } catch (e: any) {
-      console.error('Error loading dashboard:', e)
-      // Si falla el profile, mostrar valores por defecto para todo
-      setError('Error al cargar el dashboard. Verifica tu conexión.')
+    }
+
+    try {
+      const statsRes = await api.get('/entries/stats/')
+      setStats(statsRes.data)
+      statsLoaded = true
+    } catch (statsError) {
+      logger.warn('Stats endpoint failed, using defaults')
       setStats({
         total_entries: 0,
         entries_this_week: 0,
         entries_this_month: 0,
         streak_days: 0
       })
-      setProfile({
-        username: 'Usuario',
-        email: '',
-        bio: '',
-        avatar: null,
-        created_at: new Date().toISOString()
-      })
-    } finally {
-      setLoading(false)
     }
+
+    if (!profileLoaded || !statsLoaded) {
+      if (!profileLoaded && !statsLoaded) {
+        setError('No pudimos conectar con el servidor. Algunos datos pueden estar desactualizados.')
+      } else if (!profileLoaded) {
+        setError('Tu perfil no se actualizo. Revisa tu conexion.')
+      }
+    }
+
+    setLoading(false)
   }, [])
 
-  // Memoize computed values
   const memberSince = useMemo(() => {
     if (!profile?.created_at) return ''
     const date = new Date(profile.created_at)
@@ -92,27 +178,26 @@ export default function Dashboard() {
 
   const streakMessage = useMemo(() => {
     const days = stats?.streak_days || 0
-    if (days === 0) return '¡Comienza tu racha hoy!'
-    if (days === 1) return '¡1 día de racha!'
-    return `¡${days} días de racha!`
+    if (days === 0) return 'Comienza tu racha hoy'
+    if (days === 1) return '1 dia de racha'
+    return `${days} dias de racha`
   }, [stats?.streak_days])
 
   if (loading) {
     return (
-      <div className="flex justify-center items-center min-h-[400px]">
-        <LoadingSpinner text="Cargando dashboard..." />
+      <div className="max-w-6xl mx-auto px-4">
+        <DashboardSkeleton />
       </div>
     )
   }
 
   if (error) {
     return (
-      <Card className="text-center">
-        <div className="text-5xl mb-4" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>😔</div>
-        <h3 className="text-xl font-bold text-black dark:text-white mb-3">
-          Algo no salió como esperábamos
+      <Card className="text-center shadow-card">
+        <h3 className="text-xl font-bold text-ink-900 dark:text-white mb-3">
+          Algo no salio como esperabamos
         </h3>
-        <p className="text-slate-800 dark:text-slate-100 mb-6">{error}</p>
+        <p className="text-ink-700 dark:text-gray-200 mb-6">{error}</p>
         <Button variant="primary" onClick={loadDashboard}>
           Intentar nuevamente
         </Button>
@@ -121,19 +206,98 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="space-y-8 animate-fadeIn">
-      {/* Welcome Header */}
-      <AppHeader 
+    <div className="max-w-6xl mx-auto px-4 space-y-8 animate-page">
+      {showPostPricingMessage && (
+        <Card className="bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 border border-purple-200 dark:border-purple-800 shadow-card">
+          <div className="flex items-start gap-3">
+            <span className="mt-0.5 text-purple-700 dark:text-purple-200">
+              <SparkleIcon size={20} color="currentColor" />
+            </span>
+            <div className="flex-1">
+              <p className="text-sm text-purple-900 dark:text-purple-100 font-medium">
+                {POST_PRICING_MESSAGE}
+              </p>
+            </div>
+            <button
+              onClick={() => setShowPostPricingMessage(false)}
+              className="text-purple-700 dark:text-purple-300 hover:text-purple-900 dark:hover:text-purple-100 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
+              aria-label="Cerrar"
+              title="Cerrar"
+            >
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+              </svg>
+            </button>
+          </div>
+        </Card>
+      )}
+
+      {dailyMessage && (
+        <div className="text-center">
+          <p className="text-sm text-ink-500 dark:text-gray-300">
+            {dailyMessage}
+          </p>
+        </div>
+      )}
+
+      {passivePresenceMessage && (
+        <Card className="bg-gradient-to-r from-gray-50 to-slate-50 dark:from-gray-900/30 dark:to-slate-900/30 border border-gray-200 dark:border-gray-700 shadow-card">
+          <div className="text-center">
+            <p className="text-sm text-ink-600 dark:text-gray-300 italic">
+              {passivePresenceMessage}
+            </p>
+          </div>
+        </Card>
+      )}
+
+      {showTrialEndingSoon && (
+        <Card className="bg-gradient-to-r from-slate-50 to-gray-50 dark:from-slate-900/30 dark:to-gray-900/30 border border-slate-200 dark:border-slate-700 shadow-card">
+          <div className="text-center">
+            <p className="text-sm text-ink-700 dark:text-gray-300">
+              {trialEndingMessage}
+            </p>
+          </div>
+        </Card>
+      )}
+
+      {showPostTrialCard && (
+        <Card className="bg-gradient-to-r from-purple-50 to-indigo-50 dark:from-purple-900/20 dark:to-indigo-900/20 border border-purple-200 dark:border-purple-700 shadow-card">
+          <div className="text-center space-y-3">
+            <div className="flex justify-center text-purple-600 dark:text-purple-200">
+              <SparkleIcon size={28} color="currentColor" />
+            </div>
+            <h3 className="text-lg font-semibold text-ink-900 dark:text-white">
+              Manten tu experiencia completa
+            </h3>
+            <p className="text-sm text-ink-700 dark:text-gray-300">
+              Las miradas mas profundas siguen aqui cuando quieras.
+            </p>
+            <div className="pt-2">
+              <Button
+                variant="primary"
+                size="md"
+                onClick={() => {
+                  setShowPostTrialCard(false)
+                  nav('/pricing')
+                }}
+              >
+                Ver experiencia completa
+              </Button>
+            </div>
+          </div>
+        </Card>
+      )}
+
+      <AppHeader
         greeting={`Hola, ${profile?.username}`}
-        subtitle="Tu espacio personal de bienestar. Estamos aquí para acompañarte."
+        subtitle="Tu espacio personal de bienestar. Estamos aqui para acompanarte."
       />
 
-      {/* Profile Card */}
-      <Card gradient className="relative overflow-hidden">
+      <Card gradient className="relative overflow-hidden shadow-card">
         <div className="flex flex-col sm:flex-row items-center gap-6">
           {profile?.avatar ? (
-            <img 
-              src={profile.avatar} 
+            <img
+              src={profile.avatar}
               alt="Avatar"
               loading="lazy"
               decoding="async"
@@ -145,84 +309,96 @@ export default function Dashboard() {
             </div>
           )}
           <div className="text-center sm:text-left flex-1">
-            <h2 className="text-2xl font-bold text-black dark:text-white mb-1">
+            <h2 className="text-2xl font-bold text-ink-900 dark:text-white mb-1">
               {profile?.username}
             </h2>
-            <p className="text-slate-800 dark:text-slate-100 text-sm mb-2">
+            <p className="text-ink-700 dark:text-gray-200 text-sm mb-2">
               Miembro desde {memberSince}
             </p>
             {profile?.bio && (
-              <p className="text-sm text-slate-700 dark:text-slate-200 italic bg-white/60 px-4 py-2 rounded-xl max-w-xl">
+              <p className="text-sm text-ink-700 dark:text-gray-200 italic bg-white/60 px-4 py-2 rounded-xl max-w-xl">
                 "{profile.bio}"
               </p>
             )}
           </div>
-          <Link to="/profile">
-            <Button variant="secondary" size="sm">
-              Editar perfil
-            </Button>
-          </Link>
+          <div className="flex flex-col items-end gap-2">
+            <TrialBadge />
+            <Link to="/profile">
+              <Button variant="secondary" size="sm">
+                Editar perfil
+              </Button>
+            </Link>
+          </div>
         </div>
       </Card>
 
-      {/* Garden Widget */}
       <GardenWidget />
 
-      {/* Stats Grid */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
-        {/* Total Entries */}
-        <Card hover className="text-center">
-          <div className="text-4xl mb-3" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>📝</div>
-          <div className="text-3xl font-bold text-[#A78BFA] mb-1">
+        <Card hover className="text-center shadow-card">
+          <div className="mb-2 flex justify-center text-primary-500">
+            <JournalIcon size={24} color="currentColor" />
+          </div>
+          <div className="text-3xl font-bold text-primary-500 mb-1">
             {stats?.total_entries || 0}
           </div>
-          <div className="text-sm text-slate-800 dark:text-slate-100 font-medium">Entradas totales</div>
+          <div className="text-sm text-ink-700 dark:text-gray-200 font-medium">Entradas totales</div>
         </Card>
 
-        {/* This Week */}
-        <Card hover className="text-center">
-          <div className="text-4xl mb-3" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>📅</div>
-          <div className="text-3xl font-bold text-[#7DD3FC] mb-1">
+        <Card hover className="text-center shadow-card">
+          <div className="mb-2 flex justify-center text-sky-500">
+            <CalmIcon size={24} color="currentColor" />
+          </div>
+          <div className="text-3xl font-bold text-sky-500 mb-1">
             {stats?.entries_this_week || 0}
           </div>
-          <div className="text-sm text-slate-800 dark:text-slate-100 font-medium">Esta semana</div>
+          <div className="text-sm text-ink-700 dark:text-gray-200 font-medium">Esta semana</div>
         </Card>
 
-        {/* This Month */}
-        <Card hover className="text-center">
-          <div className="text-4xl mb-3" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>🗓️</div>
-          <div className="text-3xl font-bold text-[#FBCFE8] mb-1">
+        <Card hover className="text-center shadow-card">
+          <div className="mb-2 flex justify-center text-pink-400">
+            <HeartIcon size={24} color="currentColor" />
+          </div>
+          <div className="text-3xl font-bold text-pink-400 mb-1">
             {stats?.entries_this_month || 0}
           </div>
-          <div className="text-sm text-slate-800 dark:text-slate-100 font-medium">Este mes</div>
+          <div className="text-sm text-ink-700 dark:text-gray-200 font-medium">Este mes</div>
         </Card>
 
-        {/* Streak */}
-        <Card hover className="text-center">
-          <div className="text-4xl mb-3" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>🔥</div>
-          <div className="text-3xl font-bold text-[#FED7AA] mb-1">
+        <Card hover className="text-center shadow-card">
+          <div className="mb-2 flex justify-center text-amber-400">
+            <SparkleIcon size={24} color="currentColor" />
+          </div>
+          <div className="text-3xl font-bold text-amber-400 mb-1">
             {stats?.streak_days || 0}
           </div>
-          <div className="text-sm text-slate-800 dark:text-slate-100 font-medium">Racha (días)</div>
+          <div className="text-sm text-ink-700 dark:text-gray-200 font-medium">Racha</div>
+          <p className="text-xs text-ink-500 dark:text-gray-400 mt-2">
+            {streakMessage}
+          </p>
         </Card>
       </div>
 
-      {/* Quick Actions */}
-      <div>
-        <h2 className="text-2xl font-bold text-black dark:text-white mb-6 text-center">
-          ¿Qué te gustaría hacer hoy?
-        </h2>
+      <section className="space-y-4">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-ink-900 dark:text-white">
+            Que te gustaria hacer hoy?
+          </h2>
+          <p className="text-sm text-ink-600 dark:text-gray-300">
+            Elige una accion suave para ti.
+          </p>
+        </div>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <EmotionalCard
-            title="Nueva Entrada"
-            description="Escribe sobre cómo te sientes hoy. Tu voz importa."
+            title="Nueva entrada"
+            description="Escribe sobre como te sientes hoy. Tu voz importa."
             icon={<JournalIcon size={32} />}
             color="#A78BFA"
             href="/diary"
           />
-          
+
           <EmotionalCard
-            title="Ver mi Diario"
+            title="Ver mi diario"
             description="Revisa tus entradas anteriores y observa tu progreso."
             icon={<JournalIcon size={32} />}
             color="#7DD3FC"
@@ -230,15 +406,15 @@ export default function Dashboard() {
           />
 
           <EmotionalCard
-            title="Ejercicios de Calma"
-            description="Técnicas para encontrar paz cuando más lo necesitas."
+            title="Ejercicios de calma"
+            description="Tecnicas para encontrar paz cuando mas lo necesitas."
             icon={<CalmIcon size={32} />}
             color="#BBF7D0"
             href="/calm"
           />
 
           <EmotionalCard
-            title="Líneas de Ayuda"
+            title="Lineas de ayuda"
             description="Acceso inmediato a recursos de apoyo profesional."
             icon={<HeartIcon size={32} />}
             color="#FBCFE8"
@@ -246,7 +422,7 @@ export default function Dashboard() {
           />
 
           <EmotionalCard
-            title="Mis Estadísticas"
+            title="Mis estadisticas"
             description="Visualiza patrones y celebra tus logros."
             icon={<SparkleIcon size={32} />}
             color="#C4B5FD"
@@ -254,25 +430,26 @@ export default function Dashboard() {
           />
 
           <EmotionalCard
-            title="Configuración"
-            description="Personaliza tu experiencia según tus necesidades."
-            icon={<span className="text-2xl">⚙️</span>}
+            title="Configuracion"
+            description="Personaliza tu experiencia segun tus necesidades."
+            icon={<SparkleIcon size={28} color="currentColor" />}
             color="#FED7AA"
             href="/settings"
           />
         </div>
-      </div>
+      </section>
 
-      {/* Recent Activity */}
       {stats?.last_entry_date && (
-        <Card>
-          <h3 className="text-xl font-bold text-black dark:text-white mb-4 flex items-center gap-2">
-            <span className="text-2xl" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>🕒</span>
+        <Card className="shadow-card">
+          <h3 className="text-xl font-bold text-ink-900 dark:text-white mb-4 flex items-center gap-2">
+            <span className="text-primary-500">
+              <JournalIcon size={20} color="currentColor" />
+            </span>
             <span>Actividad reciente</span>
           </h3>
           <div className="bg-gradient-to-r from-purple-100/50 to-violet-100/50 dark:from-purple-900/20 dark:to-violet-900/20 border border-purple-200 dark:border-purple-700 rounded-2xl p-5">
-            <p className="text-slate-900 dark:text-white font-medium">
-              <strong className="text-[#A78BFA]">Última entrada:</strong>{' '}
+            <p className="text-ink-900 dark:text-white font-medium">
+              <strong className="text-primary-500">Ultima entrada:</strong>{' '}
               {new Date(stats.last_entry_date).toLocaleString('es-ES', {
                 year: 'numeric',
                 month: 'long',
@@ -282,24 +459,23 @@ export default function Dashboard() {
               })}
             </p>
             {stats.average_mood && (
-              <p className="text-slate-900 dark:text-white font-medium mt-2">
-                <strong className="text-[#A78BFA]">Estado de ánimo promedio:</strong> {stats.average_mood}
+              <p className="text-ink-900 dark:text-white font-medium mt-2">
+                <strong className="text-primary-500">Estado promedio:</strong> {stats.average_mood}
               </p>
             )}
           </div>
         </Card>
       )}
 
-      {/* Tips Card */}
-      <Card>
-        <h3 className="text-xl font-bold text-black dark:text-white mb-4 flex items-center gap-2">
-          <span className="text-2xl" style={{ filter: 'contrast(1.2) saturate(1.3)' }}>💡</span>
+      <Card className="shadow-card">
+        <h3 className="text-xl font-bold text-ink-900 dark:text-white mb-4 flex items-center gap-2">
+          <span className="text-rose-500">
+            <HeartIcon size={20} color="currentColor" />
+          </span>
           <span>Recuerda</span>
         </h3>
-        <p className="text-slate-900 dark:text-white leading-relaxed bg-gradient-to-r from-emerald-100/50 to-cyan-100/50 dark:from-emerald-900/20 dark:to-cyan-900/20 border border-emerald-200 dark:border-emerald-700 rounded-2xl p-5">
-          Escribir en tu diario es una forma poderosa de conectar contigo mismo. 
-          No importa si escribes mucho o poco, lo importante es que estés aquí, 
-          dándote este espacio. Cada palabra cuenta, cada sentimiento es válido. 💚
+        <p className="text-ink-900 dark:text-white leading-relaxed bg-gradient-to-r from-emerald-100/50 to-cyan-100/50 dark:from-emerald-900/20 dark:to-cyan-900/20 border border-emerald-200 dark:border-emerald-700 rounded-2xl p-5">
+          Escribir en tu diario es una forma poderosa de conectar contigo. No importa si escribes mucho o poco, lo importante es que estes aqui, dandote este espacio. Cada palabra cuenta.
         </p>
       </Card>
     </div>
