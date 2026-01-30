@@ -6,6 +6,7 @@ import ThemeToggle from './components/ui/ThemeToggle'
 import OnboardingModal from './components/ui/OnboardingModal'
 import MilestoneModal from './components/MilestoneModal'
 import FloatingSOSButton from './components/ui/FloatingSOSButton'
+import BottomNav from './components/ui/BottomNav'
 import { smoothNavigate } from './utils/navigation'
 
 export default function App(){
@@ -26,10 +27,10 @@ export default function App(){
   }
 
   return (
-    <div className="min-h-screen flex flex-col dark:bg-gray-900">
+    <div className="min-h-[100dvh] max-h-[100dvh] flex flex-col overflow-hidden text-foreground">
       {/* Header */}
-      <header className="backdrop-blur-xl bg-white/70 dark:bg-gray-800/70 border-b border-white/40 dark:border-gray-700/40 shadow-lg sticky top-0 z-50 transition-colors duration-300">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-2 md:py-3">
+      <header className="safe-top sticky top-0 z-50 border-b border-white/40 bg-white/80 shadow-lg backdrop-blur-xl transition-colors duration-300 dark:border-gray-700/40 dark:bg-gray-900/70">
+        <div className="safe-x max-w-4xl mx-auto w-full py-2 md:py-3">
           {/* Top Bar - Logo + Theme Toggle + Mobile Menu */}
           <div className="flex items-center justify-between">
             {/* Brand */}
@@ -124,9 +125,11 @@ export default function App(){
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="safe-x app-scroll flex-1 min-h-0 w-full max-w-4xl mx-auto py-6 pb-[calc(6rem+env(safe-area-inset-bottom))] md:pb-8">
         <Outlet/>
       </main>
+
+      <BottomNav isAuth={isAuth} />
 
       {/* ⚠️ ONBOARDING: Solo se muestra cuando se activa manualmente desde Settings */}
       {/* NO se auto-inicia en el flujo principal (ver OnboardingContext) */}
@@ -139,8 +142,8 @@ export default function App(){
       <FloatingSOSButton />
 
       {/* Footer */}
-      <footer className="backdrop-blur-xl bg-white/60 border-t border-white/40 shadow-inner">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <footer className="hidden md:block border-t border-white/40 bg-white/60 shadow-inner backdrop-blur-xl">
+        <div className="safe-x max-w-4xl mx-auto w-full py-6">
           <p className="text-center text-sm text-black dark:text-white font-medium">
             (c) {new Date().getFullYear()} NANE VIDA - Cuidando tu bienestar emocional
           </p>

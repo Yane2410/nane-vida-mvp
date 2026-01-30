@@ -4,20 +4,20 @@ export default function FloatingSOSButton() {
   return (
     <Link 
       to="/sos"
-      className="fixed bottom-6 right-6 z-[100] block md:hidden group"
-      aria-label="Botón SOS de emergencia"
+      className="fixed bottom-[calc(5.5rem+env(safe-area-inset-bottom))] right-[calc(1rem+env(safe-area-inset-right))] z-[100] block md:hidden group"
+      aria-label="Boton SOS de emergencia"
       style={{ touchAction: 'manipulation' }}
     >
       <div className="relative">
         {/* Subtle pulse animation ring - only on hover/active */}
-        <div className="absolute inset-0 bg-red-400 rounded-full opacity-0 group-hover:opacity-50 group-hover:animate-ping transition-opacity"></div>
+        <div className="absolute inset-0 rounded-full bg-red-400/40 opacity-0 transition-opacity group-hover:opacity-50 group-hover:animate-ping"></div>
         
         {/* Button - More subtle design */}
         <button 
           type="button"
-          className="relative flex items-center justify-center w-14 h-14 bg-red-500 hover:bg-red-600 text-white rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95"
+          className="pressable relative flex h-14 w-14 items-center justify-center rounded-full bg-red-500 text-white shadow-lg transition-all duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-red-400 focus-visible:ring-offset-2 focus-visible:ring-offset-white dark:focus-visible:ring-offset-gray-900"
         >
-          <span className="text-2xl font-bold">🆘</span>
+          <span className="text-xs font-semibold tracking-wide">SOS</span>
         </button>
 
         {/* Tooltip on hover */}

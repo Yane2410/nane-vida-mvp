@@ -13,6 +13,13 @@
     scroll-behavior: smooth;
   }
 
+  html,
+  body,
+  #root {
+    height: 100%;
+    min-height: 100%;
+  }
+
   * {
     box-sizing: border-box;
     -webkit-font-smoothing: antialiased;
@@ -22,10 +29,12 @@
   body {
     font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Arial, sans-serif;
     margin: 0;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    background: linear-gradient(160deg, #f5f3ff 0%, #fff4fb 45%, #eef8ff 100%);
     background-attachment: fixed;
     color: var(--foreground);
-    min-height: 100vh;
+    min-height: 100dvh;
+    overflow: hidden;
+    overscroll-behavior: none;
     position: relative;
     font-size: 1rem;
     line-height: 1.625;
@@ -35,7 +44,7 @@
   
   /* Dark mode background */
   .dark body {
-    background: linear-gradient(135deg, #1e1b4b 0%, #312e81 50%, #4c1d95 100%);
+    background: linear-gradient(160deg, #0b0b14 0%, #141b2a 45%, #1b0f2b 100%);
     color: var(--foreground);
   }
 
@@ -48,11 +57,12 @@
     right: 0;
     bottom: 0;
     background-image: 
-      radial-gradient(circle at 20% 50%, rgba(139, 92, 246, 0.12) 0%, transparent 50%),
-      radial-gradient(circle at 80% 80%, rgba(249, 168, 212, 0.08) 0%, transparent 50%),
-      radial-gradient(circle at 40% 80%, rgba(52, 211, 153, 0.1) 0%, transparent 50%);
+      radial-gradient(circle at 15% 35%, rgba(139, 92, 246, 0.16) 0%, transparent 48%),
+      radial-gradient(circle at 85% 20%, rgba(125, 211, 252, 0.14) 0%, transparent 52%),
+      radial-gradient(circle at 50% 85%, rgba(249, 168, 212, 0.12) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
+    filter: blur(2px);
     transition: opacity 0.3s ease;
   }
   
@@ -67,6 +77,9 @@
   #root {
     position: relative;
     z-index: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100dvh;
   }
   
   /* Tipografía profesional */
@@ -174,10 +187,63 @@
   animation: successPulse 0.6s ease-out;
 }
 
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
 /* ===================================
    UTILITY CLASSES - Interactividad
    =================================== */
 @layer utilities {
+  .safe-x {
+    padding-left: max(1rem, env(safe-area-inset-left));
+    padding-right: max(1rem, env(safe-area-inset-right));
+  }
+
+  @media (min-width: 768px) {
+    .safe-x {
+      padding-left: max(1.5rem, env(safe-area-inset-left));
+      padding-right: max(1.5rem, env(safe-area-inset-right));
+    }
+  }
+
+  .safe-top {
+    padding-top: env(safe-area-inset-top);
+  }
+
+  .safe-bottom {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+
+  .app-scroll {
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .pressable {
+    transition: transform var(--transition-fast) var(--easing);
+  }
+
+  .pressable:active {
+    transform: scale(0.98);
+  }
+
+  @media (hover: hover) {
+    .pressable:hover {
+      transform: translateY(-1px);
+    }
+  }
+
   .interactive {
     transition: all var(--transition-base) var(--easing);
   }
