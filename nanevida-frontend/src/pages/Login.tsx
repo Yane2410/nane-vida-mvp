@@ -102,12 +102,12 @@ export default function Login(){
   }
 
   return (
-    <div className="max-w-md mx-auto animate-page">
+    <div className="mx-auto w-full max-w-md space-y-4 pb-4 animate-page">
       {/* Botón volver */}
-      <div className="mb-4">
+      <div className="mb-2">
         <button
           onClick={() => nav('/')}
-          className="text-sm text-slate-600 dark:text-slate-400 hover:text-purple-600 dark:hover:text-purple-400 transition-colors flex items-center gap-1"
+          className="pressable text-sm text-slate-600 dark:text-slate-400 transition-colors flex items-center gap-1"
         >
           Volver
         </button>
@@ -136,7 +136,7 @@ export default function Login(){
         </div>
       )}
 
-      <Card gradient className="text-center mb-6">
+      <Card gradient className="text-center shadow-card">
         <div className="flex justify-center mb-4">
           <img 
             src="/icons/logo-icon.png" 
@@ -155,7 +155,7 @@ export default function Login(){
         </p>
       </Card>
 
-      <Card>
+      <Card className="shadow-card">
         {/* Slow backend warning (Render free tier) */}
         {slowWarning && !error && (
           <div className="mb-4 p-3 rounded-xl bg-blue-50/40 dark:bg-blue-900/20 border border-blue-200/60 dark:border-blue-700/60">
@@ -165,7 +165,7 @@ export default function Login(){
           </div>
         )}
 
-        <form onSubmit={onSubmit} className="space-y-4">
+        <form onSubmit={onSubmit} className="space-y-3">
           <Input
             label="Usuario"
             value={username}

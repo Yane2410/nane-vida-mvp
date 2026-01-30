@@ -40,9 +40,9 @@ type UserProfile = {
 
 function DashboardSkeleton() {
   return (
-    <div className="space-y-8 animate-pulse">
-      <div className="h-32 rounded-3xl bg-gray-200/70 dark:bg-gray-800/60" />
-      <div className="h-24 rounded-3xl bg-gray-200/70 dark:bg-gray-800/60" />
+    <div className="space-y-6 animate-pulse">
+      <div className="h-28 rounded-3xl bg-gray-200/70 dark:bg-gray-800/60" />
+      <div className="h-20 rounded-3xl bg-gray-200/70 dark:bg-gray-800/60" />
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {Array.from({ length: 4 }).map((_, index) => (
           <div key={index} className="h-32 rounded-3xl bg-gray-200/70 dark:bg-gray-800/60" />
@@ -185,7 +185,7 @@ export default function Dashboard() {
 
   if (loading) {
     return (
-      <div className="max-w-6xl mx-auto px-4">
+      <div className="space-y-6">
         <DashboardSkeleton />
       </div>
     )
@@ -206,7 +206,7 @@ export default function Dashboard() {
   }
 
   return (
-    <div className="max-w-6xl mx-auto px-4 space-y-8 animate-page">
+    <div className="space-y-6 animate-page">
       {showPostPricingMessage && (
         <Card className="bg-gradient-to-r from-purple-100 to-pink-100 dark:from-purple-900/30 dark:to-pink-900/30 border border-purple-200 dark:border-purple-800 shadow-card">
           <div className="flex items-start gap-3">
@@ -291,6 +291,7 @@ export default function Dashboard() {
       <AppHeader
         greeting={`Hola, ${profile?.username}`}
         subtitle="Tu espacio personal de bienestar. Estamos aqui para acompanarte."
+        className="overflow-hidden rounded-3xl border border-white/40 bg-white/70 shadow-card backdrop-blur dark:border-white/10 dark:bg-gray-900/60"
       />
 
       <Card gradient className="relative overflow-hidden shadow-card">
