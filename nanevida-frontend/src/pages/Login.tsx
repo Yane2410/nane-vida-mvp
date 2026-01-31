@@ -36,7 +36,7 @@ export default function Login(){
 
   // Detectar backend dormido (Render free tier)
   useEffect(() => {
-    setSlowRequestCallback((url) => {
+    setSlowRequestCallback((url: string) => {
       if (url.includes('/token/') && isMounted.current) {
         setSlowWarning(true)
       }

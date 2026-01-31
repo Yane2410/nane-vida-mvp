@@ -228,3 +228,10 @@ export const apiHelpers = {
     return ['GET', 'HEAD', 'OPTIONS', 'TRACE'].includes(method.toUpperCase())
   }
 }
+export function setSlowRequestCallback(_callback: ((url: string) => void) | null) {
+  // no-op hook for slow-request UX
+}
+
+export function getReadableError(error: unknown): string {
+  return apiHelpers.getErrorMessage(error)
+}
