@@ -45,6 +45,10 @@ export function clearTokens() {
   }
 }
 
+export async function logout(): Promise<void> {
+  clearTokens()
+}
+
 export function isTokenExpired(token: string): boolean {
   try {
     const payload = JSON.parse(atob(token.split('.')[1]))
