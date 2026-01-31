@@ -285,9 +285,9 @@
   }
   
   .dark .glass-dark {
-    background: rgba(255, 255, 255, 0.05);
+    background: rgba(17, 24, 39, 0.7);
     backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.08);
   }
 }
 
@@ -299,9 +299,10 @@ textarea,
 select {
   padding: 0.75rem 1rem;
   border-radius: 0.75rem;
-  border: 2px solid var(--gray-200);
+  border: 2px solid var(--input);
   font: inherit;
-  background: white;
+  background: var(--input-background);
+  color: var(--foreground);
   transition: all var(--transition-fast) var(--easing);
   width: 100%;
   min-height: 44px; /* Accesibilidad táctil */

@@ -20,7 +20,7 @@ export default function ThemeToggle() {
       <div
         className={`
           absolute top-1 left-1 w-6 h-6 rounded-full
-          bg-white dark:bg-gray-900
+          bg-background dark:bg-foreground
           shadow-soft
           transition-transform duration-300 ease-out
           flex items-center justify-center

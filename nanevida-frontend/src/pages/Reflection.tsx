@@ -296,7 +296,7 @@ export default function Reflection() {
               }}
             >
               <div className="text-center">
-                <span className={`inline-block px-4 py-1 rounded-full font-medium bg-white/50 dark:bg-gray-800/50 text-black dark:text-white mb-4 ${isSmall ? 'text-xs' : 'text-sm'}`}>
+                <span className={`inline-block px-4 py-1 rounded-full font-medium bg-card/50 text-black dark:text-white mb-4 ${isSmall ? 'text-xs' : 'text-sm'}`}>
                   {selectedPrompt.category}
                 </span>
                 <AnimatedCore mode="fadeIn" duration={800} loop={false}>
@@ -318,7 +318,7 @@ export default function Reflection() {
               value={reflectionText}
               onChange={(e) => setReflectionText(e.target.value)}
               placeholder="Escribe libremente lo que sientes, piensas o necesitas expresar..."
-              className="w-full min-h-[300px] p-4 border-2 border-primary-400/20 dark:border-primary-500/30 rounded-2xl focus:border-primary-400 dark:focus:border-primary-500 focus:ring-4 focus:ring-primary-400/20 dark:focus:ring-primary-500/30 outline-none transition-all resize-none text-black dark:text-white bg-white dark:bg-gray-800/50"
+              className="w-full min-h-[300px] p-4 border-2 border-primary-400/20 dark:border-primary-500/30 rounded-2xl focus:border-primary-400 dark:focus:border-primary-500 focus:ring-4 focus:ring-primary-400/20 dark:focus:ring-primary-500/30 outline-none transition-all resize-none text-black dark:text-white bg-card/70 dark:bg-card/60"
               style={{ fontSize: '16px', lineHeight: '1.6' }}
             />
             <div className="flex items-center justify-between mt-3">

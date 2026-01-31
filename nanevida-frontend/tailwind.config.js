@@ -14,9 +14,9 @@ export default {
           500: '#6B7280',
         },
         surface: {
-          1: '#FFFFFF',
-          2: '#FAFAFA',
-          3: '#F5F5F5',
+          1: 'var(--surface-1)',
+          2: 'var(--surface-2)',
+          3: 'var(--surface-3)',
         },
         background: 'var(--background)',
         foreground: 'var(--foreground)',

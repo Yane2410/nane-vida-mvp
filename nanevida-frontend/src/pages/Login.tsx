@@ -128,7 +128,7 @@ export default function Login(){
             No pudimos conectar con el backend local.
           </p>
           <p className="text-xs text-slate-700 dark:text-slate-300 mt-1">
-            Verifica que Django esta corriendo en <code className="bg-black/10 dark:bg-white/10 px-1 rounded">:8000</code>
+            Verifica que Django esta corriendo en <code className="bg-black/10 dark:bg-card/40 px-1 rounded">:8000</code>
           </p>
           <button
             onClick={() => {

@@ -36,7 +36,7 @@ export default function BottomNav({ isAuth }: { isAuth: boolean }) {
   return (
     <nav className="fixed bottom-0 left-0 right-0 z-[90] md:hidden">
       <div className="safe-x">
-        <div className="mx-auto w-full max-w-3xl rounded-t-2xl border border-white/50 bg-white/80 shadow-strong backdrop-blur-xl dark:border-white/10 dark:bg-gray-900/70">
+        <div className="mx-auto w-full max-w-3xl rounded-t-2xl border border-border/60 bg-card/80 shadow-strong backdrop-blur-xl dark:border-border/40 dark:bg-card/70">
           <div className={`grid ${gridCols} gap-1 px-2 pt-2 pb-[calc(0.5rem+env(safe-area-inset-bottom))]`}>
             {items.map((item) => {
               const isActive = location.pathname === item.to

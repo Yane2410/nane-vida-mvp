@@ -191,7 +191,7 @@ export default function Grounding() {
               Has completado el ejercicio de grounding. ¿Te sientes más presente y conectad@ con el momento actual?
             </p>
             
-            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/50 mb-6">
+            <div className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-card/50 mb-6">
               <span className="text-[#22C55E] text-2xl">✓</span>
               <span className="font-medium text-black dark:text-white">15 observaciones completadas</span>
             </div>
@@ -386,7 +386,7 @@ export default function Grounding() {
               {currentStepData.items.map((item, idx) => (
                 <div
                   key={idx}
-                  className="flex items-center justify-between p-3 bg-white rounded-xl"
+                    className="flex items-center justify-between p-3 bg-card rounded-xl"
                 >
                   <div className="flex items-center gap-3">
                     <span
@@ -442,7 +442,7 @@ export default function Grounding() {
 
           {isStepComplete && (
             <div className="text-center">
-              <div className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-white/70 mb-4">
+              <div className="inline-flex items-center gap-2 px-6 py-3 rounded-2xl bg-card/70 mb-4">
                 <span className="text-[#22C55E] text-xl">✓</span>
                 <span className="font-medium text-black dark:text-white">¡Paso completado!</span>
               </div>

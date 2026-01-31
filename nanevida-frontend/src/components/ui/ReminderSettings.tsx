@@ -158,7 +158,7 @@ export default function ReminderSettings() {
                       `}
                     >
                       <div className={`
-                        absolute top-0.5 left-0.5 w-5 h-5 bg-white rounded-full shadow-soft
+                        absolute top-0.5 left-0.5 w-5 h-5 bg-background dark:bg-foreground rounded-full shadow-soft
                         transition-transform duration-300
                         ${reminder.enabled ? 'translate-x-6' : 'translate-x-0'}
                       `} />
@@ -253,7 +253,7 @@ export default function ReminderSettings() {
                 type="text"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
-                className="w-full px-4 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-primary-400 dark:focus:border-primary-500 focus:ring-4 focus:ring-primary-400/20 dark:focus:ring-primary-500/30 outline-none transition-all bg-white dark:bg-gray-800 text-black dark:text-white"
+                className="w-full px-4 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-primary-400 dark:focus:border-primary-500 focus:ring-4 focus:ring-primary-400/20 dark:focus:ring-primary-500/30 outline-none transition-all bg-card text-black dark:text-white"
                 placeholder="Ej: Momento de respirar 🌬️"
               />
             </div>
@@ -267,7 +267,7 @@ export default function ReminderSettings() {
                 value={formData.message}
                 onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                 rows={3}
-                className="w-full px-4 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-primary-400 dark:focus:border-primary-500 focus:ring-4 focus:ring-primary-400/20 dark:focus:ring-primary-500/30 outline-none transition-all resize-none bg-white dark:bg-gray-800 text-black dark:text-white"
+                className="w-full px-4 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-primary-400 dark:focus:border-primary-500 focus:ring-4 focus:ring-primary-400/20 dark:focus:ring-primary-500/30 outline-none transition-all resize-none bg-card text-black dark:text-white"
                 placeholder="Ej: Tómate 5 minutos para un ejercicio de respiración consciente."
               />
             </div>
@@ -281,7 +281,7 @@ export default function ReminderSettings() {
                 type="time"
                 value={formData.time}
                 onChange={(e) => setFormData({ ...formData, time: e.target.value })}
-                className="w-full px-4 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-primary-400 dark:focus:border-primary-500 focus:ring-4 focus:ring-primary-400/20 dark:focus:ring-primary-500/30 outline-none transition-all bg-white dark:bg-gray-800 text-black dark:text-white"
+                className="w-full px-4 py-2 border-2 border-gray-200 dark:border-gray-700 rounded-xl focus:border-primary-400 dark:focus:border-primary-500 focus:ring-4 focus:ring-primary-400/20 dark:focus:ring-primary-500/30 outline-none transition-all bg-card text-black dark:text-white"
               />
             </div>
 

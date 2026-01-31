@@ -27,9 +27,9 @@ export default function App(){
   }
 
   return (
-    <div className="min-h-[100dvh] max-h-[100dvh] flex flex-col overflow-hidden text-foreground">
+    <div className="min-h-[100dvh] max-h-[100dvh] flex flex-col overflow-hidden bg-background text-foreground">
       {/* Header */}
-      <header className="safe-top sticky top-0 z-50 border-b border-white/40 bg-white/80 shadow-lg backdrop-blur-xl transition-colors duration-300 dark:border-gray-700/40 dark:bg-gray-900/70">
+      <header className="safe-top sticky top-0 z-50 border-b border-border/60 bg-card/80 shadow-lg backdrop-blur-xl transition-colors duration-300 dark:border-border/40 dark:bg-card/70">
         <div className="safe-x max-w-4xl mx-auto w-full py-2 md:py-3">
           {/* Top Bar - Logo + Theme Toggle + Mobile Menu */}
           <div className="flex items-center justify-between">
@@ -142,9 +142,9 @@ export default function App(){
       <FloatingSOSButton />
 
       {/* Footer */}
-      <footer className="hidden md:block border-t border-white/40 bg-white/60 shadow-inner backdrop-blur-xl">
+      <footer className="hidden md:block border-t border-border/60 bg-card/70 shadow-inner backdrop-blur-xl dark:border-border/40">
         <div className="safe-x max-w-4xl mx-auto w-full py-6">
-          <p className="text-center text-sm text-black dark:text-white font-medium">
+          <p className="text-center text-sm text-foreground font-medium">
             (c) {new Date().getFullYear()} NANE VIDA - Cuidando tu bienestar emocional
           </p>
         </div>

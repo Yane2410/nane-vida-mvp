@@ -19,7 +19,7 @@ export default function MobileMenu({ isAuth, onLogout }: MobileMenuProps) {
       {/* Hamburger Button */}
       <button
         onClick={toggleMenu}
-        className="md:hidden p-2 rounded-lg hover:bg-white/50 transition-colors relative z-10"
+        className="md:hidden p-2 rounded-lg hover:bg-card/40 transition-colors relative z-10"
         aria-label="Menu"
       >
         <svg
@@ -52,17 +52,17 @@ export default function MobileMenu({ isAuth, onLogout }: MobileMenuProps) {
 
           {/* Menu Panel */}
           <div
-            className={`fixed top-0 right-0 h-full w-72 bg-white shadow-2xl z-[9999] transform transition-transform duration-300 ease-in-out ${
+            className={`fixed top-0 right-0 h-full w-72 bg-card shadow-2xl z-[9999] transform transition-transform duration-300 ease-in-out ${
               isOpen ? 'translate-x-0' : 'translate-x-full'
             }`}
           >
         <div className="flex flex-col h-full">
           {/* Header */}
-          <div className="flex items-center justify-between p-4 border-b border-slate-200">
-            <h2 className="text-lg font-bold text-slate-800">Menu</h2>
+          <div className="flex items-center justify-between p-4 border-b border-border">
+            <h2 className="text-lg font-bold text-foreground">Menu</h2>
             <button
               onClick={closeMenu}
-              className="p-2 rounded-lg hover:bg-slate-100 transition-colors"
+              className="p-2 rounded-lg hover:bg-muted transition-colors"
             >
               <svg
                 className="w-5 h-5 text-black dark:text-white"
@@ -139,7 +139,7 @@ export default function MobileMenu({ isAuth, onLogout }: MobileMenuProps) {
 
               {!isAuth && (
                 <>
-                  <div className="border-t border-slate-200 my-2" />
+                  <div className="border-t border-border my-2" />
                   <Link to="/login" onClick={closeMenu}>
                     <Button variant="primary" size="md" className="w-full justify-start">
                       Iniciar sesion
@@ -156,7 +156,7 @@ export default function MobileMenu({ isAuth, onLogout }: MobileMenuProps) {
 
               {isAuth && (
                 <>
-                  <div className="border-t border-slate-200 my-2" />
+                  <div className="border-t border-border my-2" />
                   <Button
                     variant="ghost"
                     size="md"

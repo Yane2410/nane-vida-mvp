@@ -291,7 +291,7 @@ export default function Dashboard() {
       <AppHeader
         greeting={`Hola, ${profile?.username}`}
         subtitle="Tu espacio personal de bienestar. Estamos aqui para acompanarte."
-        className="overflow-hidden rounded-3xl border border-white/40 bg-white/70 shadow-card backdrop-blur dark:border-white/10 dark:bg-gray-900/60"
+        className="overflow-hidden rounded-3xl border border-border/60 bg-card/70 shadow-card backdrop-blur dark:border-border/40 dark:bg-card/60"
       />
 
       <Card gradient className="relative overflow-hidden shadow-card">
@@ -317,7 +317,7 @@ export default function Dashboard() {
               Miembro desde {memberSince}
             </p>
             {profile?.bio && (
-              <p className="text-sm text-ink-700 dark:text-gray-200 italic bg-white/60 px-4 py-2 rounded-xl max-w-xl">
+              <p className="text-sm text-ink-700 dark:text-gray-200 italic bg-card/60 px-4 py-2 rounded-xl max-w-xl">
                 "{profile.bio}"
               </p>
             )}

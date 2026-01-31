@@ -212,19 +212,19 @@ export default function Statistics() {
             Resumen de Actividad
           </h3>
           <div className="space-y-4">
-            <div className="flex items-center justify-between p-3 bg-white rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-card rounded-lg">
               <span className="text-black dark:text-white">📝 Promedio por semana</span>
               <span className="font-bold text-purple-600">
                 {stats?.entries_this_week || 0} entradas
               </span>
             </div>
-            <div className="flex items-center justify-between p-3 bg-white rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-card rounded-lg">
               <span className="text-black dark:text-white">🎯 Días activos</span>
               <span className="font-bold text-emerald-600">
                 {Math.floor((stats?.total_entries || 0) / 7)} días
               </span>
             </div>
-            <div className="flex items-center justify-between p-3 bg-white rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-card rounded-lg">
               <span className="text-black dark:text-white">⏱️ Hora favorita</span>
               <span className="font-bold text-blue-600">
                 {stats?.writing_times?.reduce((max, item) => 
@@ -233,7 +233,7 @@ export default function Statistics() {
                 )?.hour || 'N/A'}
               </span>
             </div>
-            <div className="flex items-center justify-between p-3 bg-white rounded-lg">
+            <div className="flex items-center justify-between p-3 bg-card rounded-lg">
               <span className="text-black dark:text-white">😊 Estado más común</span>
               <span className="font-bold text-pink-600">
                 {stats?.mood_distribution?.[0]?.mood.split(' ')[0] || '😊'}

@@ -59,7 +59,7 @@ export default function Toast({ id, message, type, duration = 3000, onClose }: T
         min-w-[280px] max-w-md
       `}
     >
-      <span className="text-xs font-bold px-2 py-1 rounded-ds-sm bg-white/40">
+      <span className="text-xs font-bold px-2 py-1 rounded-ds-sm bg-card/40">
         {style.icon}
       </span>
 
@@ -69,7 +69,7 @@ export default function Toast({ id, message, type, duration = 3000, onClose }: T
 
       <button
         onClick={() => onClose(id)}
-        className="flex-shrink-0 w-7 h-7 rounded-full hover:bg-white/20 transition-colors duration-[var(--transition-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+        className="flex-shrink-0 w-7 h-7 rounded-full hover:bg-card/20 transition-colors duration-[var(--transition-fast)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background"
         aria-label="Cerrar notificacion"
         title="Cerrar"
       >
