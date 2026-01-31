@@ -1,6 +1,6 @@
 ﻿import { useState, useEffect, useRef } from 'react'
 import { api, setTokens, getReadableError, setSlowRequestCallback } from '../api'
-import { useNavigate, Link } from 'react-router-dom'
+import { useNavigate, useLocation, Link } from 'react-router-dom'
 import { startTrial } from '../config/trial'
 import { isDev } from '../config/env'
 import Card from '../components/ui/Card'
@@ -16,6 +16,7 @@ export default function Login(){
   const [slowWarning, setSlowWarning] = useState(false)
   const [backendStatus, setBackendStatus] = useState<'checking' | 'ok' | 'down'>('checking')
   const nav = useNavigate()
+  const loc = useLocation()
   
   // 🔒 INTEGRITY: Anti-doble submit
   const isSubmitting = useRef(false)
@@ -64,24 +65,31 @@ export default function Login(){
       if (!isMounted.current) return
       
       // VALIDATION: Verificar estructura del response
-      if (!data || !data.access) {
+      const accessToken = data?.access
+      const refreshToken = data?.refresh
+      if (!accessToken || typeof accessToken !== 'string') {
         throw new Error('Respuesta del servidor invalida')
       }
       
-      setTokens(data.access, data.refresh)
+      setTokens(accessToken, typeof refreshToken === 'string' ? refreshToken : undefined)
       
       // 🔐 SECURITY: Username en sessionStorage (se borra al cerrar tab)
       sessionStorage.setItem('nane_username', username)
       
       // Activar trial automáticamente al login exitoso
-      startTrial()
+      try {
+        startTrial()
+      } catch {
+        // No bloquear login por errores de storage
+      }
       
       // ✅ FIX: Terminar loading ANTES de navegar para que usuario vea feedback
       // y evitar race condition con GardenContext (que carga al montar /dashboard)
       setLoading(false)
       isSubmitting.current = false
       
-      smoothNavigate(() => nav('/dashboard'))
+      const redirectTo = (loc.state as { from?: string } | null)?.from || '/dashboard'
+      smoothNavigate(() => nav(redirectTo, { replace: true }))
     } catch (err) {
       if (!isMounted.current) return
       setError(getReadableError(err))

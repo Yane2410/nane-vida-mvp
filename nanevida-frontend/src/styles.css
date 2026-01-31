@@ -226,6 +226,8 @@
   }
 
   .app-scroll {
+    overflow-y: auto;
+    overflow-x: hidden;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
   }

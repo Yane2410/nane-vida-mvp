@@ -46,9 +46,10 @@ export default function EditEntryModal({ entry, onSave, onCancel }: Props) {
 
   useEffect(() => {
     // Prevent body scroll when modal is open
+    const previousOverflow = document.body.style.overflow;
     document.body.style.overflow = 'hidden';
     return () => {
-      document.body.style.overflow = 'unset';
+      document.body.style.overflow = previousOverflow;
     };
   }, []);
 
