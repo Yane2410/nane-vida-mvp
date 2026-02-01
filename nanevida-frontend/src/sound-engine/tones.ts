@@ -13,10 +13,20 @@ export function initAudio(): AudioContext | null {
   if (!audioContext) {
     audioContext = new AudioCtor()
   }
-  if (audioContext.state === 'suspended') {
-    audioContext.resume().catch(() => {})
-  }
   return audioContext
+}
+
+export async function unlockAudio(): Promise<boolean> {
+  const context = initAudio()
+  if (!context) return false
+  if (context.state === 'suspended') {
+    try {
+      await context.resume()
+    } catch {
+      return false
+    }
+  }
+  return context.state === 'running'
 }
 
 function createGain(context: AudioContext): GainNode {
@@ -43,8 +53,9 @@ function createSession(context: AudioContext, gain: GainNode, nodes: AudioSchedu
 
   const stop = (fadeSeconds: number = 0.2) => {
     const now = context.currentTime
-    const end = now + Math.max(0.01, fadeSeconds)
-    fadeTo(0, fadeSeconds)
+    const safeFadeSeconds = Math.max(0.01, fadeSeconds)
+    const end = now + safeFadeSeconds
+    fadeTo(0, safeFadeSeconds)
     nodes.forEach((node) => {
       try {
         node.stop(end + 0.02)
@@ -52,6 +63,21 @@ function createSession(context: AudioContext, gain: GainNode, nodes: AudioSchedu
         // no-op
       }
     })
+    const cleanupDelayMs = (safeFadeSeconds + 0.08) * 1000
+    setTimeout(() => {
+      nodes.forEach((node) => {
+        try {
+          node.disconnect()
+        } catch {
+          // no-op
+        }
+      })
+      try {
+        gain.disconnect()
+      } catch {
+        // no-op
+      }
+    }, cleanupDelayMs)
   }
 
   return { fadeTo, setVolume, stop }
@@ -110,6 +136,18 @@ export function playTone(frequency: number, durationMs: number = 500, volume: nu
   oscillator.type = 'sine'
   oscillator.frequency.setValueAtTime(frequency, now)
   oscillator.connect(gain)
+  oscillator.onended = () => {
+    try {
+      oscillator.disconnect()
+    } catch {
+      // no-op
+    }
+    try {
+      gain.disconnect()
+    } catch {
+      // no-op
+    }
+  }
 
   gain.gain.setValueAtTime(0, now)
   gain.gain.linearRampToValueAtTime(volume, now + 0.02)

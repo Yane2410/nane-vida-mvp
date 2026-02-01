@@ -3,7 +3,7 @@
  * Features: Local tones, fades, loops, multi-flow sessions
  */
 
-import { createNoiseSession, createToneSession, initAudio, type ToneSession } from './tones';
+import { createNoiseSession, createToneSession, initAudio, unlockAudio, type ToneSession } from './tones';
 import { haptics } from './utils/haptics';
 
 export type ToolName = 'calm' | 'breath' | 'grounding' | 'reflection';
@@ -40,6 +40,7 @@ class SoundEngineClass {
   private initialized = false;
   private currentSession: ToneSession | null = null;
   private currentTool: ToolName | null = null;
+  private stopTimerId: ReturnType<typeof setTimeout> | null = null;
 
   private readonly SOUND_PRESETS: Record<SoundName, SoundPreset> = {
     'calming-pad': { kind: 'tone', frequencies: [220, 277], wave: 'sine' },
@@ -106,7 +107,8 @@ class SoundEngineClass {
     }
 
     const context = initAudio();
-    if (!context) {
+    const unlocked = await unlockAudio();
+    if (!context || !unlocked) {
       console.warn('[SoundEngine] AudioContext not available');
       return;
     }
@@ -164,7 +166,11 @@ class SoundEngineClass {
 
     // Setup duration-based auto-stop
     if (autoStop && duration) {
-      setTimeout(() => {
+      if (this.stopTimerId) {
+        clearTimeout(this.stopTimerId);
+        this.stopTimerId = null;
+      }
+      this.stopTimerId = setTimeout(() => {
         this.stop();
         if (hapticsEnabled) {
           haptics.sessionEnd();
@@ -177,6 +183,10 @@ class SoundEngineClass {
    * Stop current playback
    */
   stop(): void {
+    if (this.stopTimerId) {
+      clearTimeout(this.stopTimerId);
+      this.stopTimerId = null;
+    }
     if (!this.currentSession) return;
 
     this.currentSession.stop(0.6);
