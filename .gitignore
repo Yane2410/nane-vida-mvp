@@ -221,3 +221,24 @@ settings.py.backup
 # Cache
 .cache/
 *.cache
+
+# ========================================
+# Monorepo Hardening
+# ========================================
+**/node_modules/
+**/.vite/
+**/dist/
+**/build/
+**/.cache/
+**/coverage/
+**/*.log
+**/tsconfig.tsbuildinfo
+.env
+.env.*
+!.env.example
+nanevida-backend/db.sqlite3
+**/__pycache__/
+**/.pytest_cache/
+**/.mypy_cache/
+**/venv/
+**/.venv/
