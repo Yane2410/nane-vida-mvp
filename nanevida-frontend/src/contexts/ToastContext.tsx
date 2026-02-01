@@ -1,4 +1,4 @@
-﻿import { createContext, useContext, useState, ReactNode, useCallback } from 'react'
+﻿import { createContext, useContext, useState, ReactNode, useCallback, useEffect } from 'react'
 import Toast, { ToastType } from '../components/ui/Toast'
 
 interface ToastData {
@@ -34,6 +34,18 @@ export function ToastProvider({ children }: { children: ReactNode }) {
   const error = useCallback((message: string) => showToast(message, 'error'), [showToast])
   const info = useCallback((message: string) => showToast(message, 'info'), [showToast])
   const warning = useCallback((message: string) => showToast(message, 'warning'), [showToast])
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return
+    const handler = (event: Event) => {
+      const detail = (event as CustomEvent).detail as { message?: string }
+      if (detail?.message) {
+        showToast(detail.message, 'info')
+      }
+    }
+    window.addEventListener('nv-review-toast', handler as EventListener)
+    return () => window.removeEventListener('nv-review-toast', handler as EventListener)
+  }, [showToast])
 
   return (
     <ToastContext.Provider value={{ showToast, success, error, info, warning }}>

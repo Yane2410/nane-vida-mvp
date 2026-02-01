@@ -1,8 +1,10 @@
-import axios, { AxiosError, InternalAxiosRequestConfig } from 'axios'
+import axios, { AxiosAdapter, AxiosError, AxiosResponse, InternalAxiosRequestConfig } from 'axios'
 import { logger } from './utils/logger'
 import { clearTrial } from './utils/features'
 import { clearConversionEvents } from './utils/conversionTracker'
 import { getApiBase } from './config/env'
+import { isReviewActive } from './security/reviewMode'
+import { getReviewMockResponse } from './api/reviewMocks'
 
 // === Configuration ===
 const API_BASE = getApiBase()
@@ -10,6 +12,34 @@ const API_TIMEOUT = parseInt(import.meta.env.VITE_API_TIMEOUT || '30000', 10)
 const SLOW_REQUEST_THRESHOLD = 2500 // 2.5s para detectar backend dormido (Render free tier)
 const tokenKey = 'nane_token'
 const refreshTokenKey = 'nane_refresh_token'
+
+const REVIEW_TOAST_EVENT = 'nv-review-toast'
+let lastReviewToastAt = 0
+
+function notifyReviewBlocked() {
+  const now = Date.now()
+  if (now - lastReviewToastAt < 1500) return
+  lastReviewToastAt = now
+  if (typeof window === 'undefined') return
+  window.dispatchEvent(
+    new CustomEvent(REVIEW_TOAST_EVENT, {
+      detail: { message: 'Backend deshabilitado en Review Mode' },
+    })
+  )
+}
+
+const reviewAdapter: AxiosAdapter = async (config) => {
+  const result = getReviewMockResponse(config)
+  if (result.blocked) notifyReviewBlocked()
+  const response: AxiosResponse = {
+    data: result.data,
+    status: result.status,
+    statusText: result.status >= 200 && result.status < 300 ? 'OK' : 'Review Mode',
+    headers: {},
+    config,
+  }
+  return response
+}
 
 // === Slow Request Callback (para UX) ===
 let slowRequestCallback: ((url: string) => void) | null = null
@@ -134,8 +164,17 @@ export const api = axios.create({
 // === Request Interceptor ===
 api.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
+    const reviewActive = isReviewActive()
+    if (reviewActive) {
+      config.adapter = reviewAdapter
+      if (config.headers && 'Authorization' in config.headers) {
+        delete (config.headers as any).Authorization
+      }
+      return config
+    }
+
     const token = getToken()
-    
+
     if (token && config.headers) {
       // Check if token is expired (client-side check)
       if (isTokenExpired(token)) {
@@ -147,23 +186,22 @@ api.interceptors.request.use(
         config.headers.Authorization = `Bearer ${token}`
       }
     }
-    
+
     // Security: Add request timestamp for tracking
     if (config.headers) {
       config.headers['X-Request-Time'] = Date.now().toString()
     }
-    
+
     // Detectar backend dormido (Render free tier)
-    const startTime = Date.now()
     const slowCheckTimer = setTimeout(() => {
       if (slowRequestCallback && config.url) {
         slowRequestCallback(config.url)
       }
     }, SLOW_REQUEST_THRESHOLD)
-    
+
     // Guardar timer para limpiar en response
     ;(config as any)._slowCheckTimer = slowCheckTimer
-    
+
     return config
   },
   (error) => {
