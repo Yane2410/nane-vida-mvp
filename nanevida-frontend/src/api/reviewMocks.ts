@@ -102,8 +102,7 @@ const reviewSos = [
   {
     id: 2,
     title: 'Guia de primeros auxilios emocionales',
-    type: 'LINK',
-    url: 'https://example.com',
+    type: 'TEXT',
     priority: 2,
     active: true,
   },
@@ -311,4 +310,3 @@ export function getReviewMockResponse(config: InternalAxiosRequestConfig): Revie
     blocked: true,
   }
 }
-
