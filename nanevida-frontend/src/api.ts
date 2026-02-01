@@ -8,6 +8,7 @@ import { getReviewMockResponse } from './api/reviewMocks'
 
 // === Configuration ===
 const API_BASE = getApiBase()
+const HAS_API_BASE = API_BASE.length > 0
 const API_TIMEOUT = parseInt(import.meta.env.VITE_API_TIMEOUT || '30000', 10)
 const SLOW_REQUEST_THRESHOLD = 2500 // 2.5s para detectar backend dormido (Render free tier)
 const tokenKey = 'nane_token'
@@ -15,6 +16,7 @@ const refreshTokenKey = 'nane_refresh_token'
 
 const REVIEW_TOAST_EVENT = 'nv-review-toast'
 let lastReviewToastAt = 0
+let lastApiBaseToastAt = 0
 
 function notifyReviewBlocked() {
   const now = Date.now()
@@ -24,6 +26,18 @@ function notifyReviewBlocked() {
   window.dispatchEvent(
     new CustomEvent(REVIEW_TOAST_EVENT, {
       detail: { message: 'Backend deshabilitado en Review Mode' },
+    })
+  )
+}
+
+function notifyApiBaseMissing() {
+  const now = Date.now()
+  if (now - lastApiBaseToastAt < 1500) return
+  lastApiBaseToastAt = now
+  if (typeof window === 'undefined') return
+  window.dispatchEvent(
+    new CustomEvent(REVIEW_TOAST_EVENT, {
+      detail: { message: 'API base no configurada' },
     })
   )
 }
@@ -151,7 +165,7 @@ export function isTokenExpired(token: string): boolean {
 
 // === Axios Instance Configuration ===
 export const api = axios.create({
-  baseURL: API_BASE,
+  baseURL: HAS_API_BASE ? API_BASE : undefined,
   timeout: API_TIMEOUT,
   headers: {
     'Content-Type': 'application/json',
@@ -171,6 +185,13 @@ api.interceptors.request.use(
         delete (config.headers as any).Authorization
       }
       return config
+    }
+
+    if (!HAS_API_BASE) {
+      notifyApiBaseMissing()
+      return Promise.reject(
+        new AxiosError('API base not configured', 'ERR_BAD_REQUEST', config)
+      )
     }
 
     const token = getToken()
@@ -267,6 +288,14 @@ api.interceptors.response.use(
 
       if (refreshToken) {
         try {
+          if (!HAS_API_BASE) {
+            notifyApiBaseMissing()
+            processQueue(new Error('API base not configured'))
+            clearTokens()
+            isRefreshing = false
+            return Promise.reject(error)
+          }
+
           // Attempt to refresh the token
           const response = await axios.post(
             `${API_BASE}/token/refresh/`,
