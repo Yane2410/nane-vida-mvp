@@ -85,7 +85,7 @@
   h1, h2, h3, h4, h5, h6 {
     font-weight: 600;
     letter-spacing: -0.025em;
-    color: var(--gray-900);
+    color: var(--foreground);
   }
   
   h1 { font-size: 2.5rem; line-height: 1.2; }
@@ -266,27 +266,27 @@
   
   /* Glassmorphism profesional */
   .glass {
-    background: rgba(255, 255, 255, 0.7);
+    background: var(--card);
     backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.3);
+    border: 1px solid var(--border);
   }
   
   .dark .glass {
-    background: rgba(17, 24, 39, 0.7);
+    background: var(--card);
     backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border);
   }
   
   .glass-dark {
-    background: rgba(17, 24, 39, 0.7);
+    background: var(--card);
     backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--border);
   }
   
   .dark .glass-dark {
-    background: rgba(17, 24, 39, 0.7);
+    background: var(--card);
     backdrop-filter: blur(20px) saturate(180%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    border: 1px solid var(--border);
   }
 }
 
@@ -329,7 +329,7 @@ button:disabled {
 
 label {
   font-weight: 500;
-  color: var(--gray-700);
+  color: var(--muted-foreground);
   font-size: 0.875rem;
   margin-bottom: 0.5rem;
   display: block;
