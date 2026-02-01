@@ -130,6 +130,7 @@ dmypy.json
 # Node / Frontend
 # ========================================
 node_modules/
+nanevida-frontend/node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
