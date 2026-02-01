@@ -1,10 +1,9 @@
 /**
  * SoundEngine - Professional audio system for wellness tools
- * Features: Auto-download, caching, fades, loops, multi-flow sessions
+ * Features: Local tones, fades, loops, multi-flow sessions
  */
 
-import { downloader, type DownloadConfig } from './utils/downloader';
-import { audioHelpers } from './utils/audioHelpers';
+import { createNoiseSession, createToneSession, initAudio, type ToneSession } from './tones';
 import { haptics } from './utils/haptics';
 
 export type ToolName = 'calm' | 'breath' | 'grounding' | 'reflection';
@@ -33,36 +32,22 @@ export interface MultiFlowStep {
   duration: SessionDuration;
 }
 
+type SoundPreset =
+  | { kind: 'tone'; frequencies: number[]; wave?: OscillatorType }
+  | { kind: 'noise' };
+
 class SoundEngineClass {
   private initialized = false;
-  private currentAudio: HTMLAudioElement | null = null;
+  private currentSession: ToneSession | null = null;
   private currentTool: ToolName | null = null;
-  private soundUrls = new Map<SoundName, string>();
-  private audioCache = new Map<SoundName, HTMLAudioElement>();
-  
-  // Sound source URLs
-  private readonly SOUND_SOURCES: DownloadConfig[] = [
-    {
-      url: 'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/no_curator/Broke_For_Free/Directionless_EP/Broke_For_Free_-_01_-_Night_Owl.mp3',
-      filename: 'calming-pad.mp3',
-    },
-    {
-      url: 'https://files.freemusicarchive.org/storage-freemusicarchive-org/music/ccCommunity/Lee_Rosevere/10_Minutes_of_Meditation/Lee_Rosevere_-_01_-_Were_The_Stars_Eyes.mp3',
-      filename: 'soft-meditation.mp3',
-    },
-    {
-      url: 'https://cdn.pixabay.com/download/audio/2021/09/01/audio_4dc9415d22.mp3',
-      filename: 'deep-breath-pulse.mp3',
-    },
-    {
-      url: 'https://cdn.pixabay.com/download/audio/2022/03/15/audio_8f87ecfece.mp3',
-      filename: 'ambient-nature.mp3',
-    },
-    {
-      url: 'https://cdn.pixabay.com/download/audio/2021/09/30/audio_1a1c3bbf27.mp3',
-      filename: 'white-noise.mp3',
-    },
-  ];
+
+  private readonly SOUND_PRESETS: Record<SoundName, SoundPreset> = {
+    'calming-pad': { kind: 'tone', frequencies: [220, 277], wave: 'sine' },
+    'soft-meditation': { kind: 'tone', frequencies: [196, 247], wave: 'triangle' },
+    'deep-breath-pulse': { kind: 'tone', frequencies: [110], wave: 'sine' },
+    'ambient-nature': { kind: 'tone', frequencies: [164, 220], wave: 'triangle' },
+    'white-noise': { kind: 'noise' },
+  };
 
   // Default tool-sound mapping
   private readonly DEFAULT_MAPPING: Record<ToolName, SoundName> = {
@@ -90,12 +75,8 @@ class SoundEngineClass {
     console.log('[SoundEngine] Initializing...');
 
     try {
-      // Initialize downloader
-      await downloader.init();
-
-      // Load user preferences from localStorage
+      initAudio();
       this.loadPreferences();
-
       this.initialized = true;
       console.log('[SoundEngine] Initialized successfully');
     } catch (error) {
@@ -105,28 +86,29 @@ class SoundEngineClass {
   }
 
   /**
-   * Download all sounds (can be called on first load or manually)
+   * Download all sounds (no-op for local tones)
    */
   async downloadAll(): Promise<void> {
-    console.log('[SoundEngine] Downloading all sounds...');
-
-    const urlMap = await downloader.downloadAll(this.SOUND_SOURCES);
-
-    // Store URLs
-    urlMap.forEach((url, filename) => {
-      const soundName = filename.replace('.mp3', '') as SoundName;
-      this.soundUrls.set(soundName, url);
-    });
-
-    console.log('[SoundEngine] All sounds downloaded');
+    await this.init();
+    console.log('[SoundEngine] No remote sounds to download');
   }
 
   /**
    * Play sound for a specific tool
    */
   async play(tool: ToolName, options: PlayOptions = {}): Promise<void> {
+    await this.playInternal(tool, options, true);
+  }
+
+  private async playInternal(tool: ToolName, options: PlayOptions, autoStop: boolean): Promise<void> {
     if (!this.initialized) {
       await this.init();
+    }
+
+    const context = initAudio();
+    if (!context) {
+      console.warn('[SoundEngine] AudioContext not available');
+      return;
     }
 
     const {
@@ -156,9 +138,9 @@ class SoundEngineClass {
 
     // Get sound for tool
     const soundName = this.preferences.toolSounds[tool];
-    const audio = await this.getOrCreateAudio(soundName);
+    const session = this.createSession(soundName);
 
-    if (!audio) {
+    if (!session) {
       console.warn('[SoundEngine] No audio available for', tool);
       return;
     }
@@ -169,38 +151,25 @@ class SoundEngineClass {
       targetVolume = this.preferences.nightModeVolume;
     }
 
-    // Setup audio
-    audio.loop = true;
-    audioHelpers.enableSeamlessLoop(audio);
-
     // Play with fade in
-    this.currentAudio = audio;
+    this.currentSession = session;
     this.currentTool = tool;
 
-    try {
-      await audio.play();
-      audioHelpers.fadeIn({
-        audio,
-        duration: 2,
-        targetVolume,
-      });
+    session.fadeTo(targetVolume, 0.6);
 
-      // Trigger haptics
-      if (hapticsEnabled) {
-        haptics.sessionStart();
-      }
+    // Trigger haptics
+    if (hapticsEnabled) {
+      haptics.sessionStart();
+    }
 
-      // Setup duration-based auto-stop
-      if (duration) {
-        setTimeout(() => {
-          this.stop();
-          if (hapticsEnabled) {
-            haptics.sessionEnd();
-          }
-        }, duration * 60 * 1000);
-      }
-    } catch (error) {
-      console.error('[SoundEngine] Playback failed:', error);
+    // Setup duration-based auto-stop
+    if (autoStop && duration) {
+      setTimeout(() => {
+        this.stop();
+        if (hapticsEnabled) {
+          haptics.sessionEnd();
+        }
+      }, duration * 60 * 1000);
     }
   }
 
@@ -208,21 +177,10 @@ class SoundEngineClass {
    * Stop current playback
    */
   stop(): void {
-    if (!this.currentAudio) return;
+    if (!this.currentSession) return;
 
-    audioHelpers.fadeOut({
-      audio: this.currentAudio,
-      duration: 2,
-      targetVolume: 0,
-      onComplete: () => {
-        if (this.currentAudio) {
-          this.currentAudio.pause();
-          this.currentAudio.currentTime = 0;
-        }
-      },
-    });
-
-    this.currentAudio = null;
+    this.currentSession.stop(0.6);
+    this.currentSession = null;
     this.currentTool = null;
   }
 
@@ -230,35 +188,32 @@ class SoundEngineClass {
    * Fade in current audio
    */
   fadeIn(duration: number = 2, targetVolume?: number): void {
-    if (!this.currentAudio) return;
+    if (!this.currentSession) return;
 
-    audioHelpers.fadeIn({
-      audio: this.currentAudio,
-      duration,
-      targetVolume: targetVolume ?? this.preferences.defaultVolume,
-    });
+    this.currentSession.fadeTo(
+      targetVolume ?? this.preferences.defaultVolume,
+      duration
+    );
   }
 
   /**
    * Fade out current audio
    */
   fadeOut(duration: number = 2): void {
-    if (!this.currentAudio) return;
+    if (!this.currentSession) return;
 
-    audioHelpers.fadeOut({
-      audio: this.currentAudio,
-      duration,
-      targetVolume: 0,
-    });
+    this.currentSession.stop(duration);
+    this.currentSession = null;
+    this.currentTool = null;
   }
 
   /**
    * Set volume
    */
   setVolume(volume: number): void {
-    if (!this.currentAudio) return;
+    if (!this.currentSession) return;
 
-    this.currentAudio.volume = Math.max(0, Math.min(1, volume));
+    this.currentSession.setVolume(Math.max(0, Math.min(1, volume)));
   }
 
   /**
@@ -273,7 +228,7 @@ class SoundEngineClass {
    * Get available sounds
    */
   getAvailableSounds(): SoundName[] {
-    return Array.from(this.soundUrls.keys());
+    return Object.keys(this.SOUND_PRESETS) as SoundName[];
   }
 
   /**
@@ -321,10 +276,7 @@ class SoundEngineClass {
       const isLast = i === steps.length - 1;
 
       // Play current step
-      await this.play(step.tool, {
-        ...options,
-        duration: step.duration,
-      });
+      await this.playInternal(step.tool, { ...options, duration: step.duration }, false);
 
       // Wait for step duration
       await new Promise((resolve) => setTimeout(resolve, step.duration * 60 * 1000));
@@ -333,16 +285,13 @@ class SoundEngineClass {
       if (!isLast) {
         const nextStep = steps[i + 1];
         const nextSound = this.preferences.toolSounds[nextStep.tool];
-        const nextAudio = await this.getOrCreateAudio(nextSound);
+        const nextSession = this.createSession(nextSound);
 
-        if (nextAudio && this.currentAudio) {
-          await audioHelpers.crossfade(
-            this.currentAudio,
-            nextAudio,
-            3,
-            options.volume ?? this.preferences.defaultVolume
-          );
-          this.currentAudio = nextAudio;
+        if (nextSession && this.currentSession) {
+          const targetVolume = options.volume ?? this.preferences.defaultVolume;
+          this.currentSession.stop(3);
+          nextSession.fadeTo(targetVolume, 3);
+          this.currentSession = nextSession;
           this.currentTool = nextStep.tool;
         }
       }
@@ -355,33 +304,20 @@ class SoundEngineClass {
   }
 
   /**
-   * Get or create audio element for a sound
+   * Create a tone session for a sound name
    */
-  private async getOrCreateAudio(soundName: SoundName): Promise<HTMLAudioElement | null> {
-    // Check cache
-    let audio = this.audioCache.get(soundName);
-    if (audio) return audio;
+  private createSession(soundName: SoundName): ToneSession | null {
+    const preset = this.SOUND_PRESETS[soundName];
+    if (!preset) return null;
 
-    // Check if URL exists
-    let url = this.soundUrls.get(soundName);
-
-    // Download if needed
-    if (!url) {
-      const config = this.SOUND_SOURCES.find((s) => s.filename === `${soundName}.mp3`);
-      if (config) {
-        url = await downloader.download(config);
-        this.soundUrls.set(soundName, url);
-      }
+    if (preset.kind === 'noise') {
+      return createNoiseSession();
     }
 
-    if (!url) return null;
-
-    // Create audio element
-    audio = new Audio(url);
-    audio.preload = 'auto';
-    this.audioCache.set(soundName, audio);
-
-    return audio;
+    return createToneSession({
+      frequencies: preset.frequencies,
+      wave: preset.wave ?? 'sine',
+    });
   }
 
   /**
@@ -389,9 +325,6 @@ class SoundEngineClass {
    */
   cleanup(): void {
     this.stop();
-    audioHelpers.cleanup();
-    this.audioCache.clear();
-    this.soundUrls.clear();
     this.initialized = false;
   }
 }
