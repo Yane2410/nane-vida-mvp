@@ -1,5 +1,5 @@
 ﻿import { Link, Outlet, useNavigate, useLocation } from 'react-router-dom'
-import { getToken, logout } from './api'
+import { isAuthenticated, logout as authLogout } from './adapters/auth/authAdapter'
 import Button from './components/ui/Button'
 import MobileMenu from './components/ui/MobileMenu'
 import ThemeToggle from './components/ui/ThemeToggle'
@@ -11,15 +11,15 @@ import { smoothNavigate } from './utils/navigation'
 
 export default function App(){
   const nav = useNavigate()
-  const isAuth = !!getToken()
   const loc = useLocation()
+  const isAuth = isAuthenticated(loc.pathname)
   const showLoginBtn = !isAuth && loc.pathname !== '/login'
 
   const handleLogout = async (e: React.MouseEvent) => {
     e.preventDefault()
     
     // 🔐 SECURITY: Limpiar tokens y cache sensible de forma selectiva
-    await logout() // Server revoke + local cleanup
+    await authLogout(loc.pathname) // Server revoke + local cleanup
     sessionStorage.clear() // Limpia profile_cache y otros datos temporales
     localStorage.removeItem('nane_username') // Cleanup username para shared computers
     

@@ -1,5 +1,6 @@
 ﻿import { createContext, useContext, useState, useEffect, ReactNode } from 'react'
-import { api, getToken } from '../api'
+import { api } from '../api'
+import { isAuthenticated } from '../adapters/auth/authAdapter'
 
 // Types
 export interface FlowerType {
@@ -69,11 +70,25 @@ export function GardenProvider({ children }: { children: ReactNode }) {
 
   // Load garden on mount only if user is authenticated
   useEffect(() => {
-    const token = getToken()
-    if (token) {
-      loadGarden()
-    } else {
-      setLoading(false)
+    const maybeLoadGarden = () => {
+      if (isAuthenticated()) {
+        loadGarden()
+      } else {
+        setLoading(false)
+      }
+    }
+
+    maybeLoadGarden()
+
+    if (typeof window === 'undefined') return
+    const handleReviewReady = () => {
+      if (isAuthenticated()) {
+        loadGarden()
+      }
+    }
+    window.addEventListener('nv-review-ready', handleReviewReady)
+    return () => {
+      window.removeEventListener('nv-review-ready', handleReviewReady)
     }
   }, [])
 

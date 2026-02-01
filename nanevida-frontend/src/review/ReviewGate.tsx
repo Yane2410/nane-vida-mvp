@@ -37,6 +37,9 @@ export default function ReviewGate() {
       return
     }
     setError('')
+    if (typeof window !== 'undefined') {
+      window.dispatchEvent(new Event('nv-review-ready'))
+    }
   }
 
   return (
