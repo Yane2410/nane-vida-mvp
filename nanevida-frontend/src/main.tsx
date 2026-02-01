@@ -1,6 +1,6 @@
 ﻿import React, { lazy, Suspense } from 'react'
 import ReactDOM from 'react-dom/client'
-import { createBrowserRouter, RouterProvider } from 'react-router-dom'
+import { createBrowserRouter, RouterProvider, Navigate } from 'react-router-dom'
 import { ToastProvider } from './contexts/ToastContext'
 import { ThemeProvider } from './contexts/ThemeContext'
 import { OnboardingProvider } from './contexts/OnboardingContext'
@@ -26,6 +26,7 @@ const Breath = lazy(() => import('./pages/Breath'))
 const Reflection = lazy(() => import('./pages/Reflection'))
 const Grounding = lazy(() => import('./pages/Grounding'))
 const Garden = lazy(() => import('./pages/Garden'))
+const ReviewGate = lazy(() => import('./review/ReviewGate'))
 
 // Suspense wrapper component
 const SuspenseWrapper = ({ children }: { children: React.ReactNode }) => (
@@ -37,6 +38,33 @@ const SuspenseWrapper = ({ children }: { children: React.ReactNode }) => (
     {children}
   </Suspense>
 )
+
+const reviewRoutes = import.meta.env.PROD
+  ? []
+  : [
+      {
+        path: '/review',
+        element: (
+          <SuspenseWrapper>
+            <ReviewGate />
+          </SuspenseWrapper>
+        ),
+        children: [
+          { index: true, element: <Navigate to="dashboard" replace /> },
+          { path: 'dashboard', element: <SuspenseWrapper><Dashboard /></SuspenseWrapper> },
+          { path: 'diary', element: <SuspenseWrapper><Diary /></SuspenseWrapper> },
+          { path: 'statistics', element: <SuspenseWrapper><Statistics /></SuspenseWrapper> },
+          { path: 'garden', element: <SuspenseWrapper><Garden /></SuspenseWrapper> },
+          { path: 'settings', element: <SuspenseWrapper><Settings /></SuspenseWrapper> },
+          { path: 'profile', element: <SuspenseWrapper><Profile /></SuspenseWrapper> },
+          { path: 'sos', element: <SuspenseWrapper><SOS /></SuspenseWrapper> },
+          { path: 'calm', element: <SuspenseWrapper><Calm /></SuspenseWrapper> },
+          { path: 'breath', element: <SuspenseWrapper><Breath /></SuspenseWrapper> },
+          { path: 'reflection', element: <SuspenseWrapper><Reflection /></SuspenseWrapper> },
+          { path: 'grounding', element: <SuspenseWrapper><Grounding /></SuspenseWrapper> },
+        ],
+      },
+    ]
 
 const router = createBrowserRouter([
   { path: '/', element: <App />, children: [
@@ -54,7 +82,8 @@ const router = createBrowserRouter([
     { path: 'breath', element: <SuspenseWrapper><Breath/></SuspenseWrapper> },
     { path: 'reflection', element: <SuspenseWrapper><Reflection/></SuspenseWrapper> },
     { path: 'grounding', element: <SuspenseWrapper><Grounding/></SuspenseWrapper> }
-  ]}
+  ]},
+  ...reviewRoutes,
 ])
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
