@@ -1,4 +1,5 @@
 import type { InternalAxiosRequestConfig } from 'axios'
+import type { GardenProfile, Plant } from '../contexts/GardenContext'
 
 type ReviewEntry = {
   id: number
@@ -44,7 +45,7 @@ let reviewProfile = {
   created_at: iso(12),
 }
 
-let reviewGarden = {
+let reviewGarden: GardenProfile = {
   id: 1,
   total_plants: 3,
   current_month_plants: 2,
@@ -258,11 +259,12 @@ export function getReviewMockResponse(config: InternalAxiosRequestConfig): Revie
 
   if (path === '/garden/plant_seed/' && method === 'POST') {
     const payload = parseBody(config.data)
-    const newPlant = {
+    const activityType = typeof payload.activity_type === 'string' ? payload.activity_type : 'calm'
+    const newPlant: Plant = {
       id: reviewGarden.recent_plants.length + 1,
       flower: {
         id: 1,
-        activity_type: payload.activity_type || 'calm',
+        activity_type: activityType,
         flower_name: 'Lirio',
         flower_emoji: '*',
         color: '#A78BFA',
